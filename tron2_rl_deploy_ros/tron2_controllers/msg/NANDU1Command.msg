@@ -1,0 +1,4 @@
+std_msgs/Header header
+float64 yaw_rate_world_z
+float64 up3_vx_base_body
+float64 up3_height_world

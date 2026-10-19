@@ -1,0 +1,424 @@
+{
+  "schema": "limx.nandu1-deployment-bundle/v1",
+  "task": {
+    "task_id": "Isaac-NANDU1-Blind-Flat-v1-3-1-2",
+    "play_alias": "Isaac-NANDU1-Blind-Flat-Play-v1-3-1-2",
+    "robot_variant": "NANDU1",
+    "checkpoint_schema": "nandu_network_v1-3-1_2_E_r1",
+    "hardware_joint_names": [
+      "proximal_pitch_L_Joint",
+      "proximal_roll_L_Joint",
+      "proximal_yaw_L_Joint",
+      "knee_L_Joint",
+      "wheel_L_Joint",
+      "proximal_pitch_R_Joint",
+      "proximal_roll_R_Joint",
+      "proximal_yaw_R_Joint",
+      "knee_R_Joint",
+      "wheel_R_Joint",
+      "arm1",
+      "arm2",
+      "arm3"
+    ],
+    "action_joint_names": [
+      "proximal_pitch_L_Joint",
+      "proximal_roll_L_Joint",
+      "proximal_yaw_L_Joint",
+      "knee_L_Joint",
+      "proximal_pitch_R_Joint",
+      "proximal_roll_R_Joint",
+      "proximal_yaw_R_Joint",
+      "knee_R_Joint",
+      "arm1",
+      "arm2",
+      "arm3",
+      "wheel_L_Joint",
+      "wheel_R_Joint"
+    ],
+    "default_joint_positions": [
+      -0.475,
+      0.0,
+      0.0,
+      0.95,
+      0.0,
+      0.475,
+      0.0,
+      0.0,
+      0.95,
+      0.0,
+      -0.15,
+      -1.78,
+      1.93
+    ],
+    "root_position": [
+      0,
+      0,
+      0.65337
+    ],
+    "history_order": "oldest_to_newest",
+    "history_length": 5,
+    "history_first_frame": "repeat",
+    "policy_dt": 0.02,
+    "runtime_profile": "nandu1_network_v1_3_1_2_e_r1",
+    "initial_up3_height": 0.8850238269508085,
+    "evaluation_stage": 4,
+    "velocity_reference": "fixed_tcp",
+    "actor_velocity_frame": "body",
+    "ros_runtime_supported": true,
+    "tcp_frame": "up3_link",
+    "tcp_local_m": [
+      -0.066473051764,
+      0.161623719479,
+      -0.000621484902
+    ],
+    "base_velocity_reference": "body_com",
+    "external_command_order": [
+      "relative_heading_rate",
+      "tcp_vx_base_body",
+      "tcp_height_world_z"
+    ],
+    "command_order": [
+      "base_yaw_rate_world_z",
+      "tcp_vx_base_body",
+      "tcp_height_world_z"
+    ],
+    "encoder_order": [
+      "base_com_velocity_base_body_3",
+      "tcp_velocity_base_body_3",
+      "tcp_height_world"
+    ],
+    "command_min": [
+      -1.57,
+      -1,
+      0.4
+    ],
+    "command_max": [
+      1.57,
+      1,
+      1.4
+    ],
+    "command_processor": {
+      "implementation": "nandu1_v131.CommandProcessor",
+      "heading_kp": 1.5,
+      "yaw_deadzone": 1e-05,
+      "stage_yaw_limits": [
+        0.2,
+        0.5,
+        0.85,
+        1.2,
+        1.57
+      ],
+      "release_latch": true,
+      "tilt_correction": true,
+      "saturation_back_calculation": true,
+      "vx_frame": "base_body",
+      "height_frame": "world_z_absolute",
+      "command_dimension": 3
+    },
+    "fixed_payload": {
+      "up3_total_mass": 0.67148,
+      "rear_mass": 0.0,
+      "rear_x": -0.275
+    },
+    "payload_contract": {
+      "inertia_coordinates": "link_axes_about_com",
+      "shapes_are_inertia_proxies_only": true,
+      "nominal_properties_source": "immutable_runtime_mass_com_full_inertia",
+      "up3_nominal_mass_kg": 0.67148,
+      "up3_total_mass_kg": [
+        0.6,
+        6.0
+      ],
+      "up3_box_dimensions_m": [
+        0.05,
+        0.06,
+        0.05
+      ],
+      "up3_box_center": "fixed_tcp",
+      "rear_extra_mass_kg": [
+        0.0,
+        5.0
+      ],
+      "rear_x_m": [
+        -0.35,
+        -0.2
+      ],
+      "rear_y_m": 0.0,
+      "rear_z_m": 0.07,
+      "rear_cylinder_axis": "link_y",
+      "rear_radius_m": 0.025,
+      "rear_length_m": 0.1,
+      "stage_amplitudes": [
+        0.1,
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "mixture_order": [
+        "nominal",
+        "up3_only",
+        "rear_only",
+        "both"
+      ],
+      "mixture_probabilities": [
+        0.2,
+        0.2,
+        0.2,
+        0.4
+      ],
+      "base_urdf_inertia_rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "parameters_constant_within_episode": true
+    },
+    "observation_order": [
+      "base_gyro*.25",
+      "base_gravity",
+      "up3_gyro*.25",
+      "up3_gravity",
+      "position_relative_11",
+      "velocity_13*.05",
+      "last_action_13"
+    ],
+    "position_scale": 0.25,
+    "wheel_scale": 1,
+    "action_clipping": null,
+    "kp": [
+      159.67,
+      159.67,
+      53.22,
+      159.67,
+      0.0,
+      159.67,
+      159.67,
+      53.22,
+      159.67,
+      0.0,
+      480.0,
+      240.0,
+      160.0
+    ],
+    "kd": [
+      10.16,
+      10.16,
+      3.39,
+      10.16,
+      0.6,
+      10.16,
+      10.16,
+      3.39,
+      10.16,
+      0.6,
+      50.0,
+      25.0,
+      17.0
+    ],
+    "effort": [
+      140,
+      140,
+      40,
+      140,
+      20,
+      140,
+      140,
+      40,
+      140,
+      20,
+      181,
+      136,
+      136
+    ],
+    "velocity_limits": [
+      12.57,
+      12.57,
+      14.66,
+      12.57,
+      40.0,
+      12.57,
+      12.57,
+      14.66,
+      12.57,
+      40.0,
+      4.14,
+      4.14,
+      4.14
+    ],
+    "armature": [
+      0.161777558,
+      0.161777558,
+      0.053923687,
+      0.161777558,
+      0.0,
+      0.161777558,
+      0.161777558,
+      0.053923687,
+      0.161777558,
+      0.0,
+      0.7,
+      0.45,
+      0.45
+    ],
+    "joint_position_lower": [
+      -2.60054058547155,
+      -0.261799387799149,
+      -3.66519116287198,
+      -0.261799387799149,
+      -1745329.11236799,
+      -3.14159265358979,
+      -3.19395226483351,
+      -3.66519116287198,
+      -0.261799387799149,
+      -1745329.11236799,
+      -2.44346068647595,
+      -2.26892802759263,
+      -1.5707963267949
+    ],
+    "joint_position_upper": [
+      3.14159265358979,
+      3.19395226483351,
+      1.48352973103713,
+      2.61799361167539,
+      1745329.11236799,
+      2.60054058547155,
+      0.261799387799149,
+      1.48352973103713,
+      2.61799361167539,
+      1745329.11236799,
+      2.35619449019234,
+      2.26892802759263,
+      3.14159265358979
+    ],
+    "command_rate": [
+      2.0,
+      0.8,
+      0.5
+    ],
+    "feature_transform_included": true,
+    "actor_feature_width": 62
+  },
+  "dimensions": {
+    "observation": 49,
+    "history": 245,
+    "encoder": 7,
+    "command": 3,
+    "policy_input": 59,
+    "action": 13
+  },
+  "checkpoint": {
+    "path": "/home/wkl/Desktop/limx-tron2/tron2_rl_lab/logs/rsl_rl/autodl/v1-3-1-2-261018-27500/model_27500.pt",
+    "sha256": "96fbe2f9ab0c347c5877aee7b20ee1db141c27f42b57d84210504e613c3ee2ef",
+    "iteration": 27501
+  },
+  "files": {
+    "actor_pipeline.onnx": "bee54e0076a83fd45c3b5cffc763292c2cee7add30fb8b39ac351935b60e3c4e",
+    "actor_pipeline.pt": "e3c4ade6c1f5fc82d80e0322e05e8f6a744ff2553a47a2d9b3e23b24d00f9842",
+    "assets/meshes/base_Link.STL": "1f751da150026bbea96b3c6ccda109465dd4e12618371f6b11e04e1f1343ba28",
+    "assets/meshes/base_Link.obj": "b0a83352ed93477dfe5d1b5a54a75eff1e76f340c275fdd0a7cd0fc8d8ce8994",
+    "assets/meshes/knee_L_Link.STL": "08aa4c07bfa25345241fa945d97af2613a752e56181e1bc973ce73a290fa7090",
+    "assets/meshes/knee_L_Link.obj": "f5e0bf826db794a226a05a5db13754b5e57e207f7882889ded4e09395c5a030d",
+    "assets/meshes/knee_R_Link.STL": "86366623c835bdf7b5b8ba382585db6953642f25140acfc8be03d39a0741f76f",
+    "assets/meshes/knee_R_Link.obj": "226e4a7cc007eaaf95c15b4bf3c558fcc8567363783b59cc0f7828d4f27523a6",
+    "assets/meshes/proximal_pitch_L_Link.STL": "83d9a43f22382bc017123da2f2bdd6604ade550267cef8088699bcccfc80ce02",
+    "assets/meshes/proximal_pitch_L_Link.obj": "c2cbe3f3856e73ef11dad86507f2469806b7922c9a2c2555790eac535513830b",
+    "assets/meshes/proximal_pitch_R_Link.STL": "c99fe095916d81fabfd4b89f33e93e5ea40ad493478ddbb2ca38135f91162d82",
+    "assets/meshes/proximal_pitch_R_Link.obj": "ea5fc68b496cc66e261823f93e50434eb27a49995b224782676b6b5748b19d92",
+    "assets/meshes/proximal_roll_L_Link.STL": "efc36f1b5c4e64004ed3cad53e11ec55e7c1c030c47c89cb8dd533b1a0c1b5ca",
+    "assets/meshes/proximal_roll_L_Link.obj": "eb3383a10a55e042d4c2807dcd6b3555a6eb8bd64b2613b407c28843b3ba1b25",
+    "assets/meshes/proximal_roll_R_Link.STL": "6359a53154de988259096e4b5678ffb21b39180d8efa369feda4f12663b5bf0e",
+    "assets/meshes/proximal_roll_R_Link.obj": "ed54d205124fab67cf66e057637a291ec607c72aa0e19ad69bc519c62ced8fa0",
+    "assets/meshes/proximal_yaw_L_Link.STL": "72337a3c01f4a457224b55b8d4bcc46caf075788464c7fb9fdef38c64f1d7769",
+    "assets/meshes/proximal_yaw_L_Link.obj": "5485e08f54ebbcf3534e84514703797808224871a24134166759a159926b4038",
+    "assets/meshes/proximal_yaw_R_Link.STL": "4b84b14686581b52bf3c73b11c2f6e17593aa76593c13d3fac7027fb806296ab",
+    "assets/meshes/proximal_yaw_R_Link.obj": "4fe2acd3ec38f7e4db135c20f4a9826a974672afe7ae64c9db845d820b70435e",
+    "assets/meshes/up1.STL": "9ecfe256bad21da298144a1b619121afd64af995c169a711757808be5059c764",
+    "assets/meshes/up1.obj": "d0fc94055afc6a1caa1cbb930ce33e1eeef1b36a9b39ab7c65c0b11ff136d0b4",
+    "assets/meshes/up2.STL": "3654c2b49e6d062534770d6f1c19416397c4af6cdec4c3c9fb78ea328225f371",
+    "assets/meshes/up2.obj": "153c5714d2692bf341a54a87a2badb03135d00bdfe87eb549891f803553ff3e9",
+    "assets/meshes/up3.STL": "dcca1e453a6864a608d649ec0df5c80fe69b53462391745c4ba6029c52c9dd83",
+    "assets/meshes/up3.obj": "96f37434afbb5369937821a3ff2d571c382879bc1ee51d3077ace37e4203af7a",
+    "assets/meshes/wheel_L_Link.STL": "83e1ffa02be381fd67c953ee189c342dc61788be6ce80f1076e1e9e5d42e0ec8",
+    "assets/meshes/wheel_L_Link.obj": "dcbf139d2c5df1244e550426b56ee6e7b5536c5634606b3683a59fd00ac2c6cc",
+    "assets/meshes/wheel_R_Link.STL": "dcf6622aefaa6c09a13a30cdc647fbe916073f651ccbd40141ad9f94f90f3953",
+    "assets/meshes/wheel_R_Link.obj": "407ef65f5191369ed1b788b7fd91e024fb5515822fea2c367d44994adb42986a",
+    "assets/robot.urdf": "08aec4f4b5a9ec90af946ea858607da4a47c2f0cb245a8005aa33b65a5534e6f",
+    "assets/robot.xml": "b0add862ee79e9a834cbe354689f9c074ef91378440eaf22fa1bed097c360a1a",
+    "command_history.py": "ec2c9c4b1c844a1df05bdfb0c26eebeb11a54aeca438dfeac3f66a8397e8b467",
+    "command_processor.py": "fd52f24675feed1fc98d683fb9836657ef804b0a1b0fa9b8aca24b5f7a428691",
+    "conformance.npz": "e66eea9ab60a86cf3efa879d0df03d66fda6183b220eeaf709d350caed0f9745",
+    "conformance.txt": "5938f89bbdc2c6e856c014de128814e19df52e83f571fe563b8141a634636a9f",
+    "deployment_metadata.json": "bbf2612bf8d52ca6e85991870fc728a7dc2596b9a070b97f20aae34297d8d6c6",
+    "encoder.onnx": "13728443d1a9f6eff7f506be016c1f0985fc0d1b79198d4df7140748ec683a38",
+    "encoder.pt": "797ef8703ee131b25c8f6a3ffacafec21bf52f04113e9d43bc5cc8b50363257e",
+    "nandu1_contract.py": "102ec913a3f9c8224d716c12395163708e24f81e66ee9dcc45c8a6db3a7a9a3a",
+    "nandu1_v131.py": "085647543b8ae69612818abe1e8b5d37d0974677bbf7e974d3240d3eb5d06400",
+    "nandu1_v1_3_1_contract.py": "f9561f7394667f992f8ed4348793318e4123b925e6dfc9a3927ee960071d1bcf",
+    "nandu1_v1_3_1_math.py": "fd52f24675feed1fc98d683fb9836657ef804b0a1b0fa9b8aca24b5f7a428691",
+    "original_onnx_opset17/actor_pipeline.onnx": "ae4e3ca69e2d0afe2ea7a1352192c254d60f9671132913fb918d42f67371e28a",
+    "original_onnx_opset17/encoder.onnx": "172989327fce6dfc5b66e82f23e47f1237337e0e81ba5130da414d47d0fbe6e5",
+    "original_onnx_opset17/policy.onnx": "5c01687a77784de6e7355ef35a22913eaa59afd40087dab9121c9a1a2abd97ca",
+    "policy.onnx": "f50a0e76a85f02f669aeacd197685c732c49720f2d02b33e9defaa46d72b4435",
+    "policy.pt": "2de4d39f9bfe471f8145f82937e42f0bbe548dc825acc4f611a84c166be65877",
+    "provenance.json": "352dbbc169b7f3ec4f214e55d54f7fc3abb1cbbfbc3ca6d0d7917cff83b2b351",
+    "source_snapshot/rsl_rl/rsl_rl/__init__.py": "daaf9c40157f0ed7bad039f86db092c381e226563764ea7490e6b188d39953dc",
+    "source_snapshot/rsl_rl/rsl_rl/algorithm/__init__.py": "64866743b5e0b43e7a57cfeaeac608ad8aaef29c433a5a0fd0f4a4e5d20f851e",
+    "source_snapshot/rsl_rl/rsl_rl/algorithm/ppo.py": "1efcc7b01562dfaa97b70336159947e18fb83d460af5e649aa2421e9d9588deb",
+    "source_snapshot/rsl_rl/rsl_rl/env/__init__.py": "2a5078a0cf9920c0a2948ec994d246840aaa23868bdf0c1e985b86a690988f2d",
+    "source_snapshot/rsl_rl/rsl_rl/env/vec_env.py": "1fd86b7b4fbd4d5262c8bb431a94a3efe339f93ca578c4bca134682123d9e087",
+    "source_snapshot/rsl_rl/rsl_rl/modules/__init__.py": "e050b3877b2f082aff59a22041e4cf0078b8e7ad729cc8c2cfd77c6caf2c77dc",
+    "source_snapshot/rsl_rl/rsl_rl/modules/actor_critic.py": "5192d9a1cb31c48ec47806621d12e532cbea09b0a67a40d4389c02a532b084eb",
+    "source_snapshot/rsl_rl/rsl_rl/modules/dual_head_hidden_mlp_encoder.py": "2674c50ac73d8be2a8bee38fc8a8a8cc701e74ba06a9eb0b5a28c8079848a4cb",
+    "source_snapshot/rsl_rl/rsl_rl/modules/dual_head_mlp_encoder.py": "df0d94bd91233488c5a5bc6898147c856b381ba5b8728ece3c9974f6dc7a434f",
+    "source_snapshot/rsl_rl/rsl_rl/modules/mlp_encoder.py": "375c4d7dc0941d0c8ea1ec886a9eb45dbdefc8e3c14b2bca48b4a7a69710c2c6",
+    "source_snapshot/rsl_rl/rsl_rl/modules/nandu_actor_input.py": "5556e10cbd766e94c3cead169fea2159b48cfb66b6138756f68a0b68fc0e24a7",
+    "source_snapshot/rsl_rl/rsl_rl/nandu_adaptive_balance/__init__.py": "a1e0977b5a1a43332a497764a1853d050f776e6efbd1ac26c549afe399f912af",
+    "source_snapshot/rsl_rl/rsl_rl/nandu_adaptive_balance/contract.py": "4d7929a29c01239c8530b1d1336e954790cbcb919e087566786fe78acac125ae",
+    "source_snapshot/rsl_rl/rsl_rl/nandu_experiments/__init__.py": "bbfa1ea602f233ff96ee3b12484c66a6b6b006bf9848ce1d23b05128675174e4",
+    "source_snapshot/rsl_rl/rsl_rl/nandu_experiments/contract.py": "7c234fb2713d171ab9dc204d8af9c12b79e20f0e0bb8aeff5b074f9fde556a3c",
+    "source_snapshot/rsl_rl/rsl_rl/nandu_experiments/deployment.py": "9f09309045fa75ef8731a212210ab4fcd64a759561b80c089ab8548d51e45cd7",
+    "source_snapshot/rsl_rl/rsl_rl/nandu_experiments/features.py": "76383978a4da8bced5d791dc2a58fc53d1a30ed8333cd4b09039f0faf39e6b6f",
+    "source_snapshot/rsl_rl/rsl_rl/nandu_experiments/history.py": "ec2c9c4b1c844a1df05bdfb0c26eebeb11a54aeca438dfeac3f66a8397e8b467",
+    "source_snapshot/rsl_rl/rsl_rl/nandu_experiments/network.py": "98e2d300d2111bfdad46825f0d6a145bfcfc8fe4aa94eea4050dd5591edebf7f",
+    "source_snapshot/rsl_rl/rsl_rl/nandu_experiments/ppo.py": "cf26aab07eedf492178a966249f6c978591c6cb3ecd70d1386985f70df8ca0ca",
+    "source_snapshot/rsl_rl/rsl_rl/nandu_experiments/runner.py": "f6b8f25f81700b23dce4d2eb94e54f5fbc86b39e2bb5735f1e888f27a89ba211",
+    "source_snapshot/rsl_rl/rsl_rl/runner/__init__.py": "51a531d78add4e9137e642f08a52f869c751a7c04004f555371d3234643e8e6a",
+    "source_snapshot/rsl_rl/rsl_rl/runner/on_policy_runner.py": "a94c79c02e231af1d921f99ddce7c6ab62692a9255da6f5752f5e25021880412",
+    "source_snapshot/rsl_rl/rsl_rl/storage/__init__.py": "a979b1212cf134adbb03262479d399715f178f1d2c1d5d886db409441b28d47b",
+    "source_snapshot/rsl_rl/rsl_rl/storage/rollout_storage.py": "91be3ff04ba6a9bad9ca368c283fd3d4e75ba4f76fb50cf367768c2cc303d300",
+    "yaw_conformance.json": "7c497b8b136377586c47ae207880eff1af3a6c19cb3ad3919503efab769bb88f",
+    "yaw_conformance.txt": "b6692e0f003d277ec523553db774f49019e03cf8f45c0351e49249b5caaa3ed6"
+  },
+  "numerical_conformance": {
+    "cases": 1024,
+    "atol": 1e-05,
+    "rtol": 0.0001,
+    "metrics": {
+      "encoder": {
+        "provided_vs_torch": 1.1920928955078125e-06,
+        "ros_opset15_vs_torch": 1.1920928955078125e-06
+      },
+      "policy": {
+        "provided_vs_torch": 7.62939453125e-06,
+        "ros_opset15_vs_torch": 7.62939453125e-06
+      },
+      "actor_pipeline": {
+        "provided_vs_torch": 1.33514404296875e-05,
+        "ros_opset15_vs_torch": 1.33514404296875e-05
+      }
+    }
+  }
+}

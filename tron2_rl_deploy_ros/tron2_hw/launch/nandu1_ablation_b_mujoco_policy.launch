@@ -1,0 +1,22 @@
+<launch>
+  <arg name="model_bundle"/>
+  <arg name="task" default="Isaac-NANDU1-Blind-Flat-v1-3-1-2-3"/>
+  <arg name="robot_ip" default="127.0.0.1"/>
+  <arg name="auto_policy" default="true"/>
+  <arg name="telemetry_output" default=""/>
+  <arg name="command_source" default="external"/>
+  <arg name="mouse_socket" default=""/>
+  <arg name="mouse_session" default=""/>
+  <include file="$(find tron2_hw)/launch/nandu1_adaptive_mujoco_policy.launch">
+    <arg name="model_bundle" value="$(arg model_bundle)"/>
+    <arg name="task" value="$(arg task)"/>
+    <arg name="robot_ip" value="$(arg robot_ip)"/>
+    <arg name="auto_policy" value="$(arg auto_policy)"/>
+    <arg name="telemetry_output" value="$(arg telemetry_output)"/>
+    <arg name="command_source" value="$(arg command_source)"/>
+    <arg name="mouse_socket" value="$(arg mouse_socket)"/>
+    <arg name="mouse_session" value="$(arg mouse_session)"/>
+    <arg name="telemetry_layout" value="ablation_b"/>
+    <arg name="raw_topic" value="/nandu1/ablation_b/raw_sensors"/>
+  </include>
+</launch>

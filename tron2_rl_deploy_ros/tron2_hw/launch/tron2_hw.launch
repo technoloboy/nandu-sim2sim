@@ -1,0 +1,40 @@
+<launch>
+  <arg name="robot_type" default="SF_TRON2A"/>
+  <arg name="robot_ip" default="10.192.1.2"/>
+  <arg name="controller_dt" default="0.005"/>
+  <arg name="load_robot_description" default="true"/>
+  <!-- Sim-only: delay tron2_hw_node and controller_spawner so Gazebo's plugin
+       chain (esp. libgazebo_ros_openni_kinect.so for SF's D435) can finish
+       loading before limxsdk-lowlevel SDK init competes for ROS/system resources. -->
+  <arg name="startup_delay" default="0"/>
+
+  <arg name="use_gazebo" default="false"/>
+
+  <param name="robot_type" value="$(arg robot_type)"/>
+  <param name="use_gazebo" value="$(arg use_gazebo)"/>
+
+  <rosparam file="$(find tron2_controllers)/config/$(arg robot_type)/params.yaml" command="load"/>
+
+  <param name="policyFile" value="$(find tron2_controllers)/config/$(arg robot_type)/policy/policy.onnx"/>
+  <param name="encoderFile" value="$(find tron2_controllers)/config/$(arg robot_type)/policy/encoder.onnx"/>
+  <param if="$(arg load_robot_description)" name="robot_description" command="cat $(find robot_description)/tron2/$(arg robot_type)/urdf/robot.urdf"/>
+
+  <rosparam file="$(find tron2_hw)/config/tron2_hw.yaml" command="load"/>
+  <rosparam file="$(find tron2_hw)/config/joystick.yaml" command="load"/>
+
+  <group ns="tron2_hw">
+    <rosparam file="$(find tron2_controllers)/config/$(arg robot_type)/controllers.yaml" command="load"/>
+    <param name="tron2_controller/imu_name" value="base_imu"/>
+    <param name="tron2_controller/hw_control_dt" value="$(arg controller_dt)"/>
+  </group>
+
+  <node name="tron2_hw" pkg="tron2_hw" type="tron2_hw_node" output="screen" respawn="false" required="true"
+        launch-prefix="bash -c 'sleep $(arg startup_delay); exec $0 $@'">
+    <env name="ROBOT_TYPE" value="$(arg robot_type)"/>
+    <param name="robot_ip" value="$(arg robot_ip)"/>
+  </node>
+
+  <node name="controller_spawner" ns="tron2_hw" pkg="controller_manager" type="spawner"
+        args="joint_state_controller tron2_controller"
+        output="screen"/>
+</launch>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+  SPDX-FileCopyrightText: 2024-2026 LimX Dynamics Technology Co., Ltd.
+  SPDX-License-Identifier: Apache-2.0
+-->
+<package format="2">
+    <name>robot_common</name>
+    <version>0.1.0</version>
+    <description>Shared hardware-interface headers for the TRON2 RL deployment stack.</description>
+
+    <maintainer email="contact@limxdynamics.com">LimX Dynamics</maintainer>
+    <author email="contact@limxdynamics.com">LimX Dynamics</author>
+
+    <license>Apache-2.0</license>
+
+    <url type="website">https://www.limxdynamics.com</url>
+    <url type="repository">https://github.com/limx-tron2/tron2-rl-deploy-ros</url>
+    <url type="bugtracker">https://github.com/limx-tron2/tron2-rl-deploy-ros/issues</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    <depend>hardware_interface</depend>
+</package>

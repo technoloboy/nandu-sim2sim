@@ -1,0 +1,96 @@
+{
+  "schema": "nandu.sim2sim-release/v1",
+  "bundles": [
+    {
+      "directory": "nandu1_v1_1_model_30000",
+      "task": "Isaac-NANDU1-Blind-Flat-v1-1",
+      "checkpoint_sha256": "c74ef3f0ca0809e752659b0dae0326addc345ed4c52e07d98cd2a796f2210524",
+      "manifest_sha256": "a7609473d437e5041a0b359a9221feafe9dedf91ada9975ec1af329efceee5a4",
+      "stability": "not_a_full_range_or_hardware_performance_guarantee"
+    },
+    {
+      "directory": "nandu1_v1_2_model_40000",
+      "task": "Isaac-NANDU1-Blind-Flat-v1-2",
+      "checkpoint_sha256": "7f32a55bc031fb106b4644aadc8330904cbb03c9d4f2722694524b577495d7d4",
+      "manifest_sha256": "bca48831fee4f8306ce92a76dfac9a75ef2f09efd44d785034220a055a6b4f3e",
+      "stability": "not_a_full_range_or_hardware_performance_guarantee"
+    },
+    {
+      "directory": "nandu1_v1_3_model_30000",
+      "task": "Isaac-NANDU1-Blind-Flat-v1-3",
+      "checkpoint_sha256": "a90f50ba8fbf98a1e534d09ae08e907a72cf85ebe83e43fa95417fc0df4444ac",
+      "manifest_sha256": "237722012cfa497abbe387126a9dcdd62d1a66a4e9d0725bfa4ecd3430ad0c70",
+      "stability": "not_a_full_range_or_hardware_performance_guarantee"
+    },
+    {
+      "directory": "nandu1_v1_2_1_model_29000",
+      "task": "Isaac-NANDU1-Blind-Flat-v1-2-1",
+      "checkpoint_sha256": "e50f32ded749d44fcfeaae1e6977300624808b0395a68964b1505f0bc62e1789",
+      "manifest_sha256": "89a7cfb693b1aa5726327a4ae99d950b795d14c0785c7bdfb2ebfe5e6e4b3b00",
+      "stability": "not_a_full_range_or_hardware_performance_guarantee"
+    },
+    {
+      "directory": "nandu1_v1_3_1_model_30000",
+      "task": "Isaac-NANDU1-Blind-Flat-v1-3-1",
+      "checkpoint_sha256": "f2b5616e3fa6d88e5fb87d5152b22f19ecdea78d836f7f8845e90cb57222ea07",
+      "manifest_sha256": "65da9c5f17618829b97487e023b62f27d078d1ba6ace0d9a83d6a0918a0c99c6",
+      "stability": "not_a_full_range_or_hardware_performance_guarantee"
+    },
+    {
+      "directory": "nandu1_v1_3_1_2_model_27500",
+      "task": "Isaac-NANDU1-Blind-Flat-v1-3-1-2",
+      "checkpoint_sha256": "96fbe2f9ab0c347c5877aee7b20ee1db141c27f42b57d84210504e613c3ee2ef",
+      "manifest_sha256": "b74b77108445420098239ea2073b73089f23a9c63567b89f43340c9dd2438f4e",
+      "stability": "not_a_full_range_or_hardware_performance_guarantee"
+    },
+    {
+      "directory": "nandu1_v1_3_1_2_2_model_29500",
+      "task": "Isaac-NANDU1-Blind-Flat-v1-3-1-2-2",
+      "checkpoint_sha256": "ff430c7709b9e9a5786c93fb33ebc1e4f4383fad83506d62de4ef6de6eb0d112",
+      "manifest_sha256": "1617668771f2af5e000f52cccea58a5f4eefe66175c3dad6be4b225c0c786950",
+      "stability": "not_a_full_range_or_hardware_performance_guarantee"
+    },
+    {
+      "directory": "nandu1_v1_3_1_2_3_model_11000",
+      "task": "Isaac-NANDU1-Blind-Flat-v1-3-1-2-3",
+      "checkpoint_sha256": "82ed2157cf031bbaed479fb9abaa38f211816abb4b60b8c0957fc06b0d0f4be3",
+      "manifest_sha256": "abf9a768ba8a82a8551b35c303a5fb02894a1be0f1779115d09489ea9fb970c0",
+      "stability": "not_a_full_range_or_hardware_performance_guarantee"
+    },
+    {
+      "directory": "nandu1_v1_3_1_2_5_model_10500",
+      "task": "Isaac-NANDU1-Blind-Flat-v1-3-1-2-5",
+      "checkpoint_sha256": "0d6518d83b60980c82bbb0990292706b4111b20a98a9b8cb3dae6b19a597dbbf",
+      "manifest_sha256": "1ed4dc13dec51b4f02a8e388a44d6a7d8e51e1f0fc9800b62052d7534422becf",
+      "stability": "not_a_full_range_or_hardware_performance_guarantee"
+    },
+    {
+      "directory": "nandu1_v1_3_1_2_7_model_10000",
+      "task": "Isaac-NANDU1-Blind-Flat-v1-3-1-2-7",
+      "checkpoint_sha256": "f935187ecbaa3d950ea612f64cd91a0b482327b6586a3daf7355fb663fb7f3bf",
+      "manifest_sha256": "708f3ed4f0ffa9b5a353e538572e8935a55e7009adc5cf2c076db3f3d05205b6",
+      "stability": "not_accepted_zero_command_instability"
+    },
+    {
+      "directory": "nandu1_v1_4_model_24000",
+      "task": "Isaac-NANDU1-Blind-Flat-v1-4",
+      "checkpoint_sha256": "e64ac35349a71d70486e1c50618f589ab310713370f425deb67567bbb84aa24b",
+      "manifest_sha256": "43002ccd133369ec4f7c0dbb0a5c7d1aa265482451aee058fb692d32c6fda341",
+      "stability": "not_a_full_range_or_hardware_performance_guarantee"
+    },
+    {
+      "directory": "nandu1_v1_4_1_model_14000",
+      "task": "Isaac-NANDU1-Blind-Flat-v1-4-1",
+      "checkpoint_sha256": "f3c8c076f0c04c99dcc9d3a1dc5b9ff72914351549e101cd7753f1b3acc6e3ce",
+      "manifest_sha256": "19f1411da0ab96ca1f40f69a0f0bdb6ab2ed9c09b15349d02573b710cd8579ee",
+      "stability": "not_a_full_range_or_hardware_performance_guarantee"
+    },
+    {
+      "directory": "nandu1_v1_3_1_2_6_model_23500",
+      "task": "Isaac-NANDU1-Blind-Flat-v1-3-1-2-6",
+      "checkpoint_sha256": "1db8e6e7f58e4613dd2a0144d80ec50e7a2e20573e7d05239408057bf4909115",
+      "manifest_sha256": "00af49ef130e4177e3f58695baa5ebc7d4f0c6deef71c362b8787b243c387830",
+      "stability": "not_a_full_range_or_hardware_performance_guarantee"
+    }
+  ]
+}

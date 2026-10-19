@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="NANDU1">
+  <compiler angle="radian" meshdir="meshes" balanceinertia="false" />
+  <option timestep="0.001" gravity="0 0 -9.81" integrator="implicitfast" />
+  <asset>
+    <mesh name="base_Link_visual_0" file="base_Link.obj" scale="1 1 1" />
+    <mesh name="base_Link_collision_0" file="base_Link.obj" scale="1 1 1" />
+    <mesh name="proximal_pitch_L_Link_visual_0" file="proximal_pitch_L_Link.obj" scale="1 1 1" />
+    <mesh name="proximal_pitch_L_Link_collision_0" file="proximal_pitch_L_Link.obj" scale="1 1 1" />
+    <mesh name="proximal_roll_L_Link_visual_0" file="proximal_roll_L_Link.obj" scale="1 1 1" />
+    <mesh name="proximal_roll_L_Link_collision_0" file="proximal_roll_L_Link.obj" scale="1 1 1" />
+    <mesh name="proximal_yaw_L_Link_visual_0" file="proximal_yaw_L_Link.obj" scale="1 1 1" />
+    <mesh name="proximal_yaw_L_Link_collision_0" file="proximal_yaw_L_Link.obj" scale="1 1 1" />
+    <mesh name="knee_L_Link_visual_0" file="knee_L_Link.obj" scale="1 1 1" />
+    <mesh name="knee_L_Link_collision_0" file="knee_L_Link.obj" scale="1 1 1" />
+    <mesh name="wheel_L_Link_visual_0" file="wheel_L_Link.obj" scale="1 1 1" />
+    <mesh name="wheel_L_Link_collision_0" file="wheel_L_Link.obj" scale="1 1 1" />
+    <mesh name="proximal_pitch_R_Link_visual_0" file="proximal_pitch_R_Link.obj" scale="1 1 1" />
+    <mesh name="proximal_pitch_R_Link_collision_0" file="proximal_pitch_R_Link.obj" scale="1 1 1" />
+    <mesh name="proximal_roll_R_Link_visual_0" file="proximal_roll_R_Link.obj" scale="1 1 1" />
+    <mesh name="proximal_roll_R_Link_collision_0" file="proximal_roll_R_Link.obj" scale="1 1 1" />
+    <mesh name="proximal_yaw_R_Link_visual_0" file="proximal_yaw_R_Link.obj" scale="1 1 1" />
+    <mesh name="proximal_yaw_R_Link_collision_0" file="proximal_yaw_R_Link.obj" scale="1 1 1" />
+    <mesh name="knee_R_Link_visual_0" file="knee_R_Link.obj" scale="1 1 1" />
+    <mesh name="knee_R_Link_collision_0" file="knee_R_Link.obj" scale="1 1 1" />
+    <mesh name="wheel_R_Link_visual_0" file="wheel_R_Link.obj" scale="1 1 1" />
+    <mesh name="wheel_R_Link_collision_0" file="wheel_R_Link.obj" scale="1 1 1" />
+    <mesh name="up1_visual_0" file="up1.obj" scale="1 1 1" />
+    <mesh name="up1_collision_0" file="up1.obj" scale="1 1 1" />
+    <mesh name="up2_visual_0" file="up2.obj" scale="1 1 1" />
+    <mesh name="up2_collision_0" file="up2.obj" scale="1 1 1" />
+    <mesh name="up3_visual_0" file="up3.obj" scale="1 1 1" />
+    <mesh name="up3_collision_0" file="up3.obj" scale="1 1 1" />
+  </asset>
+  <worldbody>
+    <light pos="0 0 4" dir="0 0 -1" />
+    <geom name="floor" type="plane" size="20 20 .1" rgba=".2 .25 .3 1" contype="1" conaffinity="2" friction="1 .005 .0001" />
+    <body name="base_Link" pos="0 0 .65337">
+      <freejoint name="root" />
+      <inertial mass="15.968523979187012" pos="-0.173386096954346 1.37937931867782e-05 0.151659607887268" quat="0.690532863140106 -0.179718971252441 -0.186537444591522 0.675329029560089" diaginertia="0.565286338329315 0.190319374203682 0.471664398908615" />
+      <geom name="base_Link_visual_0" type="mesh" mesh="base_Link_visual_0" pos="0 0 0" quat="0.707106781186546 0 0 0.707106781186549" contype="0" conaffinity="0" group="1" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+      <geom name="base_Link_collision_0" type="mesh" mesh="base_Link_collision_0" pos="0 0 0" quat="0.707106781186546 0 0 0.707106781186549" contype="2" conaffinity="1" group="3" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+      <site name="base_imu" pos="0 0 0" size=".005" />
+      <body name="proximal_pitch_L_Link" pos="-0.0926069989800453 0.105080001056194 0.0789029970765114" quat="0.707109376431422 4.6071150366922e-11 1.21290041552036e-09 -0.707104185932148">
+        <joint name="proximal_pitch_L_Joint" type="hinge" axis="0.996190011626632 0 0.0872092927120253" pos="0 0 0" limited="true" range="-2.60054058547155 3.14159265358979" damping="0" frictionloss="0" armature="0.161777558" actuatorfrclimited="true" actuatorfrcrange="-140 140" />
+        <inertial mass="2.069999933242798" pos="-0.0697600394487381 -0.00521948747336864 -0.00608000019565225" quat="0.7098508477211 -0.0365229956805706 -0.0514066629111767 0.70152360200882" diaginertia="0.00415507610887289 0.00291561312042177 0.00333952018991113" />
+        <geom name="proximal_pitch_L_Link_visual_0" type="mesh" mesh="proximal_pitch_L_Link_visual_0" pos="0 0 0" quat="1 0 0 0" contype="0" conaffinity="0" group="1" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+        <geom name="proximal_pitch_L_Link_collision_0" type="mesh" mesh="proximal_pitch_L_Link_collision_0" pos="0 0 0" quat="1 0 0 0" contype="2" conaffinity="1" group="3" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+        <body name="proximal_roll_L_Link" pos="-0.0631159991025925 -0.0424750000238419 -0.00552190002053976" quat="1 0 0 0">
+          <joint name="proximal_roll_L_Joint" type="hinge" axis="0 1 0" pos="0 0 0" limited="true" range="-0.261799387799149 3.19395226483351" damping="0" frictionloss="0" armature="0.161777558" actuatorfrclimited="true" actuatorfrcrange="-140 140" />
+          <inertial mass="1.7400000095367432" pos="-0.000349770503817126 0.0312400031834841 -0.0841400027275085" quat="0.700755298137665 0.00230657635256648 -0.0110248997807503 0.713312923908234" diaginertia="0.00476973364129663 0.00545641547068954 0.00305218133144081" />
+          <geom name="proximal_roll_L_Link_visual_0" type="mesh" mesh="proximal_roll_L_Link_visual_0" pos="0 0 0" quat="1 0 0 0" contype="0" conaffinity="0" group="1" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+          <geom name="proximal_roll_L_Link_collision_0" type="mesh" mesh="proximal_roll_L_Link_collision_0" pos="0 0 0" quat="1 0 0 0" contype="2" conaffinity="1" group="3" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+          <body name="proximal_yaw_L_Link" pos="0 0.0424750000238419 -0.115500003099442" quat="1 0 0 0">
+            <joint name="proximal_yaw_L_Joint" type="hinge" axis="0 0 1" pos="0 0 0" limited="true" range="-3.66519116287198 1.48352973103713" damping="0" frictionloss="0" armature="0.053923687" actuatorfrclimited="true" actuatorfrcrange="-40 40" />
+            <inertial mass="1.559999942779541" pos="-0.00164002028759569 -0.0027599879540503 -0.111479997634888" quat="0.708185374736786 0.0105637032538652 -0.00612920802086592 0.705921053886414" diaginertia="0.0150459660217166 0.0143418135121465 0.00375114008784294" />
+            <geom name="proximal_yaw_L_Link_visual_0" type="mesh" mesh="proximal_yaw_L_Link_visual_0" pos="0 0 0" quat="1 0 0 0" contype="0" conaffinity="0" group="1" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+            <geom name="proximal_yaw_L_Link_collision_0" type="mesh" mesh="proximal_yaw_L_Link_collision_0" pos="0 0 0" quat="1 0 0 0" contype="2" conaffinity="1" group="3" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+            <body name="knee_L_Link" pos="-0.02679100073874 0.00400000018998981 -0.234500005841255" quat="1 0 0 0">
+              <joint name="knee_L_Joint" type="hinge" axis="1 0 0" pos="0 0 0" limited="true" range="-0.261799387799149 2.61799361167539" damping="0" frictionloss="0" armature="0.161777558" actuatorfrclimited="true" actuatorfrcrange="-140 140" />
+              <inertial mass="4.420000076293945" pos="0.0243199840188026 -0.0021701785735786 -0.137390002608299" quat="0.70474898815155 0.00194716802798212 0.00841164030134678 0.709404349327087" diaginertia="0.105297088623047 0.106565162539482 0.0055455444380641" />
+              <geom name="knee_L_Link_visual_0" type="mesh" mesh="knee_L_Link_visual_0" pos="0 0 0" quat="1 0 0 0" contype="0" conaffinity="0" group="1" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+              <geom name="knee_L_Link_collision_0" type="mesh" mesh="knee_L_Link_collision_0" pos="0 0 0" quat="1 0 0 0" contype="2" conaffinity="1" group="3" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+              <body name="wheel_L_Link" pos="-0.0379090011119843 -0.00400000018998981 -0.349999994039536" quat="1 0 0 0">
+                <joint name="wheel_L_Joint" type="hinge" axis="-1 0 0" pos="0 0 0" limited="true" range="-1745329.11236799 1745329.11236799" damping="0" frictionloss="0" armature="0.0" actuatorfrclimited="true" actuatorfrcrange="-20 20" />
+                <inertial mass="0.75" pos="-0.00399999599903822 0.000540029373951256 0.000339999998686835" quat="0.685644865036011 0.173169761896133 -0.173142775893211 0.685510754585266" diaginertia="0.00231131073087454 0.00446439022198319 0.00236239959485829" />
+                <geom name="wheel_L_Link_visual_0" type="mesh" mesh="wheel_L_Link_visual_0" pos="0 0 0" quat="1 0 0 0" contype="0" conaffinity="0" group="1" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+                <geom name="wheel_L_Link_collision_0" type="mesh" mesh="wheel_L_Link_collision_0" pos="0 0 0" quat="1 0 0 0" contype="2" conaffinity="1" group="3" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="proximal_pitch_R_Link" pos="-0.0926069989800453 -0.104060001671314 0.0788709968328476" quat="0.707109376472069 -4.97565304929948e-10 1.9641754195332e-10 -0.707104185891501">
+        <joint name="proximal_pitch_R_Joint" type="hinge" axis="-0.996190009679209 0 0.0872093149573884" pos="0 0 0" limited="true" range="-3.14159265358979 2.60054058547155" damping="0" frictionloss="0" armature="0.161777558" actuatorfrclimited="true" actuatorfrcrange="-140 140" />
+        <inertial mass="2.069999933242798" pos="0.0697599649429321 -0.00522051239386201 -0.00608000019565225" quat="0.70152884721756 0.0514069311320782 0.0365226157009602 0.709845721721649" diaginertia="0.00415507610887289 0.00291561312042177 0.00333952018991113" />
+        <geom name="proximal_pitch_R_Link_visual_0" type="mesh" mesh="proximal_pitch_R_Link_visual_0" pos="0 0 0" quat="1 0 0 0" contype="0" conaffinity="0" group="1" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+        <geom name="proximal_pitch_R_Link_collision_0" type="mesh" mesh="proximal_pitch_R_Link_collision_0" pos="0 0 0" quat="1 0 0 0" contype="2" conaffinity="1" group="3" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+        <body name="proximal_roll_R_Link" pos="0.0627489984035492 -0.0424750000238419 -0.00548980012536049" quat="1 0 0 0">
+          <joint name="proximal_roll_R_Joint" type="hinge" axis="0 1 0" pos="0 0 0" limited="true" range="-3.19395226483351 0.261799387799149" damping="0" frictionloss="0" armature="0.161777558" actuatorfrclimited="true" actuatorfrcrange="-140 140" />
+          <inertial mass="1.7400000095367432" pos="0.000350229500327259 0.0312399975955486 -0.0841400027275085" quat="0.713318049907684 0.0110248830169439 -0.00230665737763047 0.700750052928925" diaginertia="0.00476973364129663 0.00545641547068954 0.00305218133144081" />
+          <geom name="proximal_roll_R_Link_visual_0" type="mesh" mesh="proximal_roll_R_Link_visual_0" pos="0 0 0" quat="1 0 0 0" contype="0" conaffinity="0" group="1" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+          <geom name="proximal_roll_R_Link_collision_0" type="mesh" mesh="proximal_roll_R_Link_collision_0" pos="0 0 0" quat="1 0 0 0" contype="2" conaffinity="1" group="3" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+          <body name="proximal_yaw_R_Link" pos="0 0.0424750000238419 -0.115199998021126" quat="1 0 0 0">
+            <joint name="proximal_yaw_R_Joint" type="hinge" axis="0 0 -1" pos="0 0 0" limited="true" range="-3.66519116287198 1.48352973103713" damping="0" frictionloss="0" armature="0.053923687" actuatorfrclimited="true" actuatorfrcrange="-40 40" />
+            <inertial mass="1.559999942779541" pos="0.00163997977506369 -0.0027600119356066 -0.111479997634888" quat="0.705926239490509 0.00612913118675351 -0.0105637470260262 0.70818018913269" diaginertia="0.0150459660217166 0.0143418135121465 0.00375114008784294" />
+            <geom name="proximal_yaw_R_Link_visual_0" type="mesh" mesh="proximal_yaw_R_Link_visual_0" pos="0 0 0" quat="1 0 0 0" contype="0" conaffinity="0" group="1" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+            <geom name="proximal_yaw_R_Link_collision_0" type="mesh" mesh="proximal_yaw_R_Link_collision_0" pos="0 0 0" quat="1 0 0 0" contype="2" conaffinity="1" group="3" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+            <body name="knee_R_Link" pos="0.02679100073874 0.00400000018998981 -0.23479999601841" quat="1 0 0 0">
+              <joint name="knee_R_Joint" type="hinge" axis="1 0 0" pos="0 0 0" limited="true" range="-0.261799387799149 2.61799361167539" damping="0" frictionloss="0" armature="0.161777558" actuatorfrclimited="true" actuatorfrcrange="-140 140" />
+              <inertial mass="4.420000076293945" pos="-0.0243200156837702 -0.00216982141137123 -0.137390002608299" quat="0.709409475326538 -0.0084116542711854 -0.00194710656069219 0.70474374294281" diaginertia="0.105297088623047 0.106565162539482 0.0055455444380641" />
+              <geom name="knee_R_Link_visual_0" type="mesh" mesh="knee_R_Link_visual_0" pos="0 0 0" quat="1 0 0 0" contype="0" conaffinity="0" group="1" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+              <geom name="knee_R_Link_collision_0" type="mesh" mesh="knee_R_Link_collision_0" pos="0 0 0" quat="1 0 0 0" contype="2" conaffinity="1" group="3" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+              <body name="wheel_R_Link" pos="0.0379090011119843 -0.00400000018998981 -0.349999994039536" quat="1 0 0 0">
+                <joint name="wheel_R_Joint" type="hinge" axis="-1 0 0" pos="0 0 0" limited="true" range="-1745329.11236799 1745329.11236799" damping="0" frictionloss="0" armature="0.0" actuatorfrclimited="true" actuatorfrcrange="-20 20" />
+                <inertial mass="0.75" pos="0.0040000039152801 0.000539970642421395 0.000339999998686835" quat="0.685515761375427 0.17314150929451 -0.173171028494835 0.68563985824585" diaginertia="0.00231131073087454 0.00446439022198319 0.00236239959485829" />
+                <geom name="wheel_R_Link_visual_0" type="mesh" mesh="wheel_R_Link_visual_0" pos="0 0 0" quat="1 0 0 0" contype="0" conaffinity="0" group="1" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+                <geom name="wheel_R_Link_collision_0" type="mesh" mesh="wheel_R_Link_collision_0" pos="0 0 0" quat="1 0 0 0" contype="2" conaffinity="1" group="3" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="up1" pos="0.129969999194145 -0.0571039989590645 0.344419986009598" quat="0.707109373983777 0 0 -0.707104188379811">
+        <joint name="arm1" type="hinge" axis="1 0 0" pos="0 0 0" limited="true" range="-2.44346068647595 2.35619449019234" damping="0" frictionloss="0" armature="0.7" actuatorfrclimited="true" actuatorfrcrange="-181 181" />
+        <inertial mass="2.3867905139923096" pos="-0.064252957701683 0.112712040543556 0.112764067947865" quat="0.923199117183685 -0.382296502590179 -0.0160080101341009 -0.0360096730291843" diaginertia="0.0420713648200035 0.00566082261502743 0.0452817156910896" />
+        <geom name="up1_visual_0" type="mesh" mesh="up1_visual_0" pos="0 0 0" quat="1 0 0 0" contype="0" conaffinity="0" group="1" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+        <geom name="up1_collision_0" type="mesh" mesh="up1_collision_0" pos="0 0 0" quat="1 0 0 0" contype="2" conaffinity="1" group="3" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+        <body name="up2" pos="-0.000750000006519258 0.229809999465942 0.229809999465942" quat="1 0 0 0">
+          <joint name="arm2" type="hinge" axis="1 0 0" pos="0 0 0" limited="true" range="-2.26892802759263 2.26892802759263" damping="0" frictionloss="0" armature="0.45" actuatorfrclimited="true" actuatorfrcrange="-136 136" />
+          <inertial mass="2.2745165824890137" pos="-0.0618047118186951 0.1297847032547 0.12977808713913" quat="0.923181295394897 0.382345885038376 -0.0364979915320873 -0.0146927339956164" diaginertia="0.0407741628587246 0.0439683496952057 0.005255785305053" />
+          <geom name="up2_visual_0" type="mesh" mesh="up2_visual_0" pos="0 0 0" quat="1 0 0 0" contype="0" conaffinity="0" group="1" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+          <geom name="up2_collision_0" type="mesh" mesh="up2_collision_0" pos="0 0 0" quat="1 0 0 0" contype="2" conaffinity="1" group="3" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+          <body name="up3" pos="0.00100000004749745 0.236880004405975 0.236880004405975" quat="1 0 0 0">
+            <joint name="arm3" type="hinge" axis="1 0 0" pos="0 0 0" limited="true" range="-1.5707963267949 3.14159265358979" damping="0" frictionloss="0" armature="0.45" actuatorfrclimited="true" actuatorfrcrange="-136 136" />
+            <inertial mass="0.6714800000190735" pos="-0.066473051905632 0.0616237185895443 -0.000621484883595258" quat="0.926506698131561 0.374404698610306 -0.0348315313458443 -0.0139014897868037" diaginertia="0.00341823883354664 0.00507883261889219 0.00212962809018791" />
+            <geom name="up3_visual_0" type="mesh" mesh="up3_visual_0" pos="0 0 0" quat="1 0 0 0" contype="0" conaffinity="0" group="1" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+            <geom name="up3_collision_0" type="mesh" mesh="up3_collision_0" pos="0 0 0" quat="1 0 0 0" contype="2" conaffinity="1" group="3" rgba=".7 .75 .8 1" friction="1 .005 .0001" />
+            <site name="up3_imu" pos="0 0 0" size=".005" />
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <actuator>
+    <motor name="proximal_pitch_L_Joint" joint="proximal_pitch_L_Joint" gear="1" ctrllimited="true" ctrlrange="-140 140" />
+    <motor name="proximal_roll_L_Joint" joint="proximal_roll_L_Joint" gear="1" ctrllimited="true" ctrlrange="-140 140" />
+    <motor name="proximal_yaw_L_Joint" joint="proximal_yaw_L_Joint" gear="1" ctrllimited="true" ctrlrange="-40 40" />
+    <motor name="knee_L_Joint" joint="knee_L_Joint" gear="1" ctrllimited="true" ctrlrange="-140 140" />
+    <motor name="wheel_L_Joint" joint="wheel_L_Joint" gear="1" ctrllimited="true" ctrlrange="-20 20" />
+    <motor name="proximal_pitch_R_Joint" joint="proximal_pitch_R_Joint" gear="1" ctrllimited="true" ctrlrange="-140 140" />
+    <motor name="proximal_roll_R_Joint" joint="proximal_roll_R_Joint" gear="1" ctrllimited="true" ctrlrange="-140 140" />
+    <motor name="proximal_yaw_R_Joint" joint="proximal_yaw_R_Joint" gear="1" ctrllimited="true" ctrlrange="-40 40" />
+    <motor name="knee_R_Joint" joint="knee_R_Joint" gear="1" ctrllimited="true" ctrlrange="-140 140" />
+    <motor name="wheel_R_Joint" joint="wheel_R_Joint" gear="1" ctrllimited="true" ctrlrange="-20 20" />
+    <motor name="arm1" joint="arm1" gear="1" ctrllimited="true" ctrlrange="-181 181" />
+    <motor name="arm2" joint="arm2" gear="1" ctrllimited="true" ctrlrange="-136 136" />
+    <motor name="arm3" joint="arm3" gear="1" ctrllimited="true" ctrlrange="-136 136" />
+  </actuator>
+  <sensor>
+    <jointpos name="proximal_pitch_L_Joint_pos" joint="proximal_pitch_L_Joint" />
+    <jointvel name="proximal_pitch_L_Joint_vel" joint="proximal_pitch_L_Joint" />
+    <jointactuatorfrc name="proximal_pitch_L_Joint_frc" joint="proximal_pitch_L_Joint" />
+    <jointpos name="proximal_roll_L_Joint_pos" joint="proximal_roll_L_Joint" />
+    <jointvel name="proximal_roll_L_Joint_vel" joint="proximal_roll_L_Joint" />
+    <jointactuatorfrc name="proximal_roll_L_Joint_frc" joint="proximal_roll_L_Joint" />
+    <jointpos name="proximal_yaw_L_Joint_pos" joint="proximal_yaw_L_Joint" />
+    <jointvel name="proximal_yaw_L_Joint_vel" joint="proximal_yaw_L_Joint" />
+    <jointactuatorfrc name="proximal_yaw_L_Joint_frc" joint="proximal_yaw_L_Joint" />
+    <jointpos name="knee_L_Joint_pos" joint="knee_L_Joint" />
+    <jointvel name="knee_L_Joint_vel" joint="knee_L_Joint" />
+    <jointactuatorfrc name="knee_L_Joint_frc" joint="knee_L_Joint" />
+    <jointpos name="wheel_L_Joint_pos" joint="wheel_L_Joint" />
+    <jointvel name="wheel_L_Joint_vel" joint="wheel_L_Joint" />
+    <jointactuatorfrc name="wheel_L_Joint_frc" joint="wheel_L_Joint" />
+    <jointpos name="proximal_pitch_R_Joint_pos" joint="proximal_pitch_R_Joint" />
+    <jointvel name="proximal_pitch_R_Joint_vel" joint="proximal_pitch_R_Joint" />
+    <jointactuatorfrc name="proximal_pitch_R_Joint_frc" joint="proximal_pitch_R_Joint" />
+    <jointpos name="proximal_roll_R_Joint_pos" joint="proximal_roll_R_Joint" />
+    <jointvel name="proximal_roll_R_Joint_vel" joint="proximal_roll_R_Joint" />
+    <jointactuatorfrc name="proximal_roll_R_Joint_frc" joint="proximal_roll_R_Joint" />
+    <jointpos name="proximal_yaw_R_Joint_pos" joint="proximal_yaw_R_Joint" />
+    <jointvel name="proximal_yaw_R_Joint_vel" joint="proximal_yaw_R_Joint" />
+    <jointactuatorfrc name="proximal_yaw_R_Joint_frc" joint="proximal_yaw_R_Joint" />
+    <jointpos name="knee_R_Joint_pos" joint="knee_R_Joint" />
+    <jointvel name="knee_R_Joint_vel" joint="knee_R_Joint" />
+    <jointactuatorfrc name="knee_R_Joint_frc" joint="knee_R_Joint" />
+    <jointpos name="wheel_R_Joint_pos" joint="wheel_R_Joint" />
+    <jointvel name="wheel_R_Joint_vel" joint="wheel_R_Joint" />
+    <jointactuatorfrc name="wheel_R_Joint_frc" joint="wheel_R_Joint" />
+    <jointpos name="arm1_pos" joint="arm1" />
+    <jointvel name="arm1_vel" joint="arm1" />
+    <jointactuatorfrc name="arm1_frc" joint="arm1" />
+    <jointpos name="arm2_pos" joint="arm2" />
+    <jointvel name="arm2_vel" joint="arm2" />
+    <jointactuatorfrc name="arm2_frc" joint="arm2" />
+    <jointpos name="arm3_pos" joint="arm3" />
+    <jointvel name="arm3_vel" joint="arm3" />
+    <jointactuatorfrc name="arm3_frc" joint="arm3" />
+    <framequat name="base_imu_quat" objtype="site" objname="base_imu" />
+    <gyro name="base_imu_gyro" site="base_imu" />
+    <accelerometer name="base_imu_acc" site="base_imu" />
+    <framequat name="up3_imu_quat" objtype="site" objname="up3_imu" />
+    <gyro name="up3_imu_gyro" site="up3_imu" />
+    <accelerometer name="up3_imu_acc" site="up3_imu" />
+  </sensor>
+</mujoco>

@@ -1,0 +1,15 @@
+joystick_buttons:
+  A: 0
+  B: 1
+  X: 2
+  Y: 3
+  L1: 4
+  R1: 5
+  select: 6
+  start: 7
+
+joystick_axes:
+  left_horizon: 0
+  left_vertical: 1
+  right_horizon: 2
+  right_vertical: 3

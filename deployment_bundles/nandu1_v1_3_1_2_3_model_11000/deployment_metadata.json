@@ -1,0 +1,369 @@
+{
+  "task": "Isaac-NANDU1-Blind-Flat-v1-3-1-2-3",
+  "checkpoint_schema": "nandu_network_v1_3_1_2_3_ablation_B_r2",
+  "experiment": {
+    "family": "v1-3-1",
+    "variant": 2,
+    "suffix": 3,
+    "factors": "E",
+    "revision": 2,
+    "velocity_frame": "body",
+    "interface": {
+      "policy": 49,
+      "history": 245,
+      "encoder": 7,
+      "commands": 3,
+      "actor_raw": 71,
+      "actor_features": 74,
+      "critic": 124,
+      "critic_with_commands": 127,
+      "actions": 13
+    },
+    "history_command_timing": "previous_applied_command_producing_current_state",
+    "reward_changes": [
+      "static_capture",
+      "static_fine_hold",
+      "static_bias",
+      "static_residual",
+      "joint_balance",
+      "gated_com_x"
+    ],
+    "command_gp": 0.0,
+    "sensory_gp": 0.0,
+    "gp_warmup_iterations": 1000,
+    "encoder_actor_gradient": false,
+    "behavior_revision": 2,
+    "statistics_timing": "post_physics_pre_autoreset_once_per_step",
+    "allocation_tracking_gate": "current_post_physics_state",
+    "parent_task": "Isaac-NANDU1-Blind-Flat-v1-3-1-2-2",
+    "dynamic_features": [
+      "memory_vx",
+      "memory_yaw",
+      "student_eta_0",
+      "student_eta_1",
+      "student_eta_2",
+      "student_eta_3",
+      "student_eta_4",
+      "student_eta_5",
+      "student_eta_6",
+      "student_eta_7",
+      "height_rate_over_0.5",
+      "memory_height"
+    ],
+    "dynamic_features_stored_in_ppo": true,
+    "actor_feature_order": "original_A_73_then_memory_height",
+    "critic_feature_order": "original_108_dynamic_12_balance_3_valid_1_commands_3",
+    "student_input": "noisy_policy_first36_previous_software_clipped_issued13",
+    "adaptation_actor_gradient": false,
+    "ablation_group": "B",
+    "mode_sampling": "random",
+    "height_rate_limits_m_s": [
+      0.05,
+      0.1,
+      0.2,
+      0.35,
+      0.5
+    ],
+    "height_memory_enabled": false,
+    "height_memory_profile": {
+      "error_lpf_tau_s": 0.5,
+      "error_clip_m": 0.1,
+      "integral_clip_m_s": 0.1,
+      "actor_scale_m_s": 0.05,
+      "quiet_rate_low_m_s": 0.005,
+      "quiet_rate_high_m_s": 0.02,
+      "quiet_leak_tau_s": 10.0,
+      "moving_leak_tau_s": 1.0,
+      "freeze_tilt_rad": 0.7853981633974483
+    },
+    "initialization": "A_shared_weights_zero_new_actor_column73_critic_column119",
+    "tracking_population": "all_environments",
+    "command_sampling": "E_independent_uniform_stage_targets_every_4_to_8_s",
+    "command_processing": "A_causal_processor_with_profile_height_rates"
+  },
+  "interface": {
+    "policy": 49,
+    "history": 245,
+    "encoder": 7,
+    "commands": 3,
+    "actor_raw": 71,
+    "actor_features": 74,
+    "critic": 124,
+    "critic_with_commands": 127,
+    "actions": 13
+  },
+  "baseline_contract": {
+    "checkpoint_schema": "nandu1_height_v1_3_1_tcp_payload_v1",
+    "command_name": "nandu1_height_v1_3_1",
+    "experiment_name": "nandu1_blind_flat_v1_3_1_tcp_payload",
+    "interface": {
+      "policy": 49,
+      "history": 245,
+      "history_frames": 5,
+      "encoder": 7,
+      "commands": 3,
+      "actor": 59,
+      "critic": 108,
+      "critic_with_commands": 111,
+      "actions": 13
+    },
+    "command_units": [
+      "rad/s",
+      "m/s",
+      "m"
+    ],
+    "command_frames": [
+      "world_z_angular_velocity",
+      "base_body_x",
+      "world_z_absolute"
+    ],
+    "quaternion_order": "wxyz",
+    "tcp_body": "up3",
+    "tcp_frame": "up3_link",
+    "tcp_local_m": [
+      -0.066473051764,
+      0.161623719479,
+      -0.000621484902
+    ],
+    "tcp_independent_of_com": true,
+    "height_range_m": [
+      0.4,
+      1.4
+    ],
+    "yaw": {
+      "source": "body_imu_relative_heading",
+      "heading_kp": 1.5,
+      "deadzone": 1e-05,
+      "stage_limits_rad_s": [
+        0.2,
+        0.5,
+        0.85,
+        1.2,
+        1.57
+      ],
+      "release_latch": true,
+      "tilt_correction": true,
+      "saturation_back_calculation": true
+    },
+    "payload": {
+      "inertia_coordinates": "link_axes_about_com",
+      "shapes_are_inertia_proxies_only": true,
+      "nominal_properties_source": "immutable_runtime_mass_com_full_inertia",
+      "up3_nominal_mass_kg": 0.67148,
+      "up3_total_mass_kg": [
+        0.6,
+        6.0
+      ],
+      "up3_box_dimensions_m": [
+        0.05,
+        0.06,
+        0.05
+      ],
+      "up3_box_center": "fixed_tcp",
+      "rear_extra_mass_kg": [
+        0.0,
+        5.0
+      ],
+      "rear_x_m": [
+        -0.35,
+        -0.2
+      ],
+      "rear_y_m": 0.0,
+      "rear_z_m": 0.07,
+      "rear_cylinder_axis": "link_y",
+      "rear_radius_m": 0.025,
+      "rear_length_m": 0.1,
+      "stage_amplitudes": [
+        0.1,
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "mixture_order": [
+        "nominal",
+        "up3_only",
+        "rear_only",
+        "both"
+      ],
+      "mixture_probabilities": [
+        0.2,
+        0.2,
+        0.2,
+        0.4
+      ],
+      "base_urdf_inertia_rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "parameters_constant_within_episode": true
+    },
+    "resume": {
+      "old_schema_compatible": false,
+      "reset_episodic_heading": true,
+      "reset_episodic_payload": true,
+      "preserve_course_and_optimizer": true
+    }
+  },
+  "control_dt": 0.02,
+  "checkpoint_sha256": "82ed2157cf031bbaed479fb9abaa38f211816abb4b60b8c0957fc06b0d0f4be3",
+  "curriculum_stage": 1,
+  "physical_command_units": [
+    "rad/s",
+    "m/s",
+    "m"
+  ],
+  "encoder_output_frame": "base_body",
+  "actor_velocity_frame": "body",
+  "tcp_local_m": [
+    -0.066473051764,
+    0.161623719479,
+    -0.000621484902
+  ],
+  "observation_order": [
+    "base_gyro_scaled_0.25:3",
+    "base_gravity:3",
+    "up3_gyro_scaled_0.25:3",
+    "up3_gravity:3",
+    "relative_joint_position:11",
+    "joint_velocity_scaled_0.05:13",
+    "previous_raw_action:13"
+  ],
+  "history_order": "oldest_to_newest_5_policy49_frames; clear_on_new_physics_or_episode_reset",
+  "raw_actor_input_order": "Encoder7,policy49,applied_commands3,normalized_memory2,filtered_student8,hdot_over_0.5,normalized_memory_height1",
+  "actor_features_order": "original_E62_in_original_order_then_normalized_memory2_filtered_student8_hdot_over_0.5_then_normalized_memory_height1",
+  "dynamic_input_order": [
+    "memory_vx_over_0.10",
+    "memory_yaw_over_0.20",
+    "filtered_eta_0",
+    "filtered_eta_1",
+    "filtered_eta_2",
+    "filtered_eta_3",
+    "filtered_eta_4",
+    "filtered_eta_5",
+    "filtered_eta_6",
+    "filtered_eta_7",
+    "hdot_over_0.5",
+    "memory_height_over_0.05"
+  ],
+  "context_step": {
+    "input_order": [
+      "observation",
+      "previous_issued_action",
+      "hidden",
+      "filtered_eta"
+    ],
+    "output_order": [
+      "next_hidden",
+      "next_filtered_eta",
+      "raw_eta"
+    ],
+    "hidden_width": 64,
+    "latent_width": 8,
+    "student_input": "noisy_policy_first36_previous_software_clipped_issued13",
+    "lpf_tau_s": 0.3,
+    "reset": "zero_hidden64_filtered_eta8_previous_issued13_and_dynamic12_including_height_memory; skip_episode_priming_observation",
+    "timing": "advance_once_after_successful_physical_step_then_cache_for_actor_and_ppo"
+  },
+  "feature_transform_included": true,
+  "encoder_actor_gradient": false,
+  "adaptation_actor_gradient": false,
+  "stateful_processing_reference": "processing_reference.py",
+  "runtime_math": "adaptive_math.py",
+  "runtime_support": "50Hz explicit Student/command/memory state; no ROS schema support or hardware validation claimed",
+  "validation": {
+    "encoder_jit_max_error": 0.0,
+    "onnx_validation_engine": "onnxruntime",
+    "encoder_onnx_max_error": 2.384185791015625e-07,
+    "policy_jit_max_error": 0.0,
+    "policy_onnx_max_error": 2.384185791015625e-06,
+    "actor_pipeline_jit_max_error": 0.0,
+    "actor_pipeline_onnx_max_error": 2.86102294921875e-06,
+    "context_step_jit_max_error": 0.0,
+    "context_step_onnx_max_error": 8.940696716308594e-08
+  },
+  "height_rate_limits_m_s": [
+    0.05,
+    0.1,
+    0.2,
+    0.35,
+    0.5
+  ],
+  "height_memory": {
+    "enabled": false,
+    "profile": {
+      "error_lpf_tau_s": 0.5,
+      "error_clip_m": 0.1,
+      "integral_clip_m_s": 0.1,
+      "actor_scale_m_s": 0.05,
+      "quiet_rate_low_m_s": 0.005,
+      "quiet_rate_high_m_s": 0.02,
+      "quiet_leak_tau_s": 10.0,
+      "moving_leak_tau_s": 1.0,
+      "freeze_tilt_rad": 0.7853981633974483
+    },
+    "error": "applied_height_minus_detached_encoder_height",
+    "runtime_source": "adaptive_height_memory.py",
+    "reset": "zero_selected_rows_on_episode_reset_and_all_rows_on_new_physics; skip_priming_observation",
+    "timing": "advance_once_after_successful_physical_step; getters_and_duplicate_step_ids_do_not_advance"
+  },
+  "file_sha256": {
+    "policy.pt": "332b1fd19ed1ff7a97244dfeba469752cb399a317cb264bac6d9a539e11da04e",
+    "adaptive_math.py": "cc6196846dcf4ea31b7f94d44465c54b55fe32b7c44cd66a414792077481b3fb",
+    "adaptive_height_memory.py": "c14ea9418ea30e6a7856cdcd63ecb6c75a99d65caaeadce53c455518ab0c7839",
+    "actor_pipeline.onnx": "97305fb5fd487016bd43893a5d207a812140dc00fd1ea31f89a47d6f552541c9",
+    "encoder.onnx": "906384b2cfbea29e8d352b1807e1eaeadb9ccd4518ce9cf7a73ffaa5fe95da07",
+    "actor_pipeline.pt": "10964bb84f3c3a01a11e6cf1f1aca79efd9d6dd6d51e7357c1a7959c87b2cb34",
+    "encoder.pt": "b7b9d742ede2883a45fd3d56c66e83de7ad8ae1f012f49ef794356e7cebb4f3d",
+    "nandu1_v1_3_1_contract.py": "f9561f7394667f992f8ed4348793318e4123b925e6dfc9a3927ee960071d1bcf",
+    "processing_reference.py": "1583b2236394c9b7206837291ff24ac0f0f6a75a74baaebba8706cadf9f7d50a",
+    "conformance.npz": "2ce68f324fe7d767e1148fa13b102b94377689bd08a82cae326dca53d70853b2",
+    "nandu1_v1_3_1_math.py": "fd52f24675feed1fc98d683fb9836657ef804b0a1b0fa9b8aca24b5f7a428691",
+    "context_step.onnx": "fb0ed4d19b9dbfa86dd84676f0465db9893f98ccbd9361a9966260d0310988a0",
+    "policy.onnx": "0fde0d3b9b825618f9ca6ba6c2cd25cb7082fc4e74ed98169c5ec00d83dda0b9",
+    "context_step.pt": "c2d7548b334f9a9148d25d5ef94fa386f89f19eaedd537ecbd3f53443b064055"
+  },
+  "checkpoint_vector_validation": {
+    "cases": 1024,
+    "atol": 1e-05,
+    "rtol": 0.0001,
+    "max_errors": {
+      "encoder_new_opset17": 5.364418029785156e-07,
+      "policy_new_opset17": 3.814697265625e-06,
+      "actor_pipeline_new_opset17": 8.58306884765625e-06,
+      "context_step_new_opset17": 1.4901161193847656e-07
+    },
+    "source": null,
+    "metadata_sha256": null
+  },
+  "onnx_compatibility": {
+    "target_opset": 15,
+    "reason": "Existing ROS ONNX Runtime 1.10",
+    "method": "Re-export identical weights, not opset-tag rewriting",
+    "max_errors_vs_training_torch": {
+      "encoder": 5.364418029785156e-07,
+      "policy": 3.814697265625e-06,
+      "actor_pipeline": 8.58306884765625e-06,
+      "context_step": 1.4901161193847656e-07
+    },
+    "original_opset17_files": {
+      "original_onnx_opset17/actor_pipeline.onnx": "aa5263b26901e72d935cadd2ab90e58b0bd9555ba785eb6c92599648b61cd2bd",
+      "original_onnx_opset17/encoder.onnx": "8bfe05889ef2217415afb42dd103a549822b479ec68a40da623f4d042051e7e6",
+      "original_onnx_opset17/context_step.onnx": "f220daa8d3c9eb2eabd81750e2aa208ac0f7da8dd091c76b87e1424f1eb9c902",
+      "original_onnx_opset17/policy.onnx": "7dafa37786e7b56f85dc3acd5ade6638a2e03e9caa6faf4216acfbde63df3e3e"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+<launch>
+    <arg name="robot_type" default="SF_TRON2A"/>
+    <arg name="spawn_z" default="0.8"/>
+    <arg name="use_joystick" default="true"/>
+    <arg name="air_hold" default="true"/>
+    <arg name="air_hold_duration" default="2.0"/>
+    <!-- Delay (seconds) for tron2_hw_node startup; gives Gazebo plugin chain
+         (incl. D435 camera) time to finish loading before limxsdk-lowlevel
+         SDK init competes for ROS/system resources in the same host. -->
+    <arg name="hw_startup_delay" default="1.0"/>
+
+    <!-- limxsdk requires ROBOT_TYPE env var for both lowlevel (tron2_hw_node)
+         and sim (Tron2HWSim plugin in gazebo). Export at launch level so all
+         child nodes including gazebo inherit. -->
+    <env name="ROBOT_TYPE" value="$(arg robot_type)"/>
+
+    <include file="$(find tron2_gazebo)/launch/empty_world.launch">
+        <arg name="robot_type" value="$(arg robot_type)"/>
+        <arg name="spawn_z" value="$(arg spawn_z)"/>
+    </include>
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+        <remap from="joint_states" to="/joint_states"/>
+    </node>
+
+    <include file="$(find tron2_hw)/launch/tron2_hw.launch">
+        <arg name="robot_type" value="$(arg robot_type)"/>
+        <arg name="robot_ip" value="127.0.0.1"/>
+        <arg name="use_gazebo" value="true"/>
+        <arg name="load_robot_description" value="false"/>
+        <arg name="startup_delay" value="$(arg hw_startup_delay)"/>
+    </include>
+
+    <node if="$(arg air_hold)" name="hold_base_in_air" pkg="tron2_gazebo" type="hold_base_in_air.py" output="screen">
+        <param name="hold_z" value="$(arg spawn_z)"/>
+        <param name="hold_duration" value="$(arg air_hold_duration)"/>
+        <param name="model_name" value="tron2_robot"/>
+    </node>
+
+    <node if="$(arg use_joystick)" name="joystick_teleop" pkg="tron2_gazebo" type="joystick_teleop.py" output="screen">
+        <param name="max_vx" value="1.0"/>
+        <param name="max_vy" value="0.5"/>
+        <param name="max_yaw" value="1.0"/>
+        <param name="deadzone" value="0.1"/>
+    </node>
+</launch>

@@ -1,0 +1,42 @@
+<launch>
+  <arg name="task_profile" default="Isaac-Limx-WFYG-TRON2A-Blind-Flat-v0"/>
+  <arg name="model_bundle"/>
+  <arg name="asset_root" default="$(find robot_description)"/>
+  <arg name="robot_ip" default="127.0.0.1"/>
+  <arg name="controller_dt" default="0.002"/>
+  <arg name="auto_start_controller" default="true"/>
+
+  <env name="ROBOT_TYPE" value="WFYG_TRON2A"/>
+
+  <!-- command= runs synchronously while roslaunch builds the parameter tree. -->
+  <param name="bundleValidation"
+         command="$(find tron2_controllers)/scripts/validate_wfyg_bundle.py --bundle $(arg model_bundle) --task $(arg task_profile) --robot-ip $(arg robot_ip) --asset-root $(arg asset_root)"/>
+  <rosparam file="$(find tron2_controllers)/config/WFYG_TRON2A/params.yaml" command="load"/>
+  <rosparam file="$(find tron2_controllers)/config/WFYG_TRON2A/task_profiles.yaml" command="load"/>
+  <rosparam file="$(arg model_bundle)/manifest.yaml" command="load" ns="model_bundle"/>
+  <rosparam file="$(find tron2_hw)/config/tron2_hw.yaml" command="load"/>
+  <rosparam file="$(find tron2_hw)/config/joystick.yaml" command="load"/>
+
+  <param name="policyFile" value="$(arg model_bundle)/policy.onnx"/>
+  <param name="encoderFile" value="$(arg model_bundle)/encoder.onnx"/>
+  <param name="taskProfile" value="$(arg task_profile)"/>
+  <param name="robot_description"
+         command="$(find tron2_controllers)/scripts/validate_wfyg_bundle.py --bundle $(arg model_bundle) --task $(arg task_profile) --robot-ip $(arg robot_ip) --asset-root $(arg asset_root) --emit-urdf"/>
+  <param name="robot_hw/auto_start_controller" value="$(arg auto_start_controller)"/>
+  <param name="robot_hw/wait_for_sim_clock" value="false"/>
+
+  <group ns="tron2_hw">
+    <rosparam file="$(find tron2_controllers)/config/WFYG_TRON2A/controllers.yaml" command="load"/>
+    <param name="tron2_controller/imu_name" value="base_imu"/>
+    <param name="tron2_controller/hw_control_dt" value="$(arg controller_dt)"/>
+    <param name="tron2_controller/task_profile" value="$(arg task_profile)"/>
+  </group>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+  <node name="tron2_hw" pkg="tron2_hw" type="tron2_hw_node" output="screen" required="true">
+    <env name="ROBOT_TYPE" value="WFYG_TRON2A"/>
+    <param name="robot_ip" value="$(arg robot_ip)"/>
+  </node>
+  <node name="controller_spawner" ns="tron2_hw" pkg="controller_manager" type="spawner"
+        args="joint_state_controller tron2_controller" output="screen"/>
+</launch>

@@ -1,0 +1,9 @@
+[submodule "limxsdk-lowlevel"]
+	path = tron2_mujoco_sim/limxsdk-lowlevel
+	url = https://github.com/limxdynamics/limxsdk-lowlevel.git
+[submodule "robot-description"]
+	path = tron2_mujoco_sim/robot-description
+	url = https://github.com/limx-tron2/robot-description.git
+[submodule "robot-joystick"]
+	path = tron2_mujoco_sim/robot-joystick
+	url = https://github.com/limxdynamics/robot-joystick.git

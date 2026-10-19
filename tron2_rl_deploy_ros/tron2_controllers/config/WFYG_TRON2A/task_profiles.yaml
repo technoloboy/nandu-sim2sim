@@ -1,0 +1,72 @@
+{
+  "WFYGTaskRegistry": {
+    "profiles": [
+      {
+        "task_id": "Isaac-Limx-WFYG-TRON2A-Blind-Flat-v0",
+        "play_alias": "Isaac-Limx-WFYG-TRON2A-Blind-Flat-Play-v0",
+        "runtime_profile": "locomotion",
+        "observation_size": 34,
+        "command_size": 3,
+        "action_size": 10,
+        "encoder_input_size": 340,
+        "policy_input_size": 40,
+        "action_decoder": "blind_default_offset"
+      },
+      {
+        "task_id": "Isaac-Limx-WFYG-TRON2A-WholeBody-Flat-v0",
+        "play_alias": "Isaac-Limx-WFYG-TRON2A-WholeBody-Flat-Play-v0",
+        "runtime_profile": "wholebody_pose",
+        "observation_size": 67,
+        "command_size": 12,
+        "action_size": 16,
+        "encoder_input_size": 670,
+        "policy_input_size": 82,
+        "action_decoder": "wholebody_v0"
+      },
+      {
+        "task_id": "Isaac-Limx-WFYG-TRON2A-WholeBody-Flat-v1",
+        "play_alias": "Isaac-Limx-WFYG-TRON2A-WholeBody-Flat-Play-v1",
+        "runtime_profile": "wholebody_motion",
+        "observation_size": 52,
+        "command_size": 9,
+        "action_size": 16,
+        "encoder_input_size": 520,
+        "policy_input_size": 64,
+        "action_decoder": "wholebody_v1"
+      },
+      {
+        "task_id": "Isaac-Limx-WFYG-TRON2A-WholeBody-Flat-Heading-v1",
+        "play_alias": "Isaac-Limx-WFYG-TRON2A-WholeBody-Flat-Heading-Play-v1",
+        "runtime_profile": "wholebody_motion",
+        "observation_size": 52,
+        "command_size": 9,
+        "action_size": 16,
+        "encoder_input_size": 520,
+        "policy_input_size": 64,
+        "action_decoder": "wholebody_v1"
+      },
+      {
+        "task_id": "Isaac-Limx-WFYG-TRON2A-WholeBody-Height-Subject-Heading-v1",
+        "play_alias": "Isaac-Limx-WFYG-TRON2A-WholeBody-Height-Subject-Heading-Play-v1",
+        "runtime_profile": "height_motion",
+        "observation_size": 52,
+        "command_size": 9,
+        "action_size": 16,
+        "encoder_input_size": 520,
+        "policy_input_size": 64,
+        "action_decoder": "height_v1_v2"
+      },
+      {
+        "task_id": "Isaac-Limx-WFYG-TRON2A-WholeBody-Height-Subject-Heading-v2",
+        "play_alias": "Isaac-Limx-WFYG-TRON2A-WholeBody-Height-Subject-Heading-Play-v2",
+        "runtime_profile": "height_motion",
+        "observation_size": 52,
+        "command_size": 9,
+        "action_size": 16,
+        "encoder_input_size": 520,
+        "policy_input_size": 64,
+        "action_decoder": "height_v1_v2"
+      }
+    ]
+  }
+}

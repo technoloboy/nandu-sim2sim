@@ -1,0 +1,107 @@
+Tron2Cfg:
+  robot_variant: WFYG_TRON2A
+  init_state:
+    joint_names: &wfyg_joints
+      - proximal_pitch_L_Joint
+      - proximal_roll_L_Joint
+      - proximal_yaw_L_Joint
+      - knee_L_Joint
+      - wheel_L_Joint
+      - proximal_pitch_R_Joint
+      - proximal_roll_R_Joint
+      - proximal_yaw_R_Joint
+      - knee_R_Joint
+      - wheel_R_Joint
+      - arm1_Joint
+      - arm2_Joint
+      - arm3_Joint
+      - arm4_Joint
+      - arm5_Joint
+      - arm6_Joint
+      - gripper1_Joint
+      - gripper2_Joint
+    sensor_joint_names: *wfyg_joints
+    default_joint_angle:
+      proximal_pitch_L_Joint: 0.0
+      proximal_roll_L_Joint: 0.0
+      proximal_yaw_L_Joint: 0.0
+      knee_L_Joint: 0.0
+      wheel_L_Joint: 0.0
+      proximal_pitch_R_Joint: 0.0
+      proximal_roll_R_Joint: 0.0
+      proximal_yaw_R_Joint: 0.0
+      knee_R_Joint: 0.0
+      wheel_R_Joint: 0.0
+      arm1_Joint: 0.0
+      arm2_Joint: 1.5707963
+      arm3_Joint: -1.4835299
+      arm4_Joint: 0.0
+      arm5_Joint: 0.0
+      arm6_Joint: 0.0
+      gripper1_Joint: 0.05
+      gripper2_Joint: -0.05
+  control:
+    joint_control_modes:
+      - position
+      - position
+      - position
+      - position
+      - velocity
+      - position
+      - position
+      - position
+      - position
+      - velocity
+      - position
+      - position
+      - position
+      - position
+      - position
+      - position
+      - position
+      - position
+    leg_joint_stiffness: 159.67
+    leg_joint_damping: 10.16
+    light_joint_stiffness: 53.22
+    light_joint_damping: 3.39
+    wheel_joint_damping: 0.6
+    arm_joint_stiffness: 80.0
+    arm_joint_damping: 4.0
+    gripper_joint_stiffness: 800.0
+    gripper_joint_damping: 40.0
+    action_scale_pos: 0.25
+    action_scale_vel: 1.0
+    decimation: 10
+    leg_joint_torque_limit: 140.0
+    light_joint_torque_limit: 40.0
+    wheel_joint_torque_limit: 20.0
+    arm_joint_torque_limit: 100.0
+    gripper_joint_torque_limit: 20.0
+  normalization:
+    clip_scales:
+      clip_observations: 100.0
+      clip_actions: 100.0
+  size:
+    actions_size: 16
+    policy_obs_size: 52
+    commands_obs_size: 9
+    encoder_input_size: 520
+    encoder_output_size: 3
+    policy_input_size: 64
+    obs_history_length: 10
+  commands:
+    max:
+      lin_vel_x: 0.7
+      lin_vel_y: 0.0
+      ang_vel_yaw: 1.0
+  gait:
+    enabled: false
+    frequency: 0.0
+    offset: 0.0
+    duration: 0.0
+    swing_height: 0.0
+  stand_mode:
+    stand_duration: 1.0
+  safety:
+    command_timeout: 0.5
+    fault_on_command_timeout: true

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+  SPDX-FileCopyrightText: 2024-2026 LimX Dynamics Technology Co., Ltd.
+  SPDX-License-Identifier: Apache-2.0
+-->
+<package format="2">
+    <name>tron2_controllers</name>
+    <version>0.1.0</version>
+    <description>RL controllers for TRON2 biped robot (SF/WF) in Gazebo simulation.</description>
+
+    <maintainer email="contact@limxdynamics.com">LimX Dynamics</maintainer>
+    <author email="contact@limxdynamics.com">LimX Dynamics</author>
+
+    <license>Apache-2.0</license>
+
+    <url type="website">https://www.limxdynamics.com</url>
+    <url type="repository">https://github.com/limx-tron2/tron2-rl-deploy-ros</url>
+    <url type="bugtracker">https://github.com/limx-tron2/tron2-rl-deploy-ros/issues</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    <depend>roscpp</depend>
+    <exec_depend>rospy</exec_depend>
+    <depend>robot_common</depend>
+    <depend>robot_description</depend>
+    <depend>controller_interface</depend>
+    <depend>hardware_interface</depend>
+    <depend>std_msgs</depend>
+    <depend>geometry_msgs</depend>
+    <depend>diagnostic_msgs</depend>
+    <depend>kdl_parser</depend>
+    <depend>orocos_kdl</depend>
+    <depend>urdf</depend>
+    <depend>onnxruntime_sdk</depend>
+    <depend>openssl</depend>
+    <build_depend>message_generation</build_depend>
+    <exec_depend>message_runtime</exec_depend>
+    <build_depend>eigen</build_depend>
+    <export>
+        <controller_interface plugin="${prefix}/tron2_controllers_plugins.xml"/>
+    </export>
+  <depend>sensor_msgs</depend>
+  <exec_depend>python3-numpy</exec_depend>
+</package>

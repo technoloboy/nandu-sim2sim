@@ -1,0 +1,9 @@
+# Host Python runtime; tested with Python 3.10. ROS runs in the Noetic image.
+numpy==1.26.3
+mujoco==3.15.0
+scipy==1.15.3
+PyYAML==6.0.3
+onnxruntime==1.23.2
+pygame==2.1.0
+# Install the amd64 LimX wheel from the pinned SDK submodule separately.
+# tkinter is an OS/Conda package, not a pip dependency.

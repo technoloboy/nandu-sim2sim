@@ -1,0 +1,26 @@
+robot_hw:
+  loop_frequency: 500.0
+  cycle_time_error_threshold: 0.002
+  auto_start_controller: true
+
+  controller_name: "tron2_controller"
+  controller_manager_ns: "/tron2_hw/controller_manager"
+
+  require_calibration_state: true
+  stop_on_diagnostic_error: true
+
+  imu:
+    name: "base_imu"
+    frame_id: "base_imu"
+
+  use_sdk_joystick_input: true
+  debug_joystick_input: true
+
+  command_limits:
+    default_kp: 0.0
+    default_kd: 1.0
+    # You can provide one value for all joints or full vectors with the same
+    # length as Tron2Cfg.init_state.joint_names.
+    max_pos_step: [0.35]
+    max_vel_abs: [12.0]
+    max_tau_abs: [120.0]

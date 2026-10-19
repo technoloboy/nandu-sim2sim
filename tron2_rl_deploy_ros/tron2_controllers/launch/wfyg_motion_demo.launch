@@ -1,0 +1,10 @@
+<launch>
+  <arg name="mode" default="home"/>
+  <arg name="speed" default="0.10"/>
+  <arg name="amplitude" default="0.08"/>
+  <node name="wfyg_motion_demo" pkg="tron2_controllers" type="wfyg_motion_demo.py" output="screen">
+    <param name="mode" value="$(arg mode)"/>
+    <param name="speed" value="$(arg speed)"/>
+    <param name="amplitude" value="$(arg amplitude)"/>
+  </node>
+</launch>

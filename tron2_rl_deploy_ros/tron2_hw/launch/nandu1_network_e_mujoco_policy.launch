@@ -1,0 +1,43 @@
+<launch>
+  <arg name="model_bundle"/>
+  <arg name="task" default="Isaac-NANDU1-Blind-Flat-v1-3-1-2"/>
+  <arg name="robot_ip" default="127.0.0.1"/>
+  <arg name="auto_policy" default="true"/>
+  <arg name="telemetry_output" default=""/>
+  <arg name="command_source" default="external"/>
+  <arg name="mouse_socket" default=""/>
+  <arg name="mouse_session" default=""/>
+  <param name="bundleValidation" command="&quot;$(find tron2_controllers)/scripts/validate_nandu1_bundle.py&quot; --bundle &quot;$(arg model_bundle)&quot; --task &quot;$(arg task)&quot; --robot-ip &quot;$(arg robot_ip)&quot;"/>
+  <param name="model_bundle" type="yaml" command="&quot;$(find tron2_controllers)/scripts/validate_nandu1_bundle.py&quot; --bundle &quot;$(arg model_bundle)&quot; --task &quot;$(arg task)&quot; --emit-ros-params"/>
+  <rosparam command="load" file="$(find tron2_controllers)/config/NANDU1/params.yaml"/>
+  <param name="robot_description" command="&quot;$(find tron2_controllers)/scripts/validate_nandu1_bundle.py&quot; --bundle &quot;$(arg model_bundle)&quot; --task &quot;$(arg task)&quot; --emit-urdf"/>
+  <node name="nandu1_aux_receiver" pkg="tron2_controllers" type="nandu1_aux_receiver.py" output="screen" required="true">
+    <param name="port" value="15012"/>
+    <param name="raw_packet_topic" value="/nandu1/network_e/raw_sensors"/>
+  </node>
+  <node name="nandu1_network_e_telemetry" pkg="tron2_controllers" type="nandu1_adaptive_telemetry.py" output="screen" required="true">
+    <param name="bundle" value="$(arg model_bundle)"/>
+    <param name="output" value="$(arg telemetry_output)"/>
+    <param name="layout" value="network_e_tcp"/>
+    <param name="tracking_topic" value="/nandu1/tracking"/>
+    <param name="raw_topic" value="/nandu1/network_e/raw_sensors"/>
+  </node>
+  <group ns="tron2_hw">
+    <param name="tron2_controller/type" value="tron2_controller/NANDU1Controller"/>
+    <param name="tron2_controller/model_bundle" value="$(arg model_bundle)"/>
+    <param name="tron2_controller/robot_ip" value="$(arg robot_ip)"/>
+    <param name="tron2_controller/task" value="$(arg task)"/>
+    <param name="tron2_controller/auto_policy" value="$(arg auto_policy)"/>
+    <param name="joint_state_controller/type" value="joint_state_controller/JointStateController"/>
+    <param name="joint_state_controller/publish_rate" value="50"/>
+  </group>
+  <node name="tron2_hw" pkg="tron2_hw" type="tron2_hw_node" output="screen" required="true">
+    <param name="robot_ip" value="$(arg robot_ip)"/>
+  </node>
+  <node name="controller_spawner" ns="tron2_hw" pkg="controller_manager" type="spawner" args="joint_state_controller tron2_controller" output="screen"/>
+  <node if="$(eval arg('command_source') == 'mouse')" name="nandu1_mouse_bridge" pkg="tron2_controllers" type="nandu1_mouse_bridge.py" output="screen" required="true">
+    <param name="task" value="$(arg task)"/>
+    <param name="socket" value="$(arg mouse_socket)"/>
+    <param name="session" value="$(arg mouse_session)"/>
+  </node>
+</launch>

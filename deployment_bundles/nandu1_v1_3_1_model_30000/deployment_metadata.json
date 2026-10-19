@@ -1,0 +1,167 @@
+{
+  "checkpoint_schema": "nandu1_height_v1_3_1_tcp_payload_v1",
+  "command_name": "nandu1_height_v1_3_1",
+  "experiment_name": "nandu1_blind_flat_v1_3_1_tcp_payload",
+  "interface": {
+    "policy": 49,
+    "history": 245,
+    "history_frames": 5,
+    "encoder": 7,
+    "commands": 3,
+    "actor": 59,
+    "critic": 108,
+    "critic_with_commands": 111,
+    "actions": 13
+  },
+  "command_units": [
+    "rad/s",
+    "m/s",
+    "m"
+  ],
+  "command_frames": [
+    "world_z_angular_velocity",
+    "base_body_x",
+    "world_z_absolute"
+  ],
+  "quaternion_order": "wxyz",
+  "tcp_body": "up3",
+  "tcp_frame": "up3_link",
+  "tcp_local_m": [
+    -0.066473051764,
+    0.161623719479,
+    -0.000621484902
+  ],
+  "tcp_independent_of_com": true,
+  "height_range_m": [
+    0.4,
+    1.4
+  ],
+  "yaw": {
+    "source": "body_imu_relative_heading",
+    "heading_kp": 1.5,
+    "deadzone": 1e-05,
+    "stage_limits_rad_s": [
+      0.2,
+      0.5,
+      0.85,
+      1.2,
+      1.57
+    ],
+    "release_latch": true,
+    "tilt_correction": true,
+    "saturation_back_calculation": true
+  },
+  "payload": {
+    "inertia_coordinates": "link_axes_about_com",
+    "shapes_are_inertia_proxies_only": true,
+    "nominal_properties_source": "immutable_runtime_mass_com_full_inertia",
+    "up3_nominal_mass_kg": 0.67148,
+    "up3_total_mass_kg": [
+      0.6,
+      6.0
+    ],
+    "up3_box_dimensions_m": [
+      0.05,
+      0.06,
+      0.05
+    ],
+    "up3_box_center": "fixed_tcp",
+    "rear_extra_mass_kg": [
+      0.0,
+      5.0
+    ],
+    "rear_x_m": [
+      -0.35,
+      -0.2
+    ],
+    "rear_y_m": 0.0,
+    "rear_z_m": 0.07,
+    "rear_cylinder_axis": "link_y",
+    "rear_radius_m": 0.025,
+    "rear_length_m": 0.1,
+    "stage_amplitudes": [
+      0.1,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "mixture_order": [
+      "nominal",
+      "up3_only",
+      "rear_only",
+      "both"
+    ],
+    "mixture_probabilities": [
+      0.2,
+      0.2,
+      0.2,
+      0.4
+    ],
+    "base_urdf_inertia_rotation": [
+      [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "parameters_constant_within_episode": true
+  },
+  "resume": {
+    "old_schema_compatible": false,
+    "reset_episodic_heading": true,
+    "reset_episodic_payload": true,
+    "preserve_course_and_optimizer": true
+  },
+  "task": "Isaac-NANDU1-Blind-Flat-v1-3-1",
+  "curriculum_stage": 4,
+  "fixed_payload": {
+    "up3_total_mass": 0.67148,
+    "rear_mass": 0.0,
+    "rear_x": -0.275
+  },
+  "command_processor": "command_processor.py:HeadingController",
+  "deployment_processor": {
+    "implementation": "nandu1_v131.CommandProcessor",
+    "heading_kp": 1.5,
+    "yaw_deadzone": 1e-05,
+    "stage_yaw_limits": [
+      0.2,
+      0.5,
+      0.85,
+      1.2,
+      1.57
+    ],
+    "release_latch": true,
+    "tilt_correction": true,
+    "saturation_back_calculation": true,
+    "vx_frame": "base_body",
+    "height_frame": "world_z_absolute",
+    "command_dimension": 3
+  },
+  "processor_timing": "step once per control frame using body IMUs; reset on new episode",
+  "actor_pipeline_inputs": {
+    "history": 245,
+    "observation": 49,
+    "commands": 3
+  },
+  "encoder_output_frame": "base_body",
+  "actor_velocity_frame": "body",
+  "mujoco_runtime_supported": true,
+  "ros_runtime_supported": true,
+  "onnx_max_abs_error": {
+    "encoder": 5.960464477539062e-07,
+    "policy": 2.86102294921875e-06,
+    "actor_pipeline": 6.67572021484375e-06
+  }
+}

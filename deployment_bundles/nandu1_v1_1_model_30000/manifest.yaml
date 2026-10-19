@@ -1,0 +1,398 @@
+{
+  "schema": "limx.nandu1-deployment-bundle/v1",
+  "task": {
+    "task_id": "Isaac-NANDU1-Blind-Flat-v1-1",
+    "play_alias": "Isaac-NANDU1-Blind-Flat-Play-v1-1",
+    "robot_variant": "NANDU1",
+    "checkpoint_schema": "nandu1_height_v1_1_robust_v2",
+    "hardware_joint_names": [
+      "proximal_pitch_L_Joint",
+      "proximal_roll_L_Joint",
+      "proximal_yaw_L_Joint",
+      "knee_L_Joint",
+      "wheel_L_Joint",
+      "proximal_pitch_R_Joint",
+      "proximal_roll_R_Joint",
+      "proximal_yaw_R_Joint",
+      "knee_R_Joint",
+      "wheel_R_Joint",
+      "arm1",
+      "arm2",
+      "arm3"
+    ],
+    "action_joint_names": [
+      "proximal_pitch_L_Joint",
+      "proximal_roll_L_Joint",
+      "proximal_yaw_L_Joint",
+      "knee_L_Joint",
+      "proximal_pitch_R_Joint",
+      "proximal_roll_R_Joint",
+      "proximal_yaw_R_Joint",
+      "knee_R_Joint",
+      "arm1",
+      "arm2",
+      "arm3",
+      "wheel_L_Joint",
+      "wheel_R_Joint"
+    ],
+    "default_joint_positions": [
+      -0.475,
+      0.0,
+      0.0,
+      0.95,
+      0.0,
+      0.475,
+      0.0,
+      0.0,
+      0.95,
+      0.0,
+      -0.15,
+      -1.78,
+      1.93
+    ],
+    "root_position": [
+      0,
+      0,
+      0.65337
+    ],
+    "history_order": "oldest_to_newest",
+    "history_length": 5,
+    "history_first_frame": "repeat",
+    "policy_dt": 0.02,
+    "runtime_profile": "nandu1_height_v1_1",
+    "initial_up3_height": 0.8856453118528085,
+    "evaluation_stage": 3,
+    "encoder_architecture": "single",
+    "velocity_reference": "body_com",
+    "actor_velocity_frame": "body",
+    "observation_order": [
+      "base_gyro*.25",
+      "base_gravity",
+      "up3_gyro*.25",
+      "up3_gravity",
+      "position_relative_11",
+      "velocity_13*.05",
+      "last_action_13"
+    ],
+    "encoder_order": [
+      "base_velocity_base_body_3",
+      "up3_velocity_base_body_3",
+      "up3_height_world"
+    ],
+    "command_order": [
+      "base_yaw_rate_world_z",
+      "up3_vx_base_body",
+      "up3_height_world"
+    ],
+    "command_min": [
+      -1.2,
+      -0.7,
+      0.48
+    ],
+    "command_max": [
+      1.2,
+      0.7,
+      1.32
+    ],
+    "command_rate": [
+      2,
+      0.8,
+      0.35
+    ],
+    "command_filter_scope": "combined_UI_motion_acceleration_and_task_height_slew",
+    "position_scale": 0.25,
+    "wheel_scale": 1,
+    "action_clipping": null,
+    "kp": [
+      159.67,
+      159.67,
+      53.22,
+      159.67,
+      0.0,
+      159.67,
+      159.67,
+      53.22,
+      159.67,
+      0.0,
+      480.0,
+      240.0,
+      160.0
+    ],
+    "kd": [
+      10.16,
+      10.16,
+      3.39,
+      10.16,
+      0.6,
+      10.16,
+      10.16,
+      3.39,
+      10.16,
+      0.6,
+      50.0,
+      25.0,
+      17.0
+    ],
+    "effort": [
+      140,
+      140,
+      40,
+      140,
+      20,
+      140,
+      140,
+      40,
+      140,
+      20,
+      181,
+      136,
+      136
+    ],
+    "velocity_limits": [
+      12.57,
+      12.57,
+      14.66,
+      12.57,
+      40.0,
+      12.57,
+      12.57,
+      14.66,
+      12.57,
+      40.0,
+      4.14,
+      4.14,
+      4.14
+    ],
+    "armature": [
+      0.161777558,
+      0.161777558,
+      0.053923687,
+      0.161777558,
+      0.0,
+      0.161777558,
+      0.161777558,
+      0.053923687,
+      0.161777558,
+      0.0,
+      0.7,
+      0.45,
+      0.45
+    ],
+    "joint_position_lower": [
+      -2.60054058547155,
+      -0.261799387799149,
+      -3.66519116287198,
+      -0.261799387799149,
+      -1745329.11236799,
+      -3.14159265358979,
+      -3.19395226483351,
+      -3.66519116287198,
+      -0.261799387799149,
+      -1745329.11236799,
+      -2.44346068647595,
+      -2.26892802759263,
+      -1.5707963267949
+    ],
+    "joint_position_upper": [
+      3.14159265358979,
+      3.19395226483351,
+      1.48352973103713,
+      2.61799361167539,
+      1745329.11236799,
+      2.60054058547155,
+      0.261799387799149,
+      1.48352973103713,
+      2.61799361167539,
+      1745329.11236799,
+      2.35619449019234,
+      2.26892802759263,
+      3.14159265358979
+    ]
+  },
+  "dimensions": {
+    "observation": 49,
+    "history": 245,
+    "encoder": 7,
+    "command": 3,
+    "policy_input": 59,
+    "action": 13
+  },
+  "checkpoint": {
+    "path": "/home/wkl/Desktop/limx-tron2/tron2_rl_lab/logs/rsl_rl/nandu1_blind_flat_v1_1_coordination/2026-09-25_00-15-53_robust_transfer_v1_1/model_30000.pt",
+    "sha256": "c74ef3f0ca0809e752659b0dae0326addc345ed4c52e07d98cd2a796f2210524",
+    "iteration": 30000
+  },
+  "source": {
+    "git_commit": "4b44cd108247d7c975cb790df1e82bbb46fec7d1",
+    "exporter_sha256": "611b554433a99e3a0f6315edfbfee82a43bdb0c96e360eae61a4d0e436b40c4d",
+    "deployment_sources": {
+      "nandu1_contract.py": "102ec913a3f9c8224d716c12395163708e24f81e66ee9dcc45c8a6db3a7a9a3a",
+      "nandu1_asset.py": "7d137c355879a4beb4958002d0232a5dd77d4defd784ab5760a4e084132f0828",
+      "nandu1_bundle.py": "8f5d0264052b3212674a73114b807361f170e09be89b561d044cb72d54e89ef2"
+    },
+    "urdf_sha256": "20a10608069859784bfcfd9d728202594b43c8fd55bde20a6d2eb6b0ccc4bba0",
+    "usd_files": {
+      "usd/configuration/robot_base.usd": "05d36878979baadac392cf8c44edc8082ceb24af1fce3f9304c7aa401fddfd9f",
+      "usd/configuration/robot_physics.usd": "e94411edeac4eb5e6b9390ff418e740fb2188fa7e0a2c41de5c4ad6dfdd9b09a",
+      "usd/configuration/robot_robot.usd": "1fa9376f1d51e790e9cc478fbf3d69ed17d3bcd315d3af906a2ba2b0a99fd52e",
+      "usd/configuration/robot_sensor.usd": "e79032f5a2965d2dc4c07aab6fe3bd128187d06e1cdf4bb87db40b72c8375b51",
+      "usd/robot.usd": "08f4af679a6a64b8993bfe424973827fe4a9c3de088793b09dc9fe8209bb6a1f"
+    }
+  },
+  "physics": {
+    "timestep": 0.001,
+    "internal_collisions": false,
+    "joint_velocity_constraint": "post_step_qvel_projection_if_exceeded",
+    "equivalence_note": "MuJoCo has no native PhysX maxJointVelocity; projection is an approximation, not a PhysX-equivalent constraint."
+  },
+  "asset_audit": {
+    "max_position_error_m": 6.56823553360943e-06,
+    "max_rotation_error_deg": 0.0016820699243384402,
+    "max_mass_error_kg": 0.0,
+    "max_full_inertia_error": 1.5265566588595902e-16,
+    "max_center_of_mass_error_m": 4.718447854656915e-16,
+    "actuators": 13,
+    "urdf_vs_usd_limit_differences": [
+      {
+        "joint": "proximal_roll_L_Joint",
+        "urdf_rad": [
+          -0.261799387799149,
+          3.19395248
+        ],
+        "usd_rad": [
+          -0.2617993877991494,
+          3.193952264833514
+        ]
+      },
+      {
+        "joint": "proximal_yaw_L_Joint",
+        "urdf_rad": [
+          -3.66519142918809,
+          1.48352986419518
+        ],
+        "usd_rad": [
+          -3.665191162871983,
+          1.4835297310371256
+        ]
+      },
+      {
+        "joint": "knee_L_Joint",
+        "urdf_rad": [
+          -0.261799387799149,
+          2.61799387799149
+        ],
+        "usd_rad": [
+          -0.2617993877991494,
+          2.6179936116753852
+        ]
+      },
+      {
+        "joint": "wheel_L_Joint",
+        "urdf_rad": [
+          -1745329.25199433,
+          1745329.25199433
+        ],
+        "usd_rad": [
+          -1745329.1123679895,
+          1745329.1123679895
+        ]
+      },
+      {
+        "joint": "proximal_roll_R_Joint",
+        "urdf_rad": [
+          -3.19395248,
+          0.261799387799149
+        ],
+        "usd_rad": [
+          -3.193952264833514,
+          0.2617993877991494
+        ]
+      },
+      {
+        "joint": "proximal_yaw_R_Joint",
+        "urdf_rad": [
+          -3.66519142918809,
+          1.48352986419518
+        ],
+        "usd_rad": [
+          -3.665191162871983,
+          1.4835297310371256
+        ]
+      },
+      {
+        "joint": "knee_R_Joint",
+        "urdf_rad": [
+          -0.261799387799149,
+          2.61799387799149
+        ],
+        "usd_rad": [
+          -0.2617993877991494,
+          2.6179936116753852
+        ]
+      },
+      {
+        "joint": "wheel_R_Joint",
+        "urdf_rad": [
+          -1745329.25199433,
+          1745329.25199433
+        ],
+        "usd_rad": [
+          -1745329.1123679895,
+          1745329.1123679895
+        ]
+      },
+      {
+        "joint": "arm1",
+        "urdf_rad": [
+          -2.443460952792061,
+          2.356194490192345
+        ],
+        "usd_rad": [
+          -2.4434606864759525,
+          2.356194490192345
+        ]
+      }
+    ],
+    "collision_note": "MuJoCo mesh convex hull versus PhysX convex decomposition; contact behavior requires sim2sim validation."
+  },
+  "onnx_max_abs_error": {
+    "encoder": 7.748603820800781e-07,
+    "policy": 4.76837158203125e-06
+  },
+  "files": {
+    "assets/meshes/base_Link.STL": "1f751da150026bbea96b3c6ccda109465dd4e12618371f6b11e04e1f1343ba28",
+    "assets/meshes/base_Link.obj": "b0a83352ed93477dfe5d1b5a54a75eff1e76f340c275fdd0a7cd0fc8d8ce8994",
+    "assets/meshes/knee_L_Link.STL": "08aa4c07bfa25345241fa945d97af2613a752e56181e1bc973ce73a290fa7090",
+    "assets/meshes/knee_L_Link.obj": "f5e0bf826db794a226a05a5db13754b5e57e207f7882889ded4e09395c5a030d",
+    "assets/meshes/knee_R_Link.STL": "86366623c835bdf7b5b8ba382585db6953642f25140acfc8be03d39a0741f76f",
+    "assets/meshes/knee_R_Link.obj": "226e4a7cc007eaaf95c15b4bf3c558fcc8567363783b59cc0f7828d4f27523a6",
+    "assets/meshes/proximal_pitch_L_Link.STL": "83d9a43f22382bc017123da2f2bdd6604ade550267cef8088699bcccfc80ce02",
+    "assets/meshes/proximal_pitch_L_Link.obj": "c2cbe3f3856e73ef11dad86507f2469806b7922c9a2c2555790eac535513830b",
+    "assets/meshes/proximal_pitch_R_Link.STL": "c99fe095916d81fabfd4b89f33e93e5ea40ad493478ddbb2ca38135f91162d82",
+    "assets/meshes/proximal_pitch_R_Link.obj": "ea5fc68b496cc66e261823f93e50434eb27a49995b224782676b6b5748b19d92",
+    "assets/meshes/proximal_roll_L_Link.STL": "efc36f1b5c4e64004ed3cad53e11ec55e7c1c030c47c89cb8dd533b1a0c1b5ca",
+    "assets/meshes/proximal_roll_L_Link.obj": "eb3383a10a55e042d4c2807dcd6b3555a6eb8bd64b2613b407c28843b3ba1b25",
+    "assets/meshes/proximal_roll_R_Link.STL": "6359a53154de988259096e4b5678ffb21b39180d8efa369feda4f12663b5bf0e",
+    "assets/meshes/proximal_roll_R_Link.obj": "ed54d205124fab67cf66e057637a291ec607c72aa0e19ad69bc519c62ced8fa0",
+    "assets/meshes/proximal_yaw_L_Link.STL": "72337a3c01f4a457224b55b8d4bcc46caf075788464c7fb9fdef38c64f1d7769",
+    "assets/meshes/proximal_yaw_L_Link.obj": "5485e08f54ebbcf3534e84514703797808224871a24134166759a159926b4038",
+    "assets/meshes/proximal_yaw_R_Link.STL": "4b84b14686581b52bf3c73b11c2f6e17593aa76593c13d3fac7027fb806296ab",
+    "assets/meshes/proximal_yaw_R_Link.obj": "4fe2acd3ec38f7e4db135c20f4a9826a974672afe7ae64c9db845d820b70435e",
+    "assets/meshes/up1.STL": "9ecfe256bad21da298144a1b619121afd64af995c169a711757808be5059c764",
+    "assets/meshes/up1.obj": "d0fc94055afc6a1caa1cbb930ce33e1eeef1b36a9b39ab7c65c0b11ff136d0b4",
+    "assets/meshes/up2.STL": "3654c2b49e6d062534770d6f1c19416397c4af6cdec4c3c9fb78ea328225f371",
+    "assets/meshes/up2.obj": "153c5714d2692bf341a54a87a2badb03135d00bdfe87eb549891f803553ff3e9",
+    "assets/meshes/up3.STL": "dcca1e453a6864a608d649ec0df5c80fe69b53462391745c4ba6029c52c9dd83",
+    "assets/meshes/up3.obj": "96f37434afbb5369937821a3ff2d571c382879bc1ee51d3077ace37e4203af7a",
+    "assets/meshes/wheel_L_Link.STL": "83e1ffa02be381fd67c953ee189c342dc61788be6ce80f1076e1e9e5d42e0ec8",
+    "assets/meshes/wheel_L_Link.obj": "dcbf139d2c5df1244e550426b56ee6e7b5536c5634606b3683a59fd00ac2c6cc",
+    "assets/meshes/wheel_R_Link.STL": "dcf6622aefaa6c09a13a30cdc647fbe916073f651ccbd40141ad9f94f90f3953",
+    "assets/meshes/wheel_R_Link.obj": "407ef65f5191369ed1b788b7fd91e024fb5515822fea2c367d44994adb42986a",
+    "assets/robot.urdf": "08aec4f4b5a9ec90af946ea858607da4a47c2f0cb245a8005aa33b65a5534e6f",
+    "assets/robot.xml": "b0add862ee79e9a834cbe354689f9c074ef91378440eaf22fa1bed097c360a1a",
+    "conformance.npz": "f0c905b2a12ad88bab7fe17c820ee35de444eb8e0a6421b2e768a412c684df7e",
+    "conformance.txt": "7bc640284446e6d13832369a0bab93877f6af6a4371125b46d966d4e477056f8",
+    "encoder.onnx": "dfe836f72222a78bf400d2fc2bbed8f80eb0c546a2e086c35fad103ba6ab5b2f",
+    "policy.onnx": "68d69e475e3ae1787994b497874266908a396a7b02dffa75c038e53087747dd4"
+  }
+}

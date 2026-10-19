@@ -1,0 +1,9 @@
+<launch>
+    <arg name="robot_type" default="$(env ROBOT_TYPE)"/>
+
+    <include file="$(find tron2_hw)/launch/tron2_hw.launch">
+        <arg name="robot_type" value="$(arg robot_type)"/>
+        <arg name="robot_ip" value="127.0.0.1"/>
+        <arg name="use_gazebo" value="true"/>
+    </include>
+</launch>

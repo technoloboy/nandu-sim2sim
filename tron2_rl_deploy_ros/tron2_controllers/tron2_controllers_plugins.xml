@@ -1,0 +1,33 @@
+<library path="lib/libtron2_controllers">
+    <class name="tron2_controller/SolefootController"
+           type="tron2_controller::SolefootController"
+           base_class_type="controller_interface::ControllerBase">
+        <description>
+            TRON2 SF (Solefoot) RL locomotion controller.
+        </description>
+    </class>
+    <class name="tron2_controller/WheelfootController"
+           type="tron2_controller::WheelfootController"
+           base_class_type="controller_interface::ControllerBase">
+        <description>
+            TRON2 WF (Wheelfoot) RL locomotion controller.
+        </description>
+    </class>
+    <class name="tron2_controller/WFYGController"
+           type="tron2_controller::WFYGController"
+           base_class_type="controller_interface::ControllerBase">
+        <description>
+            WFYG TRON2A 18-joint controller for the six registered sim2sim policy profiles.
+        </description>
+    </class>
+    <class name="tron2_controller/NANDU1Controller"
+           type="tron2_controller::NANDU1Controller"
+           base_class_type="controller_interface::ControllerBase">
+        <description>NANDU1 v1.2 13-joint dual-IMU sim2sim policy.</description>
+    </class>
+    <class name="tron2_controller/NANDU1AdaptiveController"
+           type="tron2_controller::NANDU1AdaptiveController"
+           base_class_type="controller_interface::ControllerBase">
+        <description>NANDU1 adaptive ablation E/r2, explicit GRU and error-memory state; localhost sim2sim.</description>
+    </class>
+</library>

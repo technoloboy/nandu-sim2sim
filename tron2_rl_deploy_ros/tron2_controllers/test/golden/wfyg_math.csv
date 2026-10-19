@@ -1,0 +1,7 @@
+case,v0,v1,v2,v3,v4,v5
+rotation_identity,1,0,0,0,1,0
+rotation_z90,0,1,0,-1,0,0
+orientation_z90,0,0,1.5707963267948966,0,0,0
+soft_limits_asymmetric,-2.8544835,2.3134335,0,0,0,0
+arm_unscale_zero,-0.270525,0,0,0,0,0
+ema,0.2,0,0,0,0,0

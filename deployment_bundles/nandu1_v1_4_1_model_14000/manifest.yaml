@@ -1,0 +1,435 @@
+{
+  "schema": "limx.nandu1-deployment-bundle/v1",
+  "task": {
+    "task_id": "Isaac-NANDU1-Blind-Flat-v1-4-1",
+    "play_alias": "Isaac-NANDU1-Blind-Flat-Play-v1-4-1",
+    "checkpoint_schema": "nandu1_height_v1_4_1_smooth_transition_v1",
+    "robot_variant": "NANDU1",
+    "runtime_profile": "nandu1_height_v1_4_1",
+    "evaluation_stage": 2,
+    "initial_up3_height": 0.8856453118528085,
+    "ros_runtime_supported": true,
+    "velocity_reference": "body_link_origin",
+    "actor_velocity_frame": "heading",
+    "heading_conversion_gravity": "policy_observation[3:6]",
+    "external_command_order": [
+      "relative_heading_rate",
+      "up3_vx_base_heading",
+      "up3_height_world_z"
+    ],
+    "command_order": [
+      "base_yaw_rate_world_z",
+      "up3_vx_base_heading",
+      "up3_height_world_z",
+      "yaw_change_cue",
+      "vx_change_cue",
+      "commanded_height_rate_cue"
+    ],
+    "encoder_order": [
+      "base_link_velocity_base_body_3",
+      "up3_link_velocity_base_body_3",
+      "up3_height_world"
+    ],
+    "command_min": [
+      -0.85,
+      -0.4,
+      0.58
+    ],
+    "command_max": [
+      0.85,
+      0.4,
+      1.22
+    ],
+    "height_rate_limit": 0.2,
+    "command_processor": {
+      "schema": "nandu1_v1_4_1_command_processor_v1",
+      "heading_kp": 1.5,
+      "yaw_deadzone": 1e-05,
+      "dt_min": 1e-06,
+      "dt_max": 0.1,
+      "vx_processing": "immediate_stage_clamp",
+      "height_processing": "external_slew",
+      "heading_observation": "body_gyro_and_projected_gravity",
+      "step_once_per_policy_period": true,
+      "cue_scales": [
+        10.0,
+        5.0
+      ],
+      "cue_tau": 0.08,
+      "cue_formula": "u=tanh((applied-previous)/(dt*scale)); T=(1-alpha)*Tprev+alpha*u; alpha=dt/(tau+dt)",
+      "height_cue_scale": 0.5,
+      "height_cue": "clip(commanded_height_rate/0.50,-1,1)",
+      "finite_height_step_rate": 0.0,
+      "reset": "clear_filter_and_heading_memory_hold_supplied_height",
+      "state_restore": "same_processor_schema_preserves_filter_memory",
+      "setter": "latch_only; resolved_applied_commands_advance_once_per_policy_tick"
+    },
+    "hardware_joint_names": [
+      "proximal_pitch_L_Joint",
+      "proximal_roll_L_Joint",
+      "proximal_yaw_L_Joint",
+      "knee_L_Joint",
+      "wheel_L_Joint",
+      "proximal_pitch_R_Joint",
+      "proximal_roll_R_Joint",
+      "proximal_yaw_R_Joint",
+      "knee_R_Joint",
+      "wheel_R_Joint",
+      "arm1",
+      "arm2",
+      "arm3"
+    ],
+    "action_joint_names": [
+      "proximal_pitch_L_Joint",
+      "proximal_roll_L_Joint",
+      "proximal_yaw_L_Joint",
+      "knee_L_Joint",
+      "proximal_pitch_R_Joint",
+      "proximal_roll_R_Joint",
+      "proximal_yaw_R_Joint",
+      "knee_R_Joint",
+      "arm1",
+      "arm2",
+      "arm3",
+      "wheel_L_Joint",
+      "wheel_R_Joint"
+    ],
+    "default_joint_positions": [
+      -0.475,
+      0.0,
+      0.0,
+      0.95,
+      0.0,
+      0.475,
+      0.0,
+      0.0,
+      0.95,
+      0.0,
+      -0.15,
+      -1.78,
+      1.93
+    ],
+    "root_position": [
+      0,
+      0,
+      0.65337
+    ],
+    "history_order": "oldest_to_newest",
+    "history_length": 5,
+    "history_first_frame": "repeat",
+    "policy_dt": 0.02,
+    "observation_order": [
+      "base_gyro*.25",
+      "base_gravity",
+      "up3_gyro*.25",
+      "up3_gravity",
+      "position_relative_11",
+      "velocity_13*.05",
+      "last_action_13"
+    ],
+    "position_scale": 0.25,
+    "wheel_scale": 1,
+    "action_clipping": null,
+    "joint_position_lower": [
+      -2.60054058547155,
+      -0.261799387799149,
+      -3.66519116287198,
+      -0.261799387799149,
+      -1745329.11236799,
+      -3.14159265358979,
+      -3.19395226483351,
+      -3.66519116287198,
+      -0.261799387799149,
+      -1745329.11236799,
+      -2.44346068647595,
+      -2.26892802759263,
+      -1.5707963267949
+    ],
+    "joint_position_upper": [
+      3.14159265358979,
+      3.19395226483351,
+      1.48352973103713,
+      2.61799361167539,
+      1745329.11236799,
+      2.60054058547155,
+      0.261799387799149,
+      1.48352973103713,
+      2.61799361167539,
+      1745329.11236799,
+      2.35619449019234,
+      2.26892802759263,
+      3.14159265358979
+    ],
+    "kp": [
+      159.67,
+      159.67,
+      53.22,
+      159.67,
+      0.0,
+      159.67,
+      159.67,
+      53.22,
+      159.67,
+      0.0,
+      480.0,
+      240.0,
+      160.0
+    ],
+    "kd": [
+      10.16,
+      10.16,
+      3.39,
+      10.16,
+      0.6,
+      10.16,
+      10.16,
+      3.39,
+      10.16,
+      0.6,
+      50.0,
+      25.0,
+      17.0
+    ],
+    "effort": [
+      140,
+      140,
+      40,
+      140,
+      20,
+      140,
+      140,
+      40,
+      140,
+      20,
+      181,
+      136,
+      136
+    ],
+    "velocity_limits": [
+      12.57,
+      12.57,
+      14.66,
+      12.57,
+      40.0,
+      12.57,
+      12.57,
+      14.66,
+      12.57,
+      40.0,
+      4.14,
+      4.14,
+      4.14
+    ],
+    "armature": [
+      0.161777558,
+      0.161777558,
+      0.053923687,
+      0.161777558,
+      0.0,
+      0.161777558,
+      0.161777558,
+      0.053923687,
+      0.161777558,
+      0.0,
+      0.7,
+      0.45,
+      0.45
+    ]
+  },
+  "dimensions": {
+    "observation": 49,
+    "history": 245,
+    "encoder": 7,
+    "command": 6,
+    "policy_input": 62,
+    "action": 13
+  },
+  "checkpoint": {
+    "path": "/home/wkl/Desktop/limx-tron2/tron2_rl_lab/logs/rsl_rl/autodl/v1-4-1-261011-14000/model_14000.pt",
+    "sha256": "f3c8c076f0c04c99dcc9d3a1dc5b9ff72914351549e101cd7753f1b3acc6e3ce",
+    "iteration": 14001
+  },
+  "source": {
+    "git_commit": "4b44cd108247d7c975cb790df1e82bbb46fec7d1",
+    "exporter_sha256": "c68039bd4d881ff237711c0b5d40323adafb90c8b555a647409ec09ea03be0d9",
+    "training_exporter_sha256": "611b554433a99e3a0f6315edfbfee82a43bdb0c96e360eae61a4d0e436b40c4d",
+    "deployment_sources": {
+      "nandu1_v141.py": "66fc977738ab6639e869ecf447e99507368967fa71c6729ee8166c2239ca4968",
+      "nandu1_v14.py": "eb831c7333a7e3eef89c19fa4885e8d0ed1eb85d1ede1c53ea41f972c6f43e41",
+      "nandu1_contract.py": "102ec913a3f9c8224d716c12395163708e24f81e66ee9dcc45c8a6db3a7a9a3a",
+      "nandu1_bundle.py": "91311cd0f31d3024c9e26fa8035249b6054c57567cc253fc4a2b3ecabb08a7df",
+      "nandu1_asset.py": "7d137c355879a4beb4958002d0232a5dd77d4defd784ab5760a4e084132f0828"
+    },
+    "urdf_sha256": "20a10608069859784bfcfd9d728202594b43c8fd55bde20a6d2eb6b0ccc4bba0"
+  },
+  "physics": {
+    "timestep": 0.001,
+    "internal_collisions": false,
+    "joint_velocity_constraint": "post_step_qvel_projection_if_exceeded",
+    "equivalence_note": "MuJoCo velocity projection approximates PhysX maxJointVelocity"
+  },
+  "asset_audit": {
+    "max_position_error_m": 6.56823553360943e-06,
+    "max_rotation_error_deg": 0.0016820699243384402,
+    "max_mass_error_kg": 0.0,
+    "max_full_inertia_error": 1.5265566588595902e-16,
+    "max_center_of_mass_error_m": 4.718447854656915e-16,
+    "actuators": 13,
+    "urdf_vs_usd_limit_differences": [
+      {
+        "joint": "proximal_roll_L_Joint",
+        "urdf_rad": [
+          -0.261799387799149,
+          3.19395248
+        ],
+        "usd_rad": [
+          -0.2617993877991494,
+          3.193952264833514
+        ]
+      },
+      {
+        "joint": "proximal_yaw_L_Joint",
+        "urdf_rad": [
+          -3.66519142918809,
+          1.48352986419518
+        ],
+        "usd_rad": [
+          -3.665191162871983,
+          1.4835297310371256
+        ]
+      },
+      {
+        "joint": "knee_L_Joint",
+        "urdf_rad": [
+          -0.261799387799149,
+          2.61799387799149
+        ],
+        "usd_rad": [
+          -0.2617993877991494,
+          2.6179936116753852
+        ]
+      },
+      {
+        "joint": "wheel_L_Joint",
+        "urdf_rad": [
+          -1745329.25199433,
+          1745329.25199433
+        ],
+        "usd_rad": [
+          -1745329.1123679895,
+          1745329.1123679895
+        ]
+      },
+      {
+        "joint": "proximal_roll_R_Joint",
+        "urdf_rad": [
+          -3.19395248,
+          0.261799387799149
+        ],
+        "usd_rad": [
+          -3.193952264833514,
+          0.2617993877991494
+        ]
+      },
+      {
+        "joint": "proximal_yaw_R_Joint",
+        "urdf_rad": [
+          -3.66519142918809,
+          1.48352986419518
+        ],
+        "usd_rad": [
+          -3.665191162871983,
+          1.4835297310371256
+        ]
+      },
+      {
+        "joint": "knee_R_Joint",
+        "urdf_rad": [
+          -0.261799387799149,
+          2.61799387799149
+        ],
+        "usd_rad": [
+          -0.2617993877991494,
+          2.6179936116753852
+        ]
+      },
+      {
+        "joint": "wheel_R_Joint",
+        "urdf_rad": [
+          -1745329.25199433,
+          1745329.25199433
+        ],
+        "usd_rad": [
+          -1745329.1123679895,
+          1745329.1123679895
+        ]
+      },
+      {
+        "joint": "arm1",
+        "urdf_rad": [
+          -2.443460952792061,
+          2.356194490192345
+        ],
+        "usd_rad": [
+          -2.4434606864759525,
+          2.356194490192345
+        ]
+      }
+    ],
+    "collision_note": "MuJoCo mesh convex hull versus PhysX convex decomposition; contact behavior requires sim2sim validation."
+  },
+  "onnx_max_abs_error": {
+    "encoder": 3.5762786865234375e-07,
+    "policy": 1.9073486328125e-06,
+    "actor_pipeline": 2.384185791015625e-06
+  },
+  "files": {
+    "actor_pipeline.onnx": "acd0f7be37465f3a1c6d0dfbdb04c3008744e2208f74209e152a62335bc4252e",
+    "actor_pipeline.pt": "ecfab5c9e214b626512148485d8989e10b8b25ca63adc4358a6c1265857587cd",
+    "assets/meshes/base_Link.STL": "1f751da150026bbea96b3c6ccda109465dd4e12618371f6b11e04e1f1343ba28",
+    "assets/meshes/base_Link.obj": "b0a83352ed93477dfe5d1b5a54a75eff1e76f340c275fdd0a7cd0fc8d8ce8994",
+    "assets/meshes/knee_L_Link.STL": "08aa4c07bfa25345241fa945d97af2613a752e56181e1bc973ce73a290fa7090",
+    "assets/meshes/knee_L_Link.obj": "f5e0bf826db794a226a05a5db13754b5e57e207f7882889ded4e09395c5a030d",
+    "assets/meshes/knee_R_Link.STL": "86366623c835bdf7b5b8ba382585db6953642f25140acfc8be03d39a0741f76f",
+    "assets/meshes/knee_R_Link.obj": "226e4a7cc007eaaf95c15b4bf3c558fcc8567363783b59cc0f7828d4f27523a6",
+    "assets/meshes/proximal_pitch_L_Link.STL": "83d9a43f22382bc017123da2f2bdd6604ade550267cef8088699bcccfc80ce02",
+    "assets/meshes/proximal_pitch_L_Link.obj": "c2cbe3f3856e73ef11dad86507f2469806b7922c9a2c2555790eac535513830b",
+    "assets/meshes/proximal_pitch_R_Link.STL": "c99fe095916d81fabfd4b89f33e93e5ea40ad493478ddbb2ca38135f91162d82",
+    "assets/meshes/proximal_pitch_R_Link.obj": "ea5fc68b496cc66e261823f93e50434eb27a49995b224782676b6b5748b19d92",
+    "assets/meshes/proximal_roll_L_Link.STL": "efc36f1b5c4e64004ed3cad53e11ec55e7c1c030c47c89cb8dd533b1a0c1b5ca",
+    "assets/meshes/proximal_roll_L_Link.obj": "eb3383a10a55e042d4c2807dcd6b3555a6eb8bd64b2613b407c28843b3ba1b25",
+    "assets/meshes/proximal_roll_R_Link.STL": "6359a53154de988259096e4b5678ffb21b39180d8efa369feda4f12663b5bf0e",
+    "assets/meshes/proximal_roll_R_Link.obj": "ed54d205124fab67cf66e057637a291ec607c72aa0e19ad69bc519c62ced8fa0",
+    "assets/meshes/proximal_yaw_L_Link.STL": "72337a3c01f4a457224b55b8d4bcc46caf075788464c7fb9fdef38c64f1d7769",
+    "assets/meshes/proximal_yaw_L_Link.obj": "5485e08f54ebbcf3534e84514703797808224871a24134166759a159926b4038",
+    "assets/meshes/proximal_yaw_R_Link.STL": "4b84b14686581b52bf3c73b11c2f6e17593aa76593c13d3fac7027fb806296ab",
+    "assets/meshes/proximal_yaw_R_Link.obj": "4fe2acd3ec38f7e4db135c20f4a9826a974672afe7ae64c9db845d820b70435e",
+    "assets/meshes/up1.STL": "9ecfe256bad21da298144a1b619121afd64af995c169a711757808be5059c764",
+    "assets/meshes/up1.obj": "d0fc94055afc6a1caa1cbb930ce33e1eeef1b36a9b39ab7c65c0b11ff136d0b4",
+    "assets/meshes/up2.STL": "3654c2b49e6d062534770d6f1c19416397c4af6cdec4c3c9fb78ea328225f371",
+    "assets/meshes/up2.obj": "153c5714d2692bf341a54a87a2badb03135d00bdfe87eb549891f803553ff3e9",
+    "assets/meshes/up3.STL": "dcca1e453a6864a608d649ec0df5c80fe69b53462391745c4ba6029c52c9dd83",
+    "assets/meshes/up3.obj": "96f37434afbb5369937821a3ff2d571c382879bc1ee51d3077ace37e4203af7a",
+    "assets/meshes/wheel_L_Link.STL": "83e1ffa02be381fd67c953ee189c342dc61788be6ce80f1076e1e9e5d42e0ec8",
+    "assets/meshes/wheel_L_Link.obj": "dcbf139d2c5df1244e550426b56ee6e7b5536c5634606b3683a59fd00ac2c6cc",
+    "assets/meshes/wheel_R_Link.STL": "dcf6622aefaa6c09a13a30cdc647fbe916073f651ccbd40141ad9f94f90f3953",
+    "assets/meshes/wheel_R_Link.obj": "407ef65f5191369ed1b788b7fd91e024fb5515822fea2c367d44994adb42986a",
+    "assets/robot.urdf": "08aec4f4b5a9ec90af946ea858607da4a47c2f0cb245a8005aa33b65a5534e6f",
+    "assets/robot.xml": "b0add862ee79e9a834cbe354689f9c074ef91378440eaf22fa1bed097c360a1a",
+    "command_processor.py": "a0ff3d252815b97696dadde7e6a2cbb3fe84134c4111ba34834103c8323eec2f",
+    "conformance.npz": "a4f593a949e6746451ba773419fd8405e1126675d75c5a83f2dfbff5cf004767",
+    "conformance.txt": "a17f34f26a847fbb4062325d2732c2c3eccd94e904c77e78fbda91de4e541c40",
+    "deploy_reference/NANDU1V141.h": "acd7c8a3dd9ba4ca1feada80e30ed1ef035c2fa1d0272d42a8ef5e31e4fe95e3",
+    "deploy_reference/nandu1_v141_conformance.cpp": "4a000288e78fdc86369787b1b29881b39175eeb5ee5ebc0c51a302b9a3d05332",
+    "deployment_metadata.json": "721ff9c6691c44c16740e2cc4bc2840227c083ca74b75fee24d99ca61f7cdfc1",
+    "encoder.onnx": "dbcea541dd6d074ec29460f9c1e72fd2fd02120fed598a83279bb2725c64815c",
+    "encoder.pt": "897ec4c9f4a362e4b91bde99d9a883e46d627397af7fd3919675a68a979f5d0c",
+    "nandu1_contract.py": "102ec913a3f9c8224d716c12395163708e24f81e66ee9dcc45c8a6db3a7a9a3a",
+    "nandu1_v14.py": "eb831c7333a7e3eef89c19fa4885e8d0ed1eb85d1ede1c53ea41f972c6f43e41",
+    "nandu1_v141.py": "66fc977738ab6639e869ecf447e99507368967fa71c6729ee8166c2239ca4968",
+    "nandu1_v1_4_math.py": "a9854a416641ca784fc4b1b239cb0a4bf7c6480a530eb25d59fdb77dbb89f3ca",
+    "policy.onnx": "a95af162ec612fc2213d1914f4c0077d2437f7a8faec8f9c74954504b705df3f",
+    "policy.pt": "9a3b01e04d2f7e7d90fe19b865562eb4037b1eaee7cccf349d8416d4c075e3b8",
+    "runtime_conformance.txt": "8fad7836c7fd56128db6b097ab036ad2a50a167d7df49551a4150aebfb7fb857"
+  }
+}

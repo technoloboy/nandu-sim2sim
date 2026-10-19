@@ -1,0 +1,37 @@
+TRON2 RL deployment (ROS)
+Copyright (c) 2024-2026 LimX Dynamics Inc.
+
+This product includes ROS packages authored by LimX Dynamics for
+deploying reinforcement-learning locomotion policies on the TRON2A
+biped platform (both Gazebo simulation and real hardware).
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may
+not use these files except in compliance with the License. You may obtain
+a copy of the License in the LICENSE file at the root of this repository,
+or at:
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+This repository additionally contains, in-tree, artifacts whose license
+and re-distribution status are NOT yet confirmed and are NOT covered by
+the top-level Apache-2.0 grant:
+
+- `onnxruntime_sdk/lib/libonnxruntime.so` and `libonnxruntime.so.1.10.0`
+  (bundled ONNX Runtime binary, ~14.3 MB each). Upstream project is
+  Microsoft ONNX Runtime (MIT). Version, source URL, and vendor
+  re-distribution clearance are pending — see THIRD_PARTY_NOTICES.md.
+- `tron2_controllers/config/SF_TRON2A/policy/policy.onnx`
+- `tron2_controllers/config/SF_TRON2A/policy/encoder.onnx`
+- `tron2_controllers/config/WF_TRON2A/policy/policy.onnx`
+- `tron2_controllers/config/WF_TRON2A/policy/encoder.onnx`
+  (RL policy / encoder weights; provenance, training data licensing,
+  and public-release approval are pending — see THIRD_PARTY_NOTICES.md).
+
+As of 2026-07-14 all four ROS packages (`tron2_hw`, `tron2_controllers`,
+`robot_common`, `onnxruntime_sdk`) declare `<license>Apache-2.0</license>`
+in `package.xml`, consistent with the top-level LICENSE. The bundled
+ONNX Runtime binary and the RL policy weights above remain under
+separate, unresolved review as noted.
+
+Third-party components, upstream references, and per-artifact
+provenance are listed in THIRD_PARTY_NOTICES.md.

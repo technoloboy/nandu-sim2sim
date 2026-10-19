@@ -1,0 +1,48 @@
+{
+  "task": "Isaac-NANDU1-Blind-Flat-v1-4",
+  "checkpoint_schema": "nandu1_height_v1_4_decoupled_v1",
+  "curriculum_stage": 4,
+  "dimensions": {
+    "policy_observation": 49,
+    "history": 245,
+    "encoder": 7,
+    "external_command": 3,
+    "command_observation": 6,
+    "actor_input": 62,
+    "action": 13
+  },
+  "external_command_order": [
+    "relative_heading_rate",
+    "up3_vx_base_heading",
+    "up3_height_world_z"
+  ],
+  "command_observation_order": [
+    "base_yaw_rate_world_z",
+    "up3_vx_base_heading",
+    "up3_height_world_z",
+    "yaw_trend",
+    "vx_trend",
+    "height_trend"
+  ],
+  "encoder_output_frame": "base_body",
+  "actor_velocity_frame": "heading",
+  "heading_conversion_gravity": "policy_observation[3:6]",
+  "initial_height_default": 0.8856453118528085,
+  "command_processor": "command_processor.py:CommandProcessor",
+  "processor_timing": "set_external once, step once per control frame; reset processor at episode reset",
+  "onnx_validation_backend": "onnxruntime",
+  "onnx_max_abs_error": {
+    "encoder": 7.152557373046875e-07,
+    "policy": 5.245208740234375e-06,
+    "actor_pipeline": 9.059906005859375e-06
+  },
+  "mujoco_runtime_supported": true,
+  "provided_export_errors": {
+    "/home/wkl/Desktop/limx-tron2/deployment_bundles/nandu1_v1_4_model_24000/encoder.onnx": 7.152557373046875e-07,
+    "/home/wkl/Desktop/limx-tron2/tron2_rl_lab/logs/rsl_rl/autodl/v1-4-261009/exported/encoder.onnx": 7.152557373046875e-07,
+    "/home/wkl/Desktop/limx-tron2/deployment_bundles/nandu1_v1_4_model_24000/policy.onnx": 5.245208740234375e-06,
+    "/home/wkl/Desktop/limx-tron2/tron2_rl_lab/logs/rsl_rl/autodl/v1-4-261009/exported/policy.onnx": 5.245208740234375e-06,
+    "/home/wkl/Desktop/limx-tron2/deployment_bundles/nandu1_v1_4_model_24000/actor_pipeline.onnx": 9.059906005859375e-06,
+    "/home/wkl/Desktop/limx-tron2/tron2_rl_lab/logs/rsl_rl/autodl/v1-4-261009/exported/actor_pipeline.onnx": 9.059906005859375e-06
+  }
+}

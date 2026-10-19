@@ -1,0 +1,62 @@
+{
+  "steps": 1200,
+  "fields": [
+    [
+      "commands",
+      3
+    ],
+    [
+      "encoded",
+      7
+    ],
+    [
+      "dynamic",
+      12
+    ],
+    [
+      "hidden",
+      64
+    ],
+    [
+      "eta",
+      8
+    ],
+    [
+      "actor_input",
+      71
+    ],
+    [
+      "action",
+      13
+    ],
+    [
+      "history",
+      245
+    ],
+    [
+      "memory_filter",
+      2
+    ],
+    [
+      "height_filter",
+      1
+    ]
+  ],
+  "prefix": [
+    "reset",
+    "stage",
+    "previous_action_clipped",
+    "step_id",
+    "observation49",
+    "raw_intent3"
+  ],
+  "max_ort_vs_training_torch_error": 2.86102294921875e-05,
+  "atol": 1e-05,
+  "rtol": 0.0001,
+  "phase": "physics -> manager command compute -> observations -> Student/memory update -> next Actor",
+  "sources": [
+    "IsaacLab/.../manager_based_rl_env.py:232-238",
+    "nandu_adaptive_balance/runner.py:update_runtime"
+  ],
+  "known_target_clipping": "separately recorded; does not impersonate training action clipping"
+}

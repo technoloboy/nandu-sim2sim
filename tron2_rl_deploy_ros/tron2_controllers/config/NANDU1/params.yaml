@@ -1,0 +1,16 @@
+robot_hw:
+  loop_frequency: 500.0
+  wait_for_sim_clock: false
+  nandu1_dual_imu: true
+  controller_name: tron2_controller
+  controller_manager_ns: /tron2_hw/controller_manager
+  use_sdk_joystick_input: false
+  imu: {name: base_imu, frame_id: base_Link}
+Tron2Cfg:
+  init_state:
+    joint_names: [proximal_pitch_L_Joint, proximal_roll_L_Joint, proximal_yaw_L_Joint, knee_L_Joint, wheel_L_Joint, proximal_pitch_R_Joint, proximal_roll_R_Joint, proximal_yaw_R_Joint, knee_R_Joint, wheel_R_Joint, arm1, arm2, arm3]
+NANDU1Tasks:
+  Isaac-NANDU1-Blind-Flat-v1-2: nandu1_height_v1_2
+  Isaac-NANDU1-Blind-Flat-Play-v1-2: nandu1_height_v1_2
+  Isaac-NANDU1-Blind-Flat-v1-4: nandu1_height_v1_4
+  Isaac-NANDU1-Blind-Flat-Play-v1-4: nandu1_height_v1_4

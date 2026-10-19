@@ -1,0 +1,42 @@
+# Local execution and experiment artifacts, never part of the release.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.superpowers/
+.venv/
+venv/
+.env
+.env.*
+.idea/
+.vscode/
+.nandu1_noetic_ws/
+build/
+devel/
+install/
+dist/
+outputs/
+output/
+logs/
+*.log
+*.bag
+*.mcap
+*.csv
+!tron2_rl_deploy_ros/tron2_controllers/test/golden/wfyg_math.csv
+*.png
+*.jpg
+*.gif
+*.GIF
+*.mp4
+.nandu1_launch.lock
+.mouse-*/
+*.sock
+*.ckpt
+*.pth
+model_*.pt
+docker-local-proxy.conf
+install_docker_noble.sh
+docker-noble.sources
+# User-created experiment / acceptance / plan documents are not published.
+nandu-*.md
+docs/
+# Original source README/LICENSE/NOTICE files are copied explicitly.
