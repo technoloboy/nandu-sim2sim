@@ -5,9 +5,9 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 def test_asset_matches_source_and_fk(tmp_path):
-    from nandu1_asset import build_asset, audit_asset
     source = Path(__file__).resolve().parents[2]/'tron2_rl_lab/exts/bipedal_locomotion/bipedal_locomotion/assets/usd/NANDU1'
     if not source.is_dir():pytest.skip('Optional training USD/URDF source is not distributed; sealed assets are tested separately')
+    from nandu1_asset import build_asset, audit_asset
     path = build_asset(source, tmp_path/'assets')
     report = audit_asset(source, path)
     assert report['max_position_error_m'] < .001
