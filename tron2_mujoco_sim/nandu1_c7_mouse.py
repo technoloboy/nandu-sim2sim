@@ -14,11 +14,12 @@ def pointer_command(dx, dy, radius, stage, height):
 
 
 class MousePanel:
-    def __init__(self, version, stage, height):
+    def __init__(self, version, stage, height, *, outer_mode='off'):
         import tkinter as tk
         self.tk = tk
         self.root = tk.Tk()
-        self.root.title(f"NANDU1 C7-P-1-{version} — MuJoCo")
+        self.root.title(f"NANDU1 C7-P-1-{version} — MuJoCo | outer={outer_mode}")
+        self.outer_mode = outer_mode
         self.root.configure(bg="#101c2e")
         self.stage, self.closed, self.reset_requested = stage, False, False
         self.axes = (0., 0.)
@@ -46,7 +47,7 @@ class MousePanel:
                  highlightthickness=0).pack(padx=10)
         self.status = tk.StringVar(value="Drag circle: yaw/vx. Release: zero yaw/vx, retain height.")
         tk.Label(self.root, textvariable=self.status, justify="left", bg="#101c2e", fg="#a8d9c7",
-                 font=("Monospace", 10), width=55, height=7).pack()
+                 font=("Monospace", 10), width=58, height=9).pack()
         tk.Button(self.root, text="STOP / HOLD HEIGHT (Space)", command=self.stop).pack(fill="x", padx=12)
         tk.Button(self.root, text="RESET ROBOT", command=self._request_reset).pack(fill="x", padx=12, pady=8)
         self.root.protocol("WM_DELETE_WINDOW", self.close)
@@ -80,11 +81,17 @@ class MousePanel:
 
     def update(self, row, tilt):
         r, c = row["request"], row["command"]
+        reference = row.get('reference_command', c)
+        clipped = row.get('outer_saturated', [False]*3)
+        safety = row.get('outer_safety_override', [False]*3)
         self.status.set(
             "                 yaw       vx      height\n"
-            f"Request       {r[0]:+7.3f} {r[1]:+7.3f} {r[2]:7.3f}\n"
-            f"Applied       {c[0]:+7.3f} {c[1]:+7.3f} {c[2]:7.3f}\n"
+            f"Joy request   {r[0]:+7.3f} {r[1]:+7.3f} {r[2]:7.3f}\n"
+            f"Reference     {reference[0]:+7.3f} {reference[1]:+7.3f} {reference[2]:7.3f}\n"
+            f"Actor command {c[0]:+7.3f} {c[1]:+7.3f} {c[2]:7.3f}\n"
             f"MuJoCo truth  {row['yaw_rate']:+7.3f} {row['tcp_velocity_body'][0]:+7.3f} {row['tcp'][2]:7.3f}\n"
+            f"outer={self.outer_mode}, ready={bool(row.get('outer_ready', False))}, limited={bool(any(clipped))}\n"
+            f"vx trim adapting={bool(row.get('outer_adapting', [False]*3)[1])}, safety override={bool(any(safety))}\n"
             f"up3 tilt {tilt:.2f} deg | time {row['time']:.2f} s")
 
     def reset(self, height):

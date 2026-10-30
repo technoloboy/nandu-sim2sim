@@ -23,6 +23,9 @@ def main():
     p.add_argument("--command", type=float, nargs=3, metavar=("YAW", "VX", "HEIGHT"))
     p.add_argument("--schedule", type=Path, help="JSON [{time:seconds, command:[yaw,vx,height]}], starts at 0")
     p.add_argument("--joystick", action="store_true", help="Independent mouse window; one causal filter in frozen processor")
+    p.add_argument("--outer-loop", choices=("off", "truth"), default="off",
+                   help="R0 only: simulation-truth TCP vx/height correction; not hardware-equivalent")
+    p.add_argument("--outer-config", type=Path, help="Validated JSON gains; requires --outer-loop truth")
     p.add_argument("--headless", action="store_true", help="No MuJoCo window; requires a positive duration")
     p.add_argument("--original-scene", action="store_true", help="Show the frozen asset's original plain floor/background")
     p.add_argument("--duration", type=float, default=0., help="Simulation seconds; 0=until GUI closes")
@@ -37,13 +40,18 @@ def main():
         p.error("--joystick requires a visible window and cannot be combined with --schedule/--command")
     if args.schedule and args.command:
         p.error("Choose --schedule or --command")
+    if args.outer_loop == 'truth' and args.version != 'R0':
+        p.error('Truth outer loop is available only for R0')
+    if args.outer_config is not None and args.outer_loop != 'truth':
+        p.error('--outer-config requires --outer-loop truth')
     output = args.output or ROOT / "outputs/c7_r012" / f"{args.version}-{datetime.now():%Y%m%d-%H%M%S-%f}"
     if output.exists():
         raise FileExistsError(f"Use a new output directory: {output}")
     torch.set_num_threads(1)
     sim = C7Simulation(args.bundle or bundle_for(args.version), args.version, args.stage,
                        up3_mass=args.up3_mass, rear_mass=args.rear_mass, rear_x=args.rear_x,
-                       standard_scene=not args.headless and not args.original_scene)
+                       standard_scene=not args.headless and not args.original_scene,
+                       outer_loop=args.outer_loop, outer_config=args.outer_config)
     schedule = json.loads(args.schedule.read_text()) if args.schedule else [
         dict(time=0., command=args.command or [0., 0., sim.initial_height])]
     if (not schedule or schedule[0]["time"] != 0
@@ -65,10 +73,11 @@ def main():
             viewer.cam.lookat[:] = [0., 0., .7]
         if args.joystick:
             from nandu1_c7_mouse import MousePanel
-            panel = MousePanel(args.version, sim.stage, sim.initial_height)
+            panel = MousePanel(args.version, sim.stage, sim.initial_height, outer_mode=args.outer_loop)
         print(f"{sim.metadata['task_name']} | iteration 30000 | stage {sim.stage}", flush=True)
         print(f"Bundle: {sim.directory}\nTrajectory: {output}", flush=True)
         print("Policy49/history490/estimate7 -> Actor86 -> action13; PD200Hz / policy50Hz", flush=True)
+        print(f"Outer loop: {args.outer_loop}; original joystick intent preserved; no world position anchor", flush=True)
         tick, segment, episode = 0, 0, 0
         start = time.monotonic()
         while args.duration == 0 or tick*.02 < args.duration-1e-9:
@@ -129,12 +138,15 @@ def main():
             steps=len(rows), duration_s=len(rows)*.02, outcome=outcome, error=error,
             clocks_s=dict(policy=.02, pd=.005, physics=float(sim.physics.model.opt.timestep)),
             scene_style=sim.scene_style,
+            outer_loop=sim.outer_metadata(),
+            source_sha256={name: hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in
+                ('nandu1_c7_sim2sim.py', 'nandu1_c7_outer_loop.py', 'scripts/play_nandu1_c7.py', 'nandu1_c7_mouse.py')},
             fixed_payload=sim.physics.payload.parameters, schedule=schedule if not panel else "mouse_requests_in_npz",
             manual_resets=episodes, velocity_projection_events=sim.physics.velocity_projection_events,
             torque_saturation_events=sim.physics.torque_saturation_events,
             counter_scope="Current episode; completed episode counts retained in manual_resets",
             friction_approximation=sim.physics.friction_approximation,
-            measurement_timing="estimate_at_command/tcp_at_command at command_time; remaining truth after physics at time",
+            measurement_timing="estimate/tcp/velocity/attitude _at_command fields at command_time; remaining truth after physics at time",
             note="Nominal clean MuJoCo evaluation. No automatic reset or deletion of failed samples. Not hardware acceptance.")
         (output/"manifest.json").write_text(json.dumps(metadata, ensure_ascii=False, indent=2)+"\n")
         print(f"{outcome}: {len(rows)} steps, saved {output}", flush=True)

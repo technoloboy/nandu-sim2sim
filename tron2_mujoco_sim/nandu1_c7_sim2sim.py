@@ -1,5 +1,6 @@
 """Isolated C7 R0/R1/R2 runtime; no ROS, SDK sockets or live training imports."""
 from contextlib import contextmanager, nullcontext
+from dataclasses import asdict
 import hashlib
 import importlib
 import importlib.util
@@ -86,7 +87,15 @@ def _physics_sources(directory):
 class C7Simulation:
     """One 50 Hz closed loop; returned rows retain issued/executed actions separately."""
     def __init__(self, directory, version, stage=None, *, up3_mass=.67148,
-                 rear_mass=0., rear_x=-.275, standard_scene=False):
+                 rear_mass=0., rear_x=-.275, standard_scene=False,
+                 outer_loop='off', outer_config=None):
+        if outer_loop not in ('off', 'truth'):
+            raise ValueError('Unsupported outer loop mode')
+        if outer_loop == 'truth' and version != 'R0':
+            raise ValueError('Truth outer loop is available only for C7 R0')
+        if outer_config is not None and outer_loop != 'truth':
+            raise ValueError('outer_config requires truth outer loop mode')
+        self.outer_mode, self.outer = outer_loop, None
         self.directory = Path(directory).resolve()
         self.metadata = validate_bundle(self.directory, version)
         self.version = version
@@ -98,6 +107,15 @@ class C7Simulation:
         physics = importlib.import_module(package + ".mujoco_adapter")
         self.mujoco = importlib.import_module("mujoco")
         self.controller = deployment.DeploymentController.from_bundle(self.directory)
+        if outer_loop == 'truth':
+            from nandu1_c7_outer_loop import OuterLoopConfig, TruthOuterLoop
+            cfg = (OuterLoopConfig() if outer_config is None else outer_config
+                   if isinstance(outer_config, OuterLoopConfig) else OuterLoopConfig.from_file(outer_config))
+            commands = importlib.import_module(package + '.commands')
+            low_h, high_h = commands.HEIGHT_LIMITS[self.stage]
+            yaw, vx = commands.YAW_LIMITS[self.stage], commands.VX_LIMITS[self.stage]
+            self.outer = TruthOuterLoop(cfg, [-yaw, -vx, low_h], [yaw, vx, high_h],
+                                        [2., .6, commands.HEIGHT_RATES[self.stage]])
         source_xml = self.directory / "assets/robot.xml"
         if standard_scene:
             from nandu1_c7_scene import standard_scene_xml
@@ -122,6 +140,16 @@ class C7Simulation:
         self.controller.wheel_records = []
         self.controller.complete_motor_records = True
         self.step_index = 0
+        if self.outer is not None:
+            self.outer.reset(self.controller.processor.command.numpy()[0])
+            self.outer_previous_issued = self.controller.processor.command.numpy()[0].copy()
+
+    def outer_metadata(self):
+        return dict(mode=self.outer_mode, sim_truth_feedback=self.outer is not None,
+                    config=asdict(self.outer.config) if self.outer is not None else None,
+                    zero_mode='velocity_suppression_height_hold_no_world_position_anchor',
+                    constraint_priority='hard_command_bounds_and_slew_before_candidate_correction_slew',
+                    correction_rate_semantics='candidate_increment_relative_to_previous_applied_trim; safety_may_override_applied_correction')
 
     @torch.no_grad()
     def step(self, request):
@@ -132,8 +160,36 @@ class C7Simulation:
             raise FloatingPointError("Non-finite physical observation")
         start = self.physics.truth()
         estimate = self.controller.encoder(self.history).numpy()[0].copy()
-        action = self.controller.step(self.policy, self.history,
-            torch.from_numpy(request)[None], self.stage, self.step_index).numpy()[0]
+        intent = torch.from_numpy(request)[None]
+        if self.outer is None:
+            action = self.controller.step(self.policy, self.history,
+                intent, self.stage, self.step_index).numpy()[0]
+            reference = self.controller.processor.command.numpy()[0].copy()
+            reference_rate = self.controller.processor.rate.numpy()[0].copy()
+            outer = dict(correction=np.zeros(3), integral=np.zeros(3), saturated=np.zeros(3, dtype=bool),
+                         requested_correction=np.zeros(3), candidate_correction=np.zeros(3), correction_anchor=np.zeros(3),
+                         command_amplitude_limited=np.zeros(3, dtype=bool), command_slew_limited=np.zeros(3, dtype=bool),
+                         safety_override=np.zeros(3, dtype=bool),
+                         ready=False, adapting=np.zeros(3, dtype=bool),
+                         feedback=np.r_[start['yaw_rate'], start['tcp_velocity_body'][0], start['tcp'][2]])
+            final_command, final_rate = reference.copy(), reference_rate.copy()
+        else:
+            from nandu1_c7_outer_loop import truth_feedback
+            truth_feedback(start)  # fail before mutating the frozen processor
+            self.controller.processor.advance(intent, self.policy[:, 3:6], self.policy[:, :3]/.25,
+                                               .02, self.stage, self.step_index)
+            reference = self.controller.processor.command.numpy()[0].copy()
+            reference_rate = self.controller.processor.rate.numpy()[0].copy()
+            outer = self.outer.update(reference, start, self.step_index)
+            # The actor consumes float32. Derivative is based on its actual
+            # rounded command, not an unrounded shadow trajectory.
+            final_command = outer['command'].astype(np.float32)
+            final_rate = ((final_command.astype(float)-self.outer_previous_issued)/.02).astype(np.float32)
+            self.outer_previous_issued = final_command.copy()
+            outer['correction'] = final_command.astype(float)-reference
+            action = self.controller.issued_step(self.policy, self.history,
+                torch.from_numpy(final_command)[None], torch.from_numpy(final_rate)[None],
+                self.step_index, intent=intent).numpy()[0]
         self.physics.control(action, packet_context=self.controller.packet_context)
         # mj_step integrates qpos after updating derived body/sensor tables. Refresh
         # at the completed control boundary; no extra integration or output filter.
@@ -147,8 +203,21 @@ class C7Simulation:
         self.policy = torch.from_numpy(self.physics.measurement(feedback))[None]
         self.history = torch.cat((self.history.reshape(1, 10, 49)[:, 1:], self.policy[:, None]), 1).flatten(1)
         row.update(time=float(self.physics.data.time), command_time=float(self.step_index*.02),
-                   request=request.copy(), command=self.controller.processor.command.numpy()[0].copy(),
-                   command_rate=self.controller.processor.rate.numpy()[0].copy(),
+                   request=request.copy(), command=final_command.copy(), command_rate=final_rate.copy(),
+                   reference_command=reference, reference_rate=reference_rate,
+                   outer_correction=outer['correction'], outer_integral=outer['integral'],
+                   outer_saturated=outer['saturated'], outer_ready=outer['ready'], outer_feedback=outer['feedback'],
+                   outer_adapting=outer['adapting'],
+                   outer_requested_correction=outer['requested_correction'], outer_candidate_correction=outer['candidate_correction'],
+                   outer_correction_anchor=outer['correction_anchor'], outer_safety_override=outer['safety_override'],
+                   outer_command_amplitude_limited=outer['command_amplitude_limited'],
+                   outer_command_slew_limited=outer['command_slew_limited'],
+                   tcp_velocity_world_at_command=start['tcp_velocity_api'].copy(),
+                   tcp_velocity_body_at_command=start['tcp_velocity_body'].copy(),
+                   yaw_rate_at_command=start['yaw_rate'], base_quaternion_at_command=start['base_quaternion'].copy(),
+                   wheel_clipped_pd_steps=self.physics.wheel_state.clipped_steps.numpy()[0].copy(),
+                   wheel_requested_torque_last_pd=self.physics.wheel_state.requested_torque.numpy()[0].copy(),
+                   wheel_emitted_torque_last_pd=self.physics.wheel_state.motor_torque.numpy()[0].copy(),
                    estimate_at_command=estimate, tcp_at_command=start["tcp"],
                    action=action.copy(), executed_action=feedback,
                    integral=self.controller.state.integral.numpy()[0].copy(),
@@ -162,3 +231,4 @@ class C7Simulation:
         if up < np.cos(np.deg2rad(65.)):
             return "base_tilt_over_65deg"
         return None
+

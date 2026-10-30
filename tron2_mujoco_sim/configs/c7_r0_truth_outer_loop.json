@@ -1,0 +1,18 @@
+{
+  "velocity_kp": 0.0,
+  "velocity_ki": 0.1,
+  "height_kp": 0.0,
+  "height_ki": 0.02,
+  "height_damping": 0.0,
+  "feedback_tau": 0.5,
+  "velocity_integral_limit": 0.12,
+  "height_integral_limit": 0.05,
+  "velocity_correction_limit": 0.2,
+  "height_correction_limit": 0.08,
+  "velocity_correction_rate": 0.01,
+  "height_correction_rate": 0.001,
+  "warmup_s": 1.0,
+  "ramp_s": 1.0,
+  "antiwindup_gain": 2.0,
+  "velocity_adapt_yaw_limit": 0.1
+}
