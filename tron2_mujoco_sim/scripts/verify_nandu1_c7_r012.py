@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 import numpy as np
 import torch
-from nandu1_c7_sim2sim import C7Simulation, VERSIONS, bundle_for
+from nandu1_c7_physics import C7Simulation, VERSIONS, bundle_for
 
 
 @torch.no_grad()
@@ -23,7 +23,7 @@ def main():
     torch.set_num_threads(1)
     results = {}
     for version in VERSIONS:
-        sim = C7Simulation(bundle_for(version), version)
+        sim = C7Simulation(bundle_for(version), version, physics_profile='robojudo')
         frozen = sim.controller
         checkpoint = DeploymentController.from_checkpoint(sim.metadata["source_checkpoint"])
         policy, history = sim.policy.clone(), sim.history.clone()

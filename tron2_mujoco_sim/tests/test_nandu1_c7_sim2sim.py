@@ -6,7 +6,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from nandu1_c7_sim2sim import C7Simulation, bundle_for, validate_bundle
+from nandu1_c7_physics import C7Simulation, bundle_for, validate_bundle
 
 
 def fixture_bundle(tmp_path):
@@ -57,6 +57,35 @@ def test_missing_physics_dependency_rejected(tmp_path):
     (bundle / "manifest.json").write_text(json.dumps(meta))
     with pytest.raises(ValueError, match="missing"):
         validate_bundle(bundle, "R0")
+
+
+@pytest.mark.parametrize("version", ["R0", "R1", "R2"])
+def test_policy_period_has_four_euler_physics_and_pd_updates(version, monkeypatch):
+    """Catch stale substep counters when switching the plant from 1ms to 5ms."""
+    import mujoco
+    sim = C7Simulation(bundle_for(version), version, physics_profile='robojudo')
+    physical_ticks, pd_ticks = [], []
+    step = mujoco.mj_step
+    wheel_pd = sim.physics.wheel_state.step
+
+    def record_physics(model, data):
+        physical_ticks.append((model.opt.timestep, int(model.opt.integrator)))
+        return step(model, data)
+
+    def record_pd(*args, **kwargs):
+        pd_ticks.append(float(sim.physics.data.time))
+        return wheel_pd(*args, **kwargs)
+
+    monkeypatch.setattr(mujoco, "mj_step", record_physics)
+    monkeypatch.setattr(sim.physics.wheel_state, "step", record_pd)
+    row = sim.step([0., 0., .9])
+    assert physical_ticks == [(.005, int(mujoco.mjtIntegrator.mjINT_EULER))] * 4
+    np.testing.assert_allclose(pd_ticks, [0., .005, .010, .015], atol=1e-12)
+    assert row["time"] - row["command_time"] == pytest.approx(.02)
+    assert np.isfinite(row["tcp"]).all()
+    sim.reset()
+    assert sim.physics.model.opt.timestep == pytest.approx(.005)
+    assert int(sim.physics.model.opt.integrator) == int(mujoco.mjtIntegrator.mjINT_EULER)
 
 
 @pytest.mark.parametrize("version", ["R0", "R1", "R2"])
@@ -137,3 +166,4 @@ def test_standard_ground_changes_display_without_changing_physics_or_bundle():
         decorated.step([0., 0., .9])
     np.testing.assert_array_equal(plain.physics.data.qpos, decorated.physics.data.qpos)
     assert hashlib.sha256((path / "assets/robot.xml").read_bytes()).hexdigest() == original_digest
+

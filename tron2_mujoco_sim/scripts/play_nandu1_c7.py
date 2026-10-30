@@ -12,13 +12,15 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 import numpy as np
 import torch
-from nandu1_c7_sim2sim import C7Simulation, VERSIONS, bundle_for
+from nandu1_c7_physics import C7Simulation, VERSIONS, PHYSICS_PROFILES, bundle_for
 
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--version", choices=VERSIONS, required=True)
     p.add_argument("--bundle", type=Path)
+    p.add_argument("--physics-profile", choices=PHYSICS_PROFILES, default="robojudo",
+                   help="robojudo: 5ms/Euler; legacy: archived 1ms/implicitfast")
     p.add_argument("--stage", "--evaluation-stage", type=int, choices=range(5))
     p.add_argument("--command", type=float, nargs=3, metavar=("YAW", "VX", "HEIGHT"))
     p.add_argument("--schedule", type=Path, help="JSON [{time:seconds, command:[yaw,vx,height]}], starts at 0")
@@ -51,7 +53,8 @@ def main():
     sim = C7Simulation(args.bundle or bundle_for(args.version), args.version, args.stage,
                        up3_mass=args.up3_mass, rear_mass=args.rear_mass, rear_x=args.rear_x,
                        standard_scene=not args.headless and not args.original_scene,
-                       outer_loop=args.outer_loop, outer_config=args.outer_config)
+                       outer_loop=args.outer_loop, outer_config=args.outer_config,
+                       physics_profile=args.physics_profile)
     schedule = json.loads(args.schedule.read_text()) if args.schedule else [
         dict(time=0., command=args.command or [0., 0., sim.initial_height])]
     if (not schedule or schedule[0]["time"] != 0
@@ -77,6 +80,7 @@ def main():
         print(f"{sim.metadata['task_name']} | iteration 30000 | stage {sim.stage}", flush=True)
         print(f"Bundle: {sim.directory}\nTrajectory: {output}", flush=True)
         print("Policy49/history490/estimate7 -> Actor86 -> action13; PD200Hz / policy50Hz", flush=True)
+        print(f"Physics: {sim.physics_metadata()}", flush=True)
         print(f"Outer loop: {args.outer_loop}; original joystick intent preserved; no world position anchor", flush=True)
         tick, segment, episode = 0, 0, 0
         start = time.monotonic()
@@ -136,11 +140,12 @@ def main():
             checkpoint_sha256=sim.metadata["checkpoint_sha256"], bundle=str(sim.directory),
             bundle_manifest_sha256=hashlib.sha256((sim.directory/"manifest.json").read_bytes()).hexdigest(),
             steps=len(rows), duration_s=len(rows)*.02, outcome=outcome, error=error,
-            clocks_s=dict(policy=.02, pd=.005, physics=float(sim.physics.model.opt.timestep)),
+            clocks_s=sim.physics_metadata()['clocks_s'], physics=sim.physics_metadata(),
             scene_style=sim.scene_style,
             outer_loop=sim.outer_metadata(),
             source_sha256={name: hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in
-                ('nandu1_c7_sim2sim.py', 'nandu1_c7_outer_loop.py', 'scripts/play_nandu1_c7.py', 'nandu1_c7_mouse.py')},
+                ('nandu1_c7_sim2sim.py', 'nandu1_c7_physics.py', 'nandu1_c7_outer_loop.py',
+                 'scripts/play_nandu1_c7.py', 'nandu1_c7_mouse.py')},
             fixed_payload=sim.physics.payload.parameters, schedule=schedule if not panel else "mouse_requests_in_npz",
             manual_resets=episodes, velocity_projection_events=sim.physics.velocity_projection_events,
             torque_saturation_events=sim.physics.torque_saturation_events,

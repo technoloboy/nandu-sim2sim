@@ -10,7 +10,7 @@ import numpy as np
 import pytest
 import torch
 
-from nandu1_c7_sim2sim import C7Simulation, bundle_for
+from nandu1_c7_physics import C7Simulation, bundle_for
 from nandu1_c7_outer_loop import OuterLoopConfig
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -123,7 +123,7 @@ def test_disabled_runtime_matches_original_frozen_source_snapshot():
     baseline = importlib.util.module_from_spec(spec); spec.loader.exec_module(baseline)
     torch.set_num_threads(1)
     a = baseline.C7Simulation(bundle_for('R0'), 'R0')
-    b = C7Simulation(bundle_for('R0'), 'R0', outer_loop='off')
+    b = C7Simulation(bundle_for('R0'), 'R0', outer_loop='off', physics_profile='legacy')
     for k in range(50):
         request = [0.1 if k > 25 else 0., .1 if k > 10 else 0., .9]
         before, after = a.step(request), b.step(request)
@@ -140,6 +140,9 @@ def test_cli_truth_mode_records_identity_and_request_reference_final(tmp_path):
     assert meta['outer_loop']['mode'] == 'truth'
     assert meta['outer_loop']['sim_truth_feedback'] is True
     assert meta['outer_loop']['config']['velocity_kp'] >= 0
+    assert meta['clocks_s'] == dict(policy=.02, pd=.005, physics=.005)
+    assert meta['physics']['integrator'] == 'mjINT_EULER'
+    assert meta['physics']['profile'] == 'robojudo'
     assert meta['source_sha256']['nandu1_c7_outer_loop.py'] == hashlib.sha256((ROOT/'nandu1_c7_outer_loop.py').read_bytes()).hexdigest()
     with np.load(tmp_path/'run/trajectory.npz') as data:
         assert data['reference_command'].shape == data['request'].shape == (5, 3)

@@ -5,10 +5,11 @@ import json
 from pathlib import Path
 import shutil
 import sys
+import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from nandu1_c7_sim2sim import VERSIONS, bundle_for, validate_bundle
+from nandu1_c7_physics import VERSIONS, PHYSICS_PROFILES, bundle_for, validate_bundle
 
 
 def main():
@@ -43,10 +44,20 @@ def main():
         for name in ("nandu1_contract.py", "nandu1_v131.py"):
             shutil.copyfile(ROOT / name, sources / name)
         shutil.copytree(args.asset_dir, output / "assets")
+        # Only a newly created bundle is edited; archived bundles are immutable.
+        xml_path = output / "assets/robot.xml"
+        tree = ET.parse(xml_path)
+        option = tree.getroot().find('option')
+        if option is None:
+            option = ET.SubElement(tree.getroot(), 'option')
+        option.set('timestep', str(PHYSICS_PROFILES['robojudo'][0]))
+        option.set('integrator', 'Euler')
+        tree.write(xml_path, encoding='utf-8', xml_declaration=True)
         meta.update(sim2sim_format="nandu_c7_r012_mujoco_v1", checkpoint_iteration=30000,
                     source_checkpoint=str(checkpoint.resolve()),
                     simulator_asset_source=str(args.asset_dir.resolve()),
-                    simulation_clocks_s=dict(policy=.02, pd=.005, physics=.001),
+                    simulation_clocks_s=dict(policy=.02, pd=.005, physics=.005),
+                    simulation_integrator='Euler', simulation_physics_profile='robojudo',
                     note="Frozen nominal MuJoCo plant. Contact/friction solver differs from Isaac; not hardware qualification.")
         meta["files"] = {str(p.relative_to(output)): hashlib.sha256(p.read_bytes()).hexdigest()
                          for p in output.rglob("*") if p.is_file() and p != output / "manifest.json"}

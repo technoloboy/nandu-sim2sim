@@ -54,6 +54,8 @@ python tron2_mujoco_sim/scripts/play_nandu1_c7.py --version R2 --joystick
 
 摇杆控制yaw/vx，释放自动回零，高度滑块保持绝对高度；窗口中可停止、重置。默认读取同仓库`deployment_bundles/nandu1_v1_6_C7_P_1_R{0,1,2}_model_30000`，无需设置路径环境变量；默认展示棋盘地面，`--original-scene`恢复包内原始地面。输出自动生成在`tron2_mujoco_sim/outputs/c7_r012/`并被Git忽略。
 
+2026-10-31：C7实时播放默认使用`--physics-profile robojudo`（5 ms / Euler），策略50 Hz、PD和物理200 Hz；`--physics-profile legacy`复现原1 ms / implicitfast物理配置。仅修改运行时模型，不改写历史bundle；输出manifest记录实际配置。两种物理配置的性能不能混作同一实验。R0可选`--outer-loop truth`，默认关闭；R1/R2不支持该外环。旧1 ms配置下的外环评估结论不自动适用于5 ms配置。
+
 有限时长无窗口测试（输出目录必须未存在）：
 
 ```bash

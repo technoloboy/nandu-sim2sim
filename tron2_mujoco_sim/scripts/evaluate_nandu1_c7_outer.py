@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 import numpy as np
 import torch
-from nandu1_c7_sim2sim import C7Simulation, bundle_for
+from nandu1_c7_physics import C7Simulation, PHYSICS_PROFILES, bundle_for
 from nandu1_c7_outer_loop import OuterLoopConfig
 
 
@@ -162,9 +162,10 @@ def segment_metrics(data, schedule):
     return segments
 
 
-def run_case(protocol, mode, config, directory):
+def run_case(protocol, mode, config, directory, physics_profile='robojudo'):
     directory.mkdir(parents=True, exist_ok=False)
-    sim = C7Simulation(bundle_for('R0'), 'R0', outer_loop=mode, outer_config=config if mode == 'truth' else None)
+    sim = C7Simulation(bundle_for('R0'), 'R0', outer_loop=mode,
+                       outer_config=config if mode == 'truth' else None, physics_profile=physics_profile)
     rows, segment, outcome, error = [], 0, 'duration_complete', None
     try:
         for step in range(round(protocol['duration_s']/.02)):
@@ -181,12 +182,13 @@ def run_case(protocol, mode, config, directory):
     meta = dict(task=sim.metadata['task_name'], checkpoint_sha256=sim.metadata['checkpoint_sha256'],
         bundle_manifest_sha256=hashlib.sha256((sim.directory/'manifest.json').read_bytes()).hexdigest(),
         source_sha256={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in
-            ('nandu1_c7_sim2sim.py', 'nandu1_c7_outer_loop.py', 'scripts/evaluate_nandu1_c7_outer.py')},
+            ('nandu1_c7_sim2sim.py', 'nandu1_c7_physics.py', 'nandu1_c7_outer_loop.py',
+             'scripts/evaluate_nandu1_c7_outer.py')},
         protocol=protocol, outer_loop=sim.outer_metadata(), duration_s=len(rows)*.02,
         steps=len(rows), outcome=outcome, error=error,
         velocity_projection_events=sim.physics.velocity_projection_events,
         historical_torque_saturation_events=sim.physics.torque_saturation_events,
-        clocks_s=dict(policy=.02, pd=.005, physics=.001),
+        clocks_s=sim.physics_metadata()['clocks_s'], physics=sim.physics_metadata(),
         note='Truth-assisted simulation experiment, not hardware acceptance; failed samples retained')
     if data:
         try:meta['metrics_full'] = tracking_metrics(data, settle_s=0.)
@@ -207,20 +209,22 @@ def main():
     p.add_argument('--heights', type=float, nargs='+', default=[.9])
     p.add_argument('--modes', nargs='+', choices=('off', 'truth'), default=['off', 'truth'])
     p.add_argument('--outer-config', type=Path, default=ROOT/'configs/c7_r0_truth_outer_loop.json')
+    p.add_argument('--physics-profile', choices=PHYSICS_PROFILES, default='robojudo')
     args = p.parse_args()
     if args.output.exists():p.error('Output already exists; choose a fresh path')
     if not all(np.isfinite(h) and .4 <= h <= 1.4 for h in args.heights):p.error('Heights must be within .4..1.4m')
     cfg = OuterLoopConfig.from_file(args.outer_config)
     torch.set_num_threads(1)
     args.output.mkdir(parents=True)
-    summary = dict(config=asdict(cfg), cases={}, note='Paired fresh initial states; baseline still includes frozen learned/heading control')
+    summary = dict(config=asdict(cfg), physics_profile=args.physics_profile, cases={},
+                   note='Paired fresh initial states; baseline still includes frozen learned/heading control')
     failed = False
     for height in args.heights:
         for name in args.protocols:
             protocol = protocol_for(name, height)
             for mode in args.modes:
                 key = f'{name}_h{height:.2f}_{mode}'
-                meta = run_case(protocol, mode, cfg, args.output/key)
+                meta = run_case(protocol, mode, cfg, args.output/key, args.physics_profile)
                 summary['cases'][key] = meta
                 failed |= meta['outcome'] != 'duration_complete' or 'metrics_error' in meta
                 (args.output/'summary.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2, allow_nan=False)+'\n')

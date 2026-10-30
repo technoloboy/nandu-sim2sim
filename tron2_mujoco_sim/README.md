@@ -4,6 +4,8 @@ Start with [the release quickstart](README_zh-CN.md). The repository root contai
 
 C7-P-1 uses a separate Python/ONNX MuJoCo runtime, not the legacy SDK/ROS controller. After installing `requirements-sim.txt`, run `python tron2_mujoco_sim/scripts/play_nandu1_c7.py --version R0 --joystick` from the repository root; choose R1 or R2 similarly. Each version is pinned to iteration 30000 and remains experimental pending Isaac/feasibility validation, not a stability or hardware acceptance claim. Training-side export/checkpoint-comparison scripts additionally require the full training project, but ordinary playback does not.
 
+As of 2026-10-31, C7 playback defaults to `--physics-profile robojudo` (5 ms / Euler; 50 Hz policy, 200 Hz PD/physics). Use `--physics-profile legacy` for the archived 1 ms / implicitfast setup. Runtime metadata records the selected profile; sealed bundles stay unchanged. The optional truth outer loop is R0-only and off by default; its previous 1 ms evaluation does not establish performance under the new 5 ms profile.
+
 Only localhost MuJoCo is in scope. The v1.3.1.2.7/model_10000 policy repeatedly becomes unstable at zero command and is not accepted as stable; see `../deployment_bundles/catalogue.json`. No hardware deployment is authorized. Existing license and third-party notices remain applicable.
 
 ---
