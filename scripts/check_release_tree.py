@@ -28,10 +28,14 @@ def payload_paths(contents):
         name = bundle['directory']
         if Path(name).name != name:raise ValueError('Unsafe catalogue directory')
         prefix = 'deployment_bundles/' + name + '/'
-        manifest_name = prefix + 'manifest.yaml'
+        manifest_file = bundle.get('manifest_file', 'manifest.yaml')
+        if manifest_file not in ('manifest.yaml', 'manifest.json'):
+            raise ValueError('Unsupported bundle manifest file')
+        manifest_name = prefix + manifest_file
         if manifest_name not in contents:continue
         manifest = json.loads(contents[manifest_name])
-        result.update((manifest_name, prefix + 'SHA256SUMS'))
+        result.add(manifest_name)
+        if manifest_file == 'manifest.yaml':result.add(prefix + 'SHA256SUMS')
         result.update(prefix + relative for relative in manifest['files'])
     return result
 
@@ -42,7 +46,7 @@ def local_payload_paths():
     catalogue = RELEASE_ROOT / 'deployment_bundles/catalogue.json'
     contents = {'deployment_bundles/catalogue.json': catalogue.read_bytes()}
     for b in json.loads(contents['deployment_bundles/catalogue.json'])['bundles']:
-        name = 'deployment_bundles/' + b['directory'] + '/manifest.yaml'
+        name = 'deployment_bundles/' + b['directory'] + '/' + b.get('manifest_file', 'manifest.yaml')
         contents[name] = (RELEASE_ROOT / name).read_bytes()
     return payload_paths(contents)
 

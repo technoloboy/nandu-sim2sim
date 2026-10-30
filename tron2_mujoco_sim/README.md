@@ -1,6 +1,8 @@
 # NANDU1 SDK + ROS sim2sim release
 
-Start with [the release quickstart](README_zh-CN.md). The repository root contains this simulator, the sibling `tron2_rl_deploy_ros` controller and thirteen sealed `deployment_bundles`. Clone with Git LFS and recursive submodules; run all release commands from the repository root. Original upstream instructions follow for attribution, but historical demo media and experiment outputs are deliberately not distributed.
+Start with [the release quickstart](README_zh-CN.md). The repository root contains this simulator, the sibling `tron2_rl_deploy_ros` controller and sixteen sealed `deployment_bundles` (the original thirteen plus three experimental C7 R0/R1/R2 bundles). Clone with Git LFS and recursive submodules; run all release commands from the repository root. Original upstream instructions follow for attribution, but historical demo media and experiment outputs are deliberately not distributed.
+
+C7-P-1 uses a separate Python/ONNX MuJoCo runtime, not the legacy SDK/ROS controller. After installing `requirements-sim.txt`, run `python tron2_mujoco_sim/scripts/play_nandu1_c7.py --version R0 --joystick` from the repository root; choose R1 or R2 similarly. Each version is pinned to iteration 30000 and remains experimental pending Isaac/feasibility validation, not a stability or hardware acceptance claim. Training-side export/checkpoint-comparison scripts additionally require the full training project, but ordinary playback does not.
 
 Only localhost MuJoCo is in scope. The v1.3.1.2.7/model_10000 policy repeatedly becomes unstable at zero command and is not accepted as stable; see `../deployment_bundles/catalogue.json`. No hardware deployment is authorized. Existing license and third-party notices remain applicable.
 

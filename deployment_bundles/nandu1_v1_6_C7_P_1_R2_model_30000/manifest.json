@@ -1,0 +1,4867 @@
+{
+  "task_name": "Isaac-NANDU1-Blind-Flat-v1-6-C7-P-1-R2",
+  "checkpoint_schema": "nandu_drl_v1_6_C7_P_1_R2_online_r4",
+  "actor_dim": 86,
+  "policy_dim": 49,
+  "history_dim": 490,
+  "encoder_dim": 7,
+  "action_dim": 13,
+  "command_semantics": [
+    "world_z_yaw_rate",
+    "tcp_vx_full_base",
+    "tcp_height_world_z"
+  ],
+  "tcp_local": [
+    -0.066473051764,
+    0.161623719479,
+    -0.000621484902
+  ],
+  "control_dt": 0.02,
+  "recurrent_hidden_dim": 0,
+  "training_stage": 4,
+  "checkpoint_sha256": "ef926a426a4e636866c7498b97f68928cf83fcb58554a32ec10ad5f71805e666",
+  "source_manifest": {
+    "task_name": "Isaac-NANDU1-Blind-Flat-v1-6-C7-P-1-R2",
+    "checkpoint_schema": "nandu_drl_v1_6_C7_P_1_R2_online_r4",
+    "baseline": "Isaac-NANDU1-Blind-Flat-v1-6-C7-P-1",
+    "dimensions": {
+      "policy": 49,
+      "history": 490,
+      "encoder": 7,
+      "actor": 86,
+      "critic_state": 190,
+      "action": 13
+    },
+    "baseline_snapshot": {
+      "actions": {
+        "joint_position": {
+          "asset_name": "robot",
+          "class_type": "isaaclab.envs.mdp.actions.joint_actions:JointPositionAction",
+          "clip": null,
+          "debug_vis": false,
+          "joint_names": [
+            "proximal_pitch_L_Joint",
+            "proximal_roll_L_Joint",
+            "proximal_yaw_L_Joint",
+            "knee_L_Joint",
+            "proximal_pitch_R_Joint",
+            "proximal_roll_R_Joint",
+            "proximal_yaw_R_Joint",
+            "knee_R_Joint",
+            "arm1",
+            "arm2",
+            "arm3"
+          ],
+          "offset": 0.0,
+          "preserve_order": true,
+          "scale": 0.25,
+          "use_default_offset": true
+        },
+        "wheel_velocity": {
+          "asset_name": "robot",
+          "class_type": "isaaclab.envs.mdp.actions.joint_actions:JointVelocityAction",
+          "clip": null,
+          "debug_vis": false,
+          "joint_names": [
+            "wheel_L_Joint",
+            "wheel_R_Joint"
+          ],
+          "offset": 0.0,
+          "preserve_order": true,
+          "scale": 1.0,
+          "use_default_offset": true
+        }
+      },
+      "commands": {
+        "nandu1_height_v1_3_1": {
+          "acceleration_limits": [
+            2.0,
+            0.8,
+            0.5
+          ],
+          "checkpoint_schema": "nandu1_height_v1_3_1_tcp_payload_v1",
+          "class_type": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_3_1_mdp:Nandu1TCPHeightCommand",
+          "debug_vis": false,
+          "evaluation_steps": 6000,
+          "height_rate_limits": [
+            0.05,
+            0.1,
+            0.2,
+            0.35,
+            0.5
+          ],
+          "height_step_limits": [
+            0.0,
+            0.05,
+            0.08,
+            0.12,
+            0.18
+          ],
+          "height_step_probabilities": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2
+          ],
+          "height_taper_buffer": 0.1,
+          "max_reach_resamples": 8,
+          "measurement_command_name": "nandu1_height_v1_3_1",
+          "nominal_height_range": [
+            0.4,
+            1.4
+          ],
+          "ranges": {
+            "ee_vx": [
+              -1.0,
+              1.0
+            ],
+            "up3_height": [
+              0.4,
+              1.4
+            ],
+            "yaw_rate": [
+              -1.57,
+              1.57
+            ]
+          },
+          "reach_resample_limit": 0.83,
+          "resampling_time_range": [
+            4.0,
+            8.0
+          ],
+          "robustness_enabled": true,
+          "vertical_pulse_safety_fraction": 0.0,
+          "vertical_pulse_time_range": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "curriculum": {
+        "performance": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_3_mdp:performance_curriculum",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          }
+        }
+      },
+      "decimation": 4,
+      "episode_length_s": 30.0,
+      "events": {
+        "prepare": {
+          "func": "bipedal_locomotion.tasks.locomotion.mdp.events:prepare_quantity_for_tron",
+          "interval_range_s": null,
+          "is_global_time": false,
+          "min_step_count_between_reset": 0,
+          "mode": "startup",
+          "params": {
+            "asset_cfg": {
+              "body_ids": "slice(None, None, None)",
+              "body_names": null,
+              "fixed_tendon_ids": "slice(None, None, None)",
+              "fixed_tendon_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "joint_names": null,
+              "name": "robot",
+              "object_collection_ids": "slice(None, None, None)",
+              "object_collection_names": null,
+              "preserve_order": false
+            },
+            "foot_radius": 0.1
+          }
+        },
+        "push_robot": null,
+        "reset_base": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:HeightRobustReset",
+          "interval_range_s": null,
+          "is_global_time": false,
+          "min_step_count_between_reset": 0,
+          "mode": "reset",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          }
+        },
+        "reset_joints": null,
+        "robust_disturbance": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:HeightRobustDisturbance",
+          "interval_range_s": [
+            0.0,
+            0.0
+          ],
+          "is_global_time": false,
+          "min_step_count_between_reset": 0,
+          "mode": "interval",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          }
+        },
+        "stage_domain_randomization": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_3_1_mdp:TCPPayloadDomainRandomization",
+          "interval_range_s": null,
+          "is_global_time": false,
+          "min_step_count_between_reset": 0,
+          "mode": "reset",
+          "params": {
+            "asset_cfg": {
+              "body_ids": "slice(None, None, None)",
+              "body_names": null,
+              "fixed_tendon_ids": "slice(None, None, None)",
+              "fixed_tendon_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "joint_names": null,
+              "name": "robot",
+              "object_collection_ids": "slice(None, None, None)",
+              "object_collection_names": null,
+              "preserve_order": false
+            },
+            "command_name": "nandu1_height_v1_3_1",
+            "material_buckets_per_stage": 48
+          }
+        },
+        "up3_wrench": null
+      },
+      "export_io_descriptors": false,
+      "fixed_rear_mass": null,
+      "fixed_rear_x": null,
+      "fixed_up3_total_mass": null,
+      "io_descriptors_output_dir": null,
+      "is_finite_horizon": false,
+      "log_dir": null,
+      "observations": {
+        "commands": {
+          "command": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.mdp.observations:generated_commands",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "command_name": "nandu1_height_v1_3_1"
+            },
+            "scale": null
+          },
+          "concatenate_dim": -1,
+          "concatenate_terms": true,
+          "enable_corruption": false,
+          "flatten_history_dim": true,
+          "history_length": null
+        },
+        "critic": {
+          "applied_torque": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.mdp.observations:robot_joint_torque",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {},
+            "scale": 0.05
+          },
+          "base_ang_vel": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:imu_angular_velocity",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "sensor_cfg": {
+                "body_ids": "slice(None, None, None)",
+                "body_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "joint_names": null,
+                "name": "base_imu",
+                "object_collection_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "preserve_order": false
+              }
+            },
+            "scale": 0.25
+          },
+          "base_lin_vel_body": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:base_body_linear_velocity",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {},
+            "scale": null
+          },
+          "base_projected_gravity": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:imu_projected_gravity",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "sensor_cfg": {
+                "body_ids": "slice(None, None, None)",
+                "body_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "joint_names": null,
+                "name": "base_imu",
+                "object_collection_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "preserve_order": false
+              }
+            },
+            "scale": null
+          },
+          "concatenate_dim": -1,
+          "concatenate_terms": true,
+          "enable_corruption": false,
+          "flatten_history_dim": true,
+          "history_length": null,
+          "joint_acceleration": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.mdp.observations:robot_joint_acc",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {},
+            "scale": 0.0025
+          },
+          "joint_pos": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "isaaclab.envs.mdp.observations:joint_pos_rel",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "asset_cfg": {
+                "body_ids": "slice(None, None, None)",
+                "body_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "joint_names": [
+                  "proximal_pitch_L_Joint",
+                  "proximal_roll_L_Joint",
+                  "proximal_yaw_L_Joint",
+                  "knee_L_Joint",
+                  "proximal_pitch_R_Joint",
+                  "proximal_roll_R_Joint",
+                  "proximal_yaw_R_Joint",
+                  "knee_R_Joint",
+                  "arm1",
+                  "arm2",
+                  "arm3"
+                ],
+                "name": "robot",
+                "object_collection_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "preserve_order": true
+              }
+            },
+            "scale": null
+          },
+          "joint_vel": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "isaaclab.envs.mdp.observations:joint_vel",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "asset_cfg": {
+                "body_ids": "slice(None, None, None)",
+                "body_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "joint_names": [
+                  "proximal_pitch_L_Joint",
+                  "proximal_roll_L_Joint",
+                  "proximal_yaw_L_Joint",
+                  "knee_L_Joint",
+                  "wheel_L_Joint",
+                  "proximal_pitch_R_Joint",
+                  "proximal_roll_R_Joint",
+                  "proximal_yaw_R_Joint",
+                  "knee_R_Joint",
+                  "wheel_R_Joint",
+                  "arm1",
+                  "arm2",
+                  "arm3"
+                ],
+                "name": "robot",
+                "object_collection_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "preserve_order": true
+              }
+            },
+            "scale": 0.05
+          },
+          "last_action": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "isaaclab.envs.mdp.observations:last_action",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {},
+            "scale": null
+          },
+          "rigid_body_mass": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_3_1_mdp:actual_body_mass",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {},
+            "scale": null
+          },
+          "up3_ang_vel": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:imu_angular_velocity",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "sensor_cfg": {
+                "body_ids": "slice(None, None, None)",
+                "body_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "joint_names": null,
+                "name": "up3_imu",
+                "object_collection_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "preserve_order": false
+              }
+            },
+            "scale": 0.25
+          },
+          "up3_height": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_3_1_mdp:true_tcp_height",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "command_name": "nandu1_height_v1_3_1"
+            },
+            "scale": null
+          },
+          "up3_lin_vel_body": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_3_1_mdp:tcp_body_linear_velocity",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "command_name": "nandu1_height_v1_3_1"
+            },
+            "scale": null
+          },
+          "up3_projected_gravity": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:imu_projected_gravity",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "sensor_cfg": {
+                "body_ids": "slice(None, None, None)",
+                "body_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "joint_names": null,
+                "name": "up3_imu",
+                "object_collection_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "preserve_order": false
+              }
+            },
+            "scale": null
+          },
+          "wheel_body_velocity": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.mdp.observations:feet_lin_vel",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "asset_cfg": {
+                "body_ids": "slice(None, None, None)",
+                "body_names": "wheel_.*",
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "joint_names": null,
+                "name": "robot",
+                "object_collection_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "preserve_order": false
+              }
+            },
+            "scale": null
+          },
+          "wheel_contact_force": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.mdp.observations:robot_contact_force",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "sensor_cfg": {
+                "body_ids": "slice(None, None, None)",
+                "body_names": "wheel_.*",
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "joint_names": null,
+                "name": "contact_forces",
+                "object_collection_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "preserve_order": false
+              }
+            },
+            "scale": null
+          }
+        },
+        "obsHistory": {
+          "base_ang_vel": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "gyro",
+              "sensor_cfg": {
+                "body_ids": "slice(None, None, None)",
+                "body_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "joint_names": null,
+                "name": "base_imu",
+                "object_collection_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "preserve_order": false
+              }
+            },
+            "scale": 0.25
+          },
+          "base_projected_gravity": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "gravity",
+              "sensor_cfg": {
+                "body_ids": "slice(None, None, None)",
+                "body_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "joint_names": null,
+                "name": "base_imu",
+                "object_collection_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "preserve_order": false
+              }
+            },
+            "scale": null
+          },
+          "concatenate_dim": -1,
+          "concatenate_terms": true,
+          "enable_corruption": true,
+          "flatten_history_dim": false,
+          "history_length": 5,
+          "joint_pos": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "asset_cfg": {
+                "body_ids": "slice(None, None, None)",
+                "body_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "joint_names": [
+                  "proximal_pitch_L_Joint",
+                  "proximal_roll_L_Joint",
+                  "proximal_yaw_L_Joint",
+                  "knee_L_Joint",
+                  "proximal_pitch_R_Joint",
+                  "proximal_roll_R_Joint",
+                  "proximal_yaw_R_Joint",
+                  "knee_R_Joint",
+                  "arm1",
+                  "arm2",
+                  "arm3"
+                ],
+                "name": "robot",
+                "object_collection_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "preserve_order": true
+              },
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "joint_pos"
+            },
+            "scale": null
+          },
+          "joint_vel": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "asset_cfg": {
+                "body_ids": "slice(None, None, None)",
+                "body_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "joint_names": [
+                  "proximal_pitch_L_Joint",
+                  "proximal_roll_L_Joint",
+                  "proximal_yaw_L_Joint",
+                  "knee_L_Joint",
+                  "wheel_L_Joint",
+                  "proximal_pitch_R_Joint",
+                  "proximal_roll_R_Joint",
+                  "proximal_yaw_R_Joint",
+                  "knee_R_Joint",
+                  "wheel_R_Joint",
+                  "arm1",
+                  "arm2",
+                  "arm3"
+                ],
+                "name": "robot",
+                "object_collection_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "preserve_order": true
+              },
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "joint_vel"
+            },
+            "scale": 0.05
+          },
+          "last_action": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "isaaclab.envs.mdp.observations:last_action",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {},
+            "scale": null
+          },
+          "up3_ang_vel": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "gyro",
+              "sensor_cfg": {
+                "body_ids": "slice(None, None, None)",
+                "body_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "joint_names": null,
+                "name": "up3_imu",
+                "object_collection_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "preserve_order": false
+              }
+            },
+            "scale": 0.25
+          },
+          "up3_projected_gravity": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "gravity",
+              "sensor_cfg": {
+                "body_ids": "slice(None, None, None)",
+                "body_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "joint_names": null,
+                "name": "up3_imu",
+                "object_collection_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "preserve_order": false
+              }
+            },
+            "scale": null
+          }
+        },
+        "policy": {
+          "base_ang_vel": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "gyro",
+              "sensor_cfg": {
+                "body_ids": "slice(None, None, None)",
+                "body_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "joint_names": null,
+                "name": "base_imu",
+                "object_collection_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "preserve_order": false
+              }
+            },
+            "scale": 0.25
+          },
+          "base_projected_gravity": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "gravity",
+              "sensor_cfg": {
+                "body_ids": "slice(None, None, None)",
+                "body_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "joint_names": null,
+                "name": "base_imu",
+                "object_collection_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "preserve_order": false
+              }
+            },
+            "scale": null
+          },
+          "concatenate_dim": -1,
+          "concatenate_terms": true,
+          "enable_corruption": true,
+          "flatten_history_dim": true,
+          "history_length": null,
+          "joint_pos": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "asset_cfg": {
+                "body_ids": "slice(None, None, None)",
+                "body_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "joint_names": [
+                  "proximal_pitch_L_Joint",
+                  "proximal_roll_L_Joint",
+                  "proximal_yaw_L_Joint",
+                  "knee_L_Joint",
+                  "proximal_pitch_R_Joint",
+                  "proximal_roll_R_Joint",
+                  "proximal_yaw_R_Joint",
+                  "knee_R_Joint",
+                  "arm1",
+                  "arm2",
+                  "arm3"
+                ],
+                "name": "robot",
+                "object_collection_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "preserve_order": true
+              },
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "joint_pos"
+            },
+            "scale": null
+          },
+          "joint_vel": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "asset_cfg": {
+                "body_ids": "slice(None, None, None)",
+                "body_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "joint_names": [
+                  "proximal_pitch_L_Joint",
+                  "proximal_roll_L_Joint",
+                  "proximal_yaw_L_Joint",
+                  "knee_L_Joint",
+                  "wheel_L_Joint",
+                  "proximal_pitch_R_Joint",
+                  "proximal_roll_R_Joint",
+                  "proximal_yaw_R_Joint",
+                  "knee_R_Joint",
+                  "wheel_R_Joint",
+                  "arm1",
+                  "arm2",
+                  "arm3"
+                ],
+                "name": "robot",
+                "object_collection_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "preserve_order": true
+              },
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "joint_vel"
+            },
+            "scale": 0.05
+          },
+          "last_action": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "isaaclab.envs.mdp.observations:last_action",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {},
+            "scale": null
+          },
+          "up3_ang_vel": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "gyro",
+              "sensor_cfg": {
+                "body_ids": "slice(None, None, None)",
+                "body_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "joint_names": null,
+                "name": "up3_imu",
+                "object_collection_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "preserve_order": false
+              }
+            },
+            "scale": 0.25
+          },
+          "up3_projected_gravity": {
+            "clip": null,
+            "flatten_history_dim": true,
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "history_length": 0,
+            "modifiers": null,
+            "noise": null,
+            "params": {
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "gravity",
+              "sensor_cfg": {
+                "body_ids": "slice(None, None, None)",
+                "body_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "joint_names": null,
+                "name": "up3_imu",
+                "object_collection_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "preserve_order": false
+              }
+            },
+            "scale": null
+          }
+        }
+      },
+      "recorders": {
+        "dataset_export_dir_path": "/tmp/isaaclab/logs",
+        "dataset_export_mode": {
+          "_name_": "EXPORT_ALL",
+          "_sort_order_": 1,
+          "_value_": 1
+        },
+        "dataset_file_handler_class_type": "isaaclab.utils.datasets.hdf5_dataset_file_handler:HDF5DatasetFileHandler",
+        "dataset_filename": "dataset",
+        "export_in_record_pre_reset": true
+      },
+      "rerender_on_reset": false,
+      "rewards": {
+        "action_rate": {
+          "func": "isaaclab.envs.mdp.rewards:action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "action_smoothness": {
+          "func": "bipedal_locomotion.tasks.locomotion.mdp.rewards:ActionSmoothnessPenalty",
+          "params": {},
+          "weight": -0.01
+        },
+        "alive": {
+          "func": "bipedal_locomotion.tasks.locomotion.mdp.rewards:stay_alive",
+          "params": {},
+          "weight": 0.5
+        },
+        "arm_default": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:arm_default_deviation_gated",
+          "params": {
+            "asset_cfg": {
+              "body_ids": "slice(None, None, None)",
+              "body_names": null,
+              "fixed_tendon_ids": "slice(None, None, None)",
+              "fixed_tendon_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "joint_names": [
+                "arm1",
+                "arm2",
+                "arm3"
+              ],
+              "name": "robot",
+              "object_collection_ids": "slice(None, None, None)",
+              "object_collection_names": null,
+              "preserve_order": false
+            },
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.05
+        },
+        "base_pitch_envelope": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:base_pitch_soft_envelope",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -2.0
+        },
+        "base_roll_stability": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:base_roll_stability",
+          "params": {
+            "std": 0.12
+          },
+          "weight": 1.0
+        },
+        "com_to_wheel_support": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:com_to_wheel_support",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1",
+            "scale": 0.08
+          },
+          "weight": -0.2
+        },
+        "continuous_vertical_cancellation": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_1_mdp:continuous_vertical_cancellation",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.4
+        },
+        "ee_vx_huber": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:body_vx_huber",
+          "params": {
+            "cap": 8.0,
+            "command_name": "nandu1_height_v1_3_1",
+            "scale": 0.2
+          },
+          "weight": -0.4
+        },
+        "ee_vx_tracking": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:body_vx_tracking_exp",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1",
+            "std": 0.12
+          },
+          "weight": 3.0
+        },
+        "gross_leg_asymmetry": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:gross_leg_asymmetry",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.5
+        },
+        "height_directional_reserve": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:height_directional_reserve",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1",
+            "minimum": 0.15
+          },
+          "weight": -0.15
+        },
+        "height_envelope": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:height_envelope",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.5
+        },
+        "height_huber": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:height_huber",
+          "params": {
+            "cap": 12.0,
+            "command_name": "nandu1_height_v1_3_1",
+            "scale": 0.1
+          },
+          "weight": -0.6
+        },
+        "height_tracking_exp": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:height_tracking_exp",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": 4.0
+        },
+        "height_velocity_damping": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:height_velocity_damping",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.25
+        },
+        "horizontal_allocation": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:horizontal_allocation_tracking",
+          "params": {
+            "arm_std": 0.12,
+            "base_std": 0.15,
+            "command_name": "nandu1_height_v1_3_1",
+            "tracking_std": 0.12
+          },
+          "weight": 0.5
+        },
+        "horizontal_reach_barrier": null,
+        "joint_acceleration": {
+          "func": "isaaclab.envs.mdp.rewards:joint_acc_l2",
+          "params": {},
+          "weight": -5e-08
+        },
+        "joint_soft_limits": {
+          "func": "isaaclab.envs.mdp.rewards:joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "body_ids": "slice(None, None, None)",
+              "body_names": null,
+              "fixed_tendon_ids": "slice(None, None, None)",
+              "fixed_tendon_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "joint_names": [
+                "proximal_pitch_L_Joint",
+                "proximal_roll_L_Joint",
+                "proximal_yaw_L_Joint",
+                "knee_L_Joint",
+                "proximal_pitch_R_Joint",
+                "proximal_roll_R_Joint",
+                "proximal_yaw_R_Joint",
+                "knee_R_Joint",
+                "arm1",
+                "arm2",
+                "arm3"
+              ],
+              "name": "robot",
+              "object_collection_ids": "slice(None, None, None)",
+              "object_collection_names": null,
+              "preserve_order": false
+            }
+          },
+          "weight": -0.5
+        },
+        "knee_spacing_envelope": null,
+        "leg_geometry_hard_barrier": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_1_mdp:leg_geometry_hard_barrier",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.5
+        },
+        "leg_geometry_shaping": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_1_mdp:leg_geometry_shaping",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.8
+        },
+        "leg_mirror_position": null,
+        "mechanical_power": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:mechanical_power",
+          "params": {},
+          "weight": -0.0001
+        },
+        "opposite_vertical_cancellation": null,
+        "outward_reach_velocity": null,
+        "reach_coordination_shaping": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_1_mdp:reach_coordination_shaping",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.35
+        },
+        "reach_outward_barrier": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_1_mdp:reach_outward_barrier",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.3
+        },
+        "static_body_motion": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:static_body_motion",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.3
+        },
+        "static_orientation_hold": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:static_orientation_hold",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.25
+        },
+        "torque_utilization": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:normalized_torque_utilization",
+          "params": {},
+          "weight": -0.1
+        },
+        "up3_angular_velocity": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:up3_roll_pitch_angular_velocity",
+          "params": {},
+          "weight": -0.1
+        },
+        "up3_horizontal": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:up3_horizontal",
+          "params": {
+            "std": 0.12
+          },
+          "weight": 3.0
+        },
+        "up3_tilt_huber": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:up3_tilt_huber",
+          "params": {},
+          "weight": -1.0
+        },
+        "vertical_allocation_tracking": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:vertical_allocation_tracking",
+          "params": {
+            "arm_std": 0.06,
+            "base_std": 0.06,
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": 0.6
+        },
+        "wheel_fore_aft_alignment": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:wheel_fore_aft_alignment",
+          "params": {
+            "asset_cfg": {
+              "body_ids": "slice(None, None, None)",
+              "body_names": [
+                "wheel_L_Link",
+                "wheel_R_Link"
+              ],
+              "fixed_tendon_ids": "slice(None, None, None)",
+              "fixed_tendon_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "joint_names": null,
+              "name": "robot",
+              "object_collection_ids": "slice(None, None, None)",
+              "object_collection_names": null,
+              "preserve_order": true
+            }
+          },
+          "weight": -0.35
+        },
+        "wheel_load_imbalance": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:wheel_load_imbalance",
+          "params": {
+            "sensor_cfg": {
+              "body_ids": "slice(None, None, None)",
+              "body_names": "wheel_.*",
+              "fixed_tendon_ids": "slice(None, None, None)",
+              "fixed_tendon_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "joint_names": null,
+              "name": "contact_forces",
+              "object_collection_ids": "slice(None, None, None)",
+              "object_collection_names": null,
+              "preserve_order": false
+            }
+          },
+          "weight": -0.35
+        },
+        "wheel_slip": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:wheel_lateral_slip",
+          "params": {
+            "asset_cfg": {
+              "body_ids": "slice(None, None, None)",
+              "body_names": "wheel_.*",
+              "fixed_tendon_ids": "slice(None, None, None)",
+              "fixed_tendon_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "joint_names": null,
+              "name": "robot",
+              "object_collection_ids": "slice(None, None, None)",
+              "object_collection_names": null,
+              "preserve_order": false
+            },
+            "sensor_cfg": {
+              "body_ids": "slice(None, None, None)",
+              "body_names": "wheel_.*",
+              "fixed_tendon_ids": "slice(None, None, None)",
+              "fixed_tendon_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "joint_names": null,
+              "name": "contact_forces",
+              "object_collection_ids": "slice(None, None, None)",
+              "object_collection_names": null,
+              "preserve_order": false
+            }
+          },
+          "weight": -0.2
+        },
+        "wheel_spacing_envelope": null,
+        "yaw_huber": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:yaw_huber",
+          "params": {
+            "cap": 8.0,
+            "command_name": "nandu1_height_v1_3_1",
+            "scale": 0.35
+          },
+          "weight": -0.25
+        },
+        "yaw_tracking": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:yaw_rate_tracking",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1",
+            "std": 0.25
+          },
+          "weight": 2.0
+        }
+      },
+      "scene": {
+        "base_imu": {
+          "class_type": "isaaclab.sensors.imu.imu:Imu",
+          "debug_vis": false,
+          "gravity_bias": [
+            0.0,
+            0.0,
+            9.81
+          ],
+          "history_length": 0,
+          "offset": {
+            "pos": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rot": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "prim_path": "{ENV_REGEX_NS}/Robot/base_Link",
+          "update_period": 0.02,
+          "visualizer_cfg": {
+            "markers": {
+              "arrow": {
+                "activate_contact_sensors": false,
+                "articulation_props": null,
+                "collision_props": null,
+                "copy_from_source": true,
+                "deformable_props": null,
+                "fixed_tendons_props": null,
+                "func": "isaaclab.sim.spawners.from_files.from_files:spawn_from_usd",
+                "joint_drive_props": null,
+                "mass_props": null,
+                "rigid_props": null,
+                "scale": [
+                  1.0,
+                  0.1,
+                  0.1
+                ],
+                "semantic_tags": null,
+                "spatial_tendons_props": null,
+                "usd_path": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Props/UIElements/arrow_x.usd",
+                "variants": null,
+                "visible": true,
+                "visual_material": {
+                  "diffuse_color": [
+                    1.0,
+                    0.0,
+                    0.0
+                  ],
+                  "emissive_color": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "func": "isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface",
+                  "metallic": 0.0,
+                  "opacity": 1.0,
+                  "roughness": 0.5
+                },
+                "visual_material_path": "material"
+              }
+            },
+            "prim_path": "/Visuals/Command/velocity_goal"
+          }
+        },
+        "clone_in_fabric": false,
+        "contact_forces": {
+          "class_type": "isaaclab.sensors.contact_sensor.contact_sensor:ContactSensor",
+          "debug_vis": false,
+          "filter_prim_paths_expr": [],
+          "force_threshold": 1.0,
+          "history_length": 4,
+          "max_contact_data_count_per_prim": 4,
+          "prim_path": "{ENV_REGEX_NS}/Robot/.*",
+          "track_air_time": true,
+          "track_contact_points": false,
+          "track_pose": false,
+          "update_period": 0.005,
+          "visualizer_cfg": {
+            "markers": {
+              "contact": {
+                "activate_contact_sensors": false,
+                "collision_props": null,
+                "copy_from_source": true,
+                "func": "isaaclab.sim.spawners.shapes.shapes:spawn_sphere",
+                "mass_props": null,
+                "physics_material": null,
+                "physics_material_path": "material",
+                "radius": 0.02,
+                "rigid_props": null,
+                "semantic_tags": null,
+                "visible": true,
+                "visual_material": {
+                  "diffuse_color": [
+                    1.0,
+                    0.0,
+                    0.0
+                  ],
+                  "emissive_color": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "func": "isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface",
+                  "metallic": 0.0,
+                  "opacity": 1.0,
+                  "roughness": 0.5
+                },
+                "visual_material_path": "material"
+              },
+              "no_contact": {
+                "activate_contact_sensors": false,
+                "collision_props": null,
+                "copy_from_source": true,
+                "func": "isaaclab.sim.spawners.shapes.shapes:spawn_sphere",
+                "mass_props": null,
+                "physics_material": null,
+                "physics_material_path": "material",
+                "radius": 0.02,
+                "rigid_props": null,
+                "semantic_tags": null,
+                "visible": false,
+                "visual_material": {
+                  "diffuse_color": [
+                    0.0,
+                    1.0,
+                    0.0
+                  ],
+                  "emissive_color": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "func": "isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface",
+                  "metallic": 0.0,
+                  "opacity": 1.0,
+                  "roughness": 0.5
+                },
+                "visual_material_path": "material"
+              }
+            },
+            "prim_path": "/Visuals/ContactSensor"
+          }
+        },
+        "env_spacing": 2.5,
+        "filter_collisions": true,
+        "lazy_sensor_update": true,
+        "light": {
+          "class_type": null,
+          "collision_group": 0,
+          "debug_vis": false,
+          "init_state": {
+            "pos": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rot": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "prim_path": "/World/skyLight",
+          "spawn": {
+            "color": [
+              0.9,
+              0.9,
+              0.9
+            ],
+            "color_temperature": 6500.0,
+            "copy_from_source": true,
+            "enable_color_temperature": false,
+            "exposure": 0.0,
+            "func": "isaaclab.sim.spawners.lights.lights:spawn_light",
+            "intensity": 750.0,
+            "normalize": false,
+            "prim_type": "DomeLight",
+            "semantic_tags": null,
+            "texture_file": null,
+            "texture_format": "automatic",
+            "visible": true,
+            "visible_in_primary_ray": true
+          }
+        },
+        "num_envs": 4096,
+        "replicate_physics": true,
+        "robot": {
+          "actuator_value_resolution_debug_print": false,
+          "actuators": {
+            "arm1": {
+              "armature": 0.7,
+              "class_type": "bipedal_locomotion.actuators.actuator_pd:DelayedImplicitActuator",
+              "damping": 50.0,
+              "dynamic_friction": null,
+              "effort_limit": 181.0,
+              "effort_limit_sim": 181.0,
+              "friction": 0.0,
+              "joint_names_expr": [
+                "arm1"
+              ],
+              "max_delay": 4,
+              "min_delay": 0,
+              "stiffness": 480.0,
+              "velocity_limit": 4.14,
+              "velocity_limit_sim": 4.14,
+              "viscous_friction": null
+            },
+            "arm2": {
+              "armature": 0.45,
+              "class_type": "bipedal_locomotion.actuators.actuator_pd:DelayedImplicitActuator",
+              "damping": 25.0,
+              "dynamic_friction": null,
+              "effort_limit": 136.0,
+              "effort_limit_sim": 136.0,
+              "friction": 0.0,
+              "joint_names_expr": [
+                "arm2"
+              ],
+              "max_delay": 4,
+              "min_delay": 0,
+              "stiffness": 240.0,
+              "velocity_limit": 4.14,
+              "velocity_limit_sim": 4.14,
+              "viscous_friction": null
+            },
+            "arm3": {
+              "armature": 0.45,
+              "class_type": "bipedal_locomotion.actuators.actuator_pd:DelayedImplicitActuator",
+              "damping": 17.0,
+              "dynamic_friction": null,
+              "effort_limit": 136.0,
+              "effort_limit_sim": 136.0,
+              "friction": 0.0,
+              "joint_names_expr": [
+                "arm3"
+              ],
+              "max_delay": 4,
+              "min_delay": 0,
+              "stiffness": 160.0,
+              "velocity_limit": 4.14,
+              "velocity_limit_sim": 4.14,
+              "viscous_friction": null
+            },
+            "base_legs": {
+              "armature": 0.161777558,
+              "class_type": "bipedal_locomotion.actuators.actuator_pd:DelayedImplicitActuator",
+              "damping": 10.16,
+              "dynamic_friction": null,
+              "effort_limit": 140.0,
+              "effort_limit_sim": 140.0,
+              "friction": 0.0,
+              "joint_names_expr": [
+                "proximal_pitch_[RL]_Joint",
+                "proximal_roll_[RL]_Joint",
+                "knee_[RL]_Joint"
+              ],
+              "max_delay": 2,
+              "min_delay": 0,
+              "stiffness": 159.67,
+              "velocity_limit": 12.57,
+              "velocity_limit_sim": 12.57,
+              "viscous_friction": null
+            },
+            "base_legs_light": {
+              "armature": 0.053923687,
+              "class_type": "bipedal_locomotion.actuators.actuator_pd:DelayedImplicitActuator",
+              "damping": 3.39,
+              "dynamic_friction": null,
+              "effort_limit": 40.0,
+              "effort_limit_sim": 40.0,
+              "friction": 0.0,
+              "joint_names_expr": [
+                "proximal_yaw_[RL]_Joint"
+              ],
+              "max_delay": 4,
+              "min_delay": 0,
+              "stiffness": 53.22,
+              "velocity_limit": 14.66,
+              "velocity_limit_sim": 14.66,
+              "viscous_friction": null
+            },
+            "wheels": {
+              "armature": null,
+              "class_type": "bipedal_locomotion.actuators.actuator_pd:DelayedImplicitActuator",
+              "damping": 0.6,
+              "dynamic_friction": null,
+              "effort_limit": 20.0,
+              "effort_limit_sim": 20.0,
+              "friction": 0.0,
+              "joint_names_expr": [
+                "wheel_L_Joint",
+                "wheel_R_Joint"
+              ],
+              "max_delay": 4,
+              "min_delay": 0,
+              "stiffness": 0.0,
+              "velocity_limit": 40.0,
+              "velocity_limit_sim": 40.0,
+              "viscous_friction": null
+            }
+          },
+          "articulation_root_prim_path": null,
+          "class_type": "isaaclab.assets.articulation.articulation:Articulation",
+          "collision_group": 0,
+          "debug_vis": false,
+          "init_state": {
+            "ang_vel": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_pos": {
+              "arm1": -0.15,
+              "arm2": -1.78,
+              "arm3": 1.93,
+              "knee_[LR]_Joint": 0.95,
+              "proximal_pitch_L_Joint": -0.475,
+              "proximal_pitch_R_Joint": 0.475,
+              "proximal_roll_[LR]_Joint": 0.0,
+              "proximal_yaw_[LR]_Joint": 0.0,
+              "wheel_[LR]_Joint": 0.0
+            },
+            "joint_vel": {
+              ".*": 0.0
+            },
+            "lin_vel": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "pos": [
+              0.0,
+              0.0,
+              0.65337
+            ],
+            "rot": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "prim_path": "{ENV_REGEX_NS}/Robot",
+          "soft_joint_pos_limit_factor": 0.9,
+          "spawn": {
+            "activate_contact_sensors": true,
+            "articulation_props": {
+              "articulation_enabled": null,
+              "enabled_self_collisions": false,
+              "fix_root_link": null,
+              "sleep_threshold": null,
+              "solver_position_iteration_count": 4,
+              "solver_velocity_iteration_count": 1,
+              "stabilization_threshold": null
+            },
+            "collision_props": null,
+            "copy_from_source": true,
+            "deformable_props": null,
+            "fixed_tendons_props": null,
+            "func": "isaaclab.sim.spawners.from_files.from_files:spawn_from_usd",
+            "joint_drive_props": null,
+            "mass_props": null,
+            "rigid_props": {
+              "angular_damping": 0.0,
+              "disable_gravity": false,
+              "enable_gyroscopic_forces": null,
+              "kinematic_enabled": null,
+              "linear_damping": 0.0,
+              "max_angular_velocity": 10000.0,
+              "max_contact_impulse": null,
+              "max_depenetration_velocity": 5.0,
+              "max_linear_velocity": 10000.0,
+              "retain_accelerations": false,
+              "rigid_body_enabled": true,
+              "sleep_threshold": null,
+              "solver_position_iteration_count": null,
+              "solver_velocity_iteration_count": null,
+              "stabilization_threshold": null
+            },
+            "scale": null,
+            "semantic_tags": null,
+            "spatial_tendons_props": null,
+            "usd_path": "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/assets/config/../usd/NANDU1/usd/robot.usd",
+            "variants": null,
+            "visible": true,
+            "visual_material": null,
+            "visual_material_path": "material"
+          }
+        },
+        "terrain": {
+          "class_type": "isaaclab.terrains.terrain_importer:TerrainImporter",
+          "collision_group": -1,
+          "debug_vis": false,
+          "env_spacing": null,
+          "max_init_terrain_level": 0,
+          "num_envs": 1,
+          "physics_material": {
+            "compliant_contact_damping": 0.0,
+            "compliant_contact_stiffness": 0.0,
+            "dynamic_friction": 1.0,
+            "friction_combine_mode": "multiply",
+            "func": "isaaclab.sim.spawners.materials.physics_materials:spawn_rigid_body_material",
+            "restitution": 0.0,
+            "restitution_combine_mode": "multiply",
+            "static_friction": 1.0
+          },
+          "prim_path": "/World/ground",
+          "terrain_generator": null,
+          "terrain_type": "plane",
+          "usd_path": null,
+          "visual_material": {
+            "albedo_brightness": null,
+            "func": "isaaclab.sim.spawners.materials.visual_materials:spawn_from_mdl_file",
+            "mdl_path": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned.mdl",
+            "project_uvw": true,
+            "texture_scale": [
+              0.25,
+              0.25
+            ]
+          }
+        },
+        "up3_imu": {
+          "class_type": "isaaclab.sensors.imu.imu:Imu",
+          "debug_vis": false,
+          "gravity_bias": [
+            0.0,
+            0.0,
+            9.81
+          ],
+          "history_length": 0,
+          "offset": {
+            "pos": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rot": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "prim_path": "{ENV_REGEX_NS}/Robot/up3",
+          "update_period": 0.02,
+          "visualizer_cfg": {
+            "markers": {
+              "arrow": {
+                "activate_contact_sensors": false,
+                "articulation_props": null,
+                "collision_props": null,
+                "copy_from_source": true,
+                "deformable_props": null,
+                "fixed_tendons_props": null,
+                "func": "isaaclab.sim.spawners.from_files.from_files:spawn_from_usd",
+                "joint_drive_props": null,
+                "mass_props": null,
+                "rigid_props": null,
+                "scale": [
+                  1.0,
+                  0.1,
+                  0.1
+                ],
+                "semantic_tags": null,
+                "spatial_tendons_props": null,
+                "usd_path": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Props/UIElements/arrow_x.usd",
+                "variants": null,
+                "visible": true,
+                "visual_material": {
+                  "diffuse_color": [
+                    1.0,
+                    0.0,
+                    0.0
+                  ],
+                  "emissive_color": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "func": "isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface",
+                  "metallic": 0.0,
+                  "opacity": 1.0,
+                  "roughness": 0.5
+                },
+                "visual_material_path": "material"
+              }
+            },
+            "prim_path": "/Visuals/Command/velocity_goal"
+          }
+        }
+      },
+      "seed": null,
+      "sim": {
+        "create_stage_in_memory": false,
+        "device": "cuda:0",
+        "dt": 0.005,
+        "enable_scene_query_support": false,
+        "gravity": [
+          0.0,
+          0.0,
+          -9.81
+        ],
+        "physics_material": {
+          "compliant_contact_damping": 0.0,
+          "compliant_contact_stiffness": 0.0,
+          "dynamic_friction": 1.0,
+          "friction_combine_mode": "multiply",
+          "func": "isaaclab.sim.spawners.materials.physics_materials:spawn_rigid_body_material",
+          "restitution": 0.0,
+          "restitution_combine_mode": "multiply",
+          "static_friction": 1.0
+        },
+        "physics_prim_path": "/physicsScene",
+        "physx": {
+          "bounce_threshold_velocity": 0.5,
+          "enable_ccd": false,
+          "enable_enhanced_determinism": false,
+          "enable_stabilization": false,
+          "friction_correlation_distance": 0.025,
+          "friction_offset_threshold": 0.04,
+          "gpu_collision_stack_size": 67108864,
+          "gpu_found_lost_aggregate_pairs_capacity": 33554432,
+          "gpu_found_lost_pairs_capacity": 2097152,
+          "gpu_heap_capacity": 67108864,
+          "gpu_max_num_partitions": 8,
+          "gpu_max_particle_contacts": 1048576,
+          "gpu_max_rigid_contact_count": 8388608,
+          "gpu_max_rigid_patch_count": 327680,
+          "gpu_max_soft_body_contacts": 1048576,
+          "gpu_temp_buffer_capacity": 16777216,
+          "gpu_total_aggregate_pairs_capacity": 2097152,
+          "max_position_iteration_count": 255,
+          "max_velocity_iteration_count": 255,
+          "min_position_iteration_count": 1,
+          "min_velocity_iteration_count": 0,
+          "solve_articulation_contact_last": false,
+          "solver_type": 1
+        },
+        "render": {
+          "antialiasing_mode": null,
+          "carb_settings": null,
+          "dlss_mode": null,
+          "dome_light_upper_lower_strategy": null,
+          "enable_ambient_occlusion": null,
+          "enable_direct_lighting": null,
+          "enable_dl_denoiser": null,
+          "enable_dlssg": null,
+          "enable_global_illumination": null,
+          "enable_reflections": null,
+          "enable_shadows": null,
+          "enable_translucency": null,
+          "rendering_mode": null,
+          "samples_per_pixel": null
+        },
+        "render_interval": 4,
+        "use_fabric": true
+      },
+      "teleop_devices": {
+        "devices": {}
+      },
+      "terminations": {
+        "catastrophic_tilt": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:SustainedBadOrientation",
+          "params": {
+            "duration_s": 0.15,
+            "limit_angle": 1.1344640137963142,
+            "sensor_cfg": {
+              "body_ids": "slice(None, None, None)",
+              "body_names": null,
+              "fixed_tendon_ids": "slice(None, None, None)",
+              "fixed_tendon_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "joint_names": null,
+              "name": "base_imu",
+              "object_collection_ids": "slice(None, None, None)",
+              "object_collection_names": null,
+              "preserve_order": false
+            }
+          },
+          "time_out": false
+        },
+        "forbidden_contact": {
+          "func": "isaaclab.envs.mdp.terminations:illegal_contact",
+          "params": {
+            "sensor_cfg": {
+              "body_ids": "slice(None, None, None)",
+              "body_names": [
+                "base_Link",
+                "proximal_.*",
+                "knee_.*",
+                "up1",
+                "up2",
+                "up3"
+              ],
+              "fixed_tendon_ids": "slice(None, None, None)",
+              "fixed_tendon_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "joint_names": null,
+              "name": "contact_forces",
+              "object_collection_ids": "slice(None, None, None)",
+              "object_collection_names": null,
+              "preserve_order": false
+            },
+            "threshold": 1.0
+          },
+          "time_out": false
+        },
+        "non_finite": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:non_finite_state",
+          "params": {},
+          "time_out": false
+        },
+        "time_out": {
+          "func": "isaaclab.envs.mdp.terminations:time_out",
+          "params": {},
+          "time_out": true
+        }
+      },
+      "ui_window_class_type": "isaaclab.envs.ui.manager_based_rl_env_window:ManagerBasedRLEnvWindow",
+      "viewer": {
+        "asset_name": null,
+        "body_name": null,
+        "cam_prim_path": "/OmniverseKit_Persp",
+        "env_index": 0,
+        "eye": [
+          7.5,
+          7.5,
+          7.5
+        ],
+        "lookat": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "origin_type": "env",
+        "resolution": [
+          1280,
+          720
+        ]
+      },
+      "wait_for_textures": true,
+      "xr": null
+    },
+    "baseline_snapshot_sha256": "05f4f56e649f766f1584f63b1c4673b098a666950d47bba23ef3d636e4e19d59",
+    "source_sha256": {
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/__init__.py": "9b759ac0380f548ea93e71cbd8bba7d660c81609dd684b9bcc617e6602cb507d",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/commands.py": "3d342d57f5d6ef6ddad5f9fe6e6e5513c668e5d743fe8845e239991d1c8fa5c0",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/costs.py": "5efff431554a0cecac59cbdbbc58333015e69539612d46404cd11b0f0d6d346b",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/evaluation.py": "d6c7d85d59a73d3d92d91c2f9ddbaaee3be4531e04495a38a820d1cb8dec3b7e",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/frequency.py": "e4d54e789fc82d4851ac598d21463798928b14623f0b8edeac22937e8a296fe6",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/integral.py": "271493918ec8fed5acc5a49e6b77983377373e90145811f57cef3fc6f9cb4fbd",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/learned_trim.py": "dcb6d7be6484ea0d0d9ecba9e9d4706acb5fd82a3fe258a7c04dc49a8bbb2c7a",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/observations.py": "efdf423562c9a0c5b69a2a239fd477cca25a1b2cad2934c7935b9d96570e58e3",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/ppo.py": "a368174f4c97e03e1edaeda7e18e5090f831cbe315219a10115fb193580d0f9d",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/recurrent.py": "1bdbb41f2eb71611f91132e75d0a0431da3ebb7d06e645ab88352c3afc250e1c",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/replay.py": "7c84c9de7b93d68ccf4c084a5dec346c1ca2c6ea9acf8f6db2d85e11d375ef34",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/reset.py": "7dcb4a4e858d00ddb5f6c305622889af9be61334ac22f76eeca9487e012319bd",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/sac.py": "f62ec8eafb46ad4a85585661e6d5d457648883335cff72a6bbd7b21934a5ea5f",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/stability.py": "04e29d3565cbdadb50ec9d4bbdb7ee44ee786f25dc84fd6cc015b5935bf83dcf",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/state.py": "c7209fdb6c86258818ccd06baf07c20921a78434d4338983c865ef384c1e05f5",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/storage.py": "729cd1e043951ad68736aa160aa3e92dd61953b0dda84ef3bc59ad27a5e85f49",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/c7_p1.py": "7fabb371f2de6154c45dbb11b1c01a89fb2dec8898cfbcf54635a0480cf0c9fc",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/c7_p1_runtime.py": "b975ceb190d399e3e8fd0636f58f5159588186aafcdc6e3f1606eed30e1e316f",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/numerics.py": "9d29730df85d60dc08a3842925dde2ce0a08a07380e0e976e7662e48944839e3",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/stable_ppo.py": "72a564819391e4b418d9e52bfd64c79bc7ce565866b974b97d6ec30ecbbfa8d0",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/c7_p2.py": "3e357fc251f5bb14126b0451af42b902d6658ae84541542b9819b4797ed92c96",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/actions.py": "24e4aa41b530766cad715cddf3576e8e97339295452610bd17a5b32908fe952e",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/c7_p1_r4_actions.py": "0f4de84c884bb1c255986a896fc8a3cab7923857bb2ee5548d3f55a6f65ec021",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/c7_p1_r4_allocation.py": "0ea11dd1db36480cc513a94d020af84df7e8ef457747d4b4546b8d91723cc412",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/c7_p1_r4_rewards.py": "0faae6674aff3fefc5ca592506a1ebf00504d8fe7cbe7129e87d9b9cc40f0cd6",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/c7_p1_r4_sampling.py": "812c1511d4cc50b17896af527f0561a91b7a2afd5a266ff0736e6d61be8ed47e",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/c7_p1_r4_state.py": "d1753f465b58e63f1139e3ae8f88d502055b0254ff9fd71644e18cd3ac8ab3e3",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/c7_p1_r4_wheels.py": "e555551b27d86e2988f168962d438951dd73bb31e7f20b8b7e4acc1bcc7d4963",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/checkpoint.py": "414400418c704817fd32ae44ea9c9aaee07f124b151d6169060d38bb074e139f",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/contract.py": "8331879f9d99ccd1f761ef03c4162a3da286537aca2c52e19b3549e04c7c3375",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/controller.py": "18e91fb442cc690024c016d5a610c988e8c67877b45387d4c99b177c58e3c055",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/deployment.py": "88959628b2da2ef3db8be976960191af6f8e8647317fb12bf3d00523cac65b0a",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/export.py": "9d2aac63cba4b24548c87b9f71be182ba37ac1e278a198f446b7ebe8ecef882c",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/manifest.py": "311e506a1a2db984ef0c2bae36724b9d03c9af4e4eed298e756a4474bc36adff",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/mujoco_adapter.py": "135986fa7dd8e90f9306ba1b5eeba07a0edc64d1f1df5ba51f2241b06a322b9c",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/networks.py": "1eb5e99fbe1e1da5cc44ddf2955dd63535909d2fce409861de6bde784c6108ce",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/profiles.py": "fcf4985c110f2f3ac721537623e20269dfe611f2397ce1a9c9b895f59ee1142d",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/runner.py": "0b43f895b0d2557db8bfc3ef7718a091aab7832211676ff1193c327a23189508",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/runtime.py": "cf1ddde5d634b81850c9fbb40ee9117868337e35f9ae7839de67c33c1beaa1c1",
+      "/root/autodl-tmp/nandu-train/rsl_rl/rsl_rl/nandu_drl/c7_p1_r4_capability.py": "e135bdf4e59f0b8b2cf9fba78bc06a55cba56b51ad9936c9e6253fd7ba92754b",
+      "/root/autodl-tmp/nandu-train/scripts/nandu_drl/audit_runtime.py": "c0a66516e44917857f2cc3cbd7cd3825d33d75db522b5062b3955bef85bd7d23",
+      "/root/autodl-tmp/nandu-train/scripts/nandu_drl/summarize.py": "b592954ecc3e151bb292adddb28cac06045de69c11433b8f85cc1941b868e3b4",
+      "/root/autodl-tmp/nandu-train/scripts/nandu_drl/joystick.py": "76e6e7507d9dd8d5375d4521915535eea23c74ba5c4a563a5c015d98a59e3c8d",
+      "/root/autodl-tmp/nandu-train/scripts/nandu_drl/benchmark.py": "cba5019b286ceb3ec19ffadb91bae469aced872b86e269b48e05630ccf30681c",
+      "/root/autodl-tmp/nandu-train/scripts/nandu_drl/export.py": "2b3e8f9f0d773bc7ac19844b5931be44f47f581713fe1e15c9b4df98cb6082e4",
+      "/root/autodl-tmp/nandu-train/scripts/nandu_drl/evaluate.py": "9cb1c98e54551fdfddfd1d90f4416e4a331581fc0fea7cbb294ae69c79ad0253",
+      "/root/autodl-tmp/nandu-train/scripts/nandu_drl/mujoco_play.py": "33001b05e3a87016f36bf74eebdcfaeeca242a903204e886c4cc02d043877407",
+      "/root/autodl-tmp/nandu-train/scripts/nandu_drl/play.py": "a90ba8bcad8530708d1749a6aea4d50b2ef00e2df8c3b88d63d107ee8a1126ce",
+      "/root/autodl-tmp/nandu-train/scripts/nandu_drl/common.py": "24e7ec3720d44d0833e908cf237b8dc6b196a1964929d8fd34c912a7670270e1",
+      "/root/autodl-tmp/nandu-train/scripts/nandu_drl/train.py": "351c9e5fa142e6aab20ae667da025e3dfce49514d02396ae40e2e97559f3e3b8",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_6_mdp.py": "5c93245c25b8b231041606093dbe3022b11ea094d8219e316ead33015603c4fd",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_6_c7_p2_env_cfg.py": "6f971f9ddfca95efc5ee9a5ab052189f3051b7e197cca7ef822ca5c5bac2b9cf",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_6_c7_p1_mdp.py": "dc927f65557dda55c6f12e5150946e8fae6efcb74c5ef62392c911d810ae722b",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_6_c7_p2_mdp.py": "51e6408f826f512b8f421847ae933f6a6bc26a2d3f267d282842558fa196bfff",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_6_c7_p1_env_cfg.py": "ad08492aafb3b9507e68b5b98ae940c2225b3885fe25a86b89abf4859ecea2e7",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_6_env_cfg.py": "1416b983a34beb72bd769c67f570aff78f7c2592245a3ed2cb6820de897d603c",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_6_c7_p1_r4_env_cfg.py": "f0968aa54e464a6b57d5ac9315f0eb35b4738fee29713f24b69604540d4e3fa7",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_6_c7_p1_r4_mdp.py": "1f84107c24a3405bbb7600e853fad188d461cf3a9d715c6252e8f57588ad3f6f"
+    },
+    "learning": "online_only",
+    "action_variable": "saved_latent_with_bounded_target_log_jacobian",
+    "tcp_semantics": "fixed_up3_TCP; vx=full_base_body; yaw=world_Z; height=world_Z",
+    "physics_ancestor": "Isaac-NANDU1-Blind-Flat-v1-3-1-2",
+    "baseline_numerical_revision": 3,
+    "revision_profile": "R2",
+    "baseline_source_sha256": {
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_beni_mdp.py": "0f3682c70fff3f2cfae1058e115cd717bb066794d92948fff34dac677d2d5e9a",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_9_mdp.py": "f891131e67b7e6fda30061d2250d5f219eebb1ac9e5e7511e453a8b9edf71d1c",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_contract.py": "40b50bb16a6265aaf35c41f6a17e7f3fe00c1326a656a35dec89c53c13a056fa",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_13_mdp.py": "bd3fd3fe74c50f4253ac631ae582f878e335e9244bd4d5ef7a85d589f08a3267",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_lowheight.py": "0ea07ad8d19a6a83757ffc6047b7540bb9034c02ea0678be26efc56b0561cca5",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_beni_r4_mdp.py": "a11b61ebebcfece7a272400b4d4ffbf0ef4a4b2119f05c421806476f8a66f839",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_math.py": "9d04a4163fb263bb93ebef331153feb73d785d851e9844a56e5a867fbc75dc0a",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_4_contract.py": "429d6e393aa4066a01685a0bbb4cd9bee68edbb50736cd834c9384631a670093",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v0_1_env_cfg.py": "69b79183e99b7dff187848004df752e020ed56f2c94493c31441f9abd1141ffd",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v0_1_math.py": "2fdadd1f7826d7ee40fa0fbd68aa2edfd115b9607feeb8ac5675a46029ae741e",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_17_mdp.py": "27679937cff547f7034f302afc2c6f657f471b500d69153f83c8b6e5e2dd4b54",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v0_1_mdp.py": "58fa61da6ab88f1e1a231d79548490647741759472d24900de5a687dc71e9c52",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_4_coordination.py": "1783ce50911fb1d1e73c18009b0be449102efbbb7d9a772ecd6e273d11510e0b",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v0_2_env_cfg.py": "c5e649a621196722b2dd90f05e0beca97d30d09245621e2c5eff15383f1d2751",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v0_2_math.py": "9a70855ed08ddcc5556a0cc1d4aa6f6f517ad71b5ca9ebc960fb3be94a846e94",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v0_2_mdp.py": "21e1a874e5840953a14d9b316e88e83ddc6fc3e42aed920b340dec1ad4a1990c",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_4_env_cfg.py": "6a68e6abb0d8d000821e52ab840cc18049ff40d9c8fa66369dd68c2429060a2d",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_1_env_cfg.py": "4aaab6f73dce5150e223146a8d18fc560c0d1130a73b3de5635afb0b6cd8fe26",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_1_math.py": "fa7553b24ec2dd80a4b7a81656ac52c5bf81d1178871193cfb0c057f340c36c4",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_4_math.py": "a9854a416641ca784fc4b1b239cb0a4bf7c6480a530eb25d59fdb77dbb89f3ca",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_2_1_contract.py": "7c57cb07a3c764656bd4c61898aab096e6b5f352f73f316b2f24b0ceaf6c86e0",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_4_mdp.py": "baa6d76b3357fbd4ca84e69ada71b0b7fa8b0ca0c6a79729d274e24aa1f4082f",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_2_1_env_cfg.py": "3f1754fe8800173225a9a8cedc86161698b3e022f7491b01802f5af3113ff9a2",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_env_cfg.py": "19a4b8ac456cfe2d80d85e9fbd87ca430102cbd9eefeab321393a534ec935324",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_2_1_math.py": "98abc471e5630f71e691cdd88697495038bb60296a9359346ee3293d2a9e1e77",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_18_mdp.py": "c6d8a1526abefb5a97e29d18baa05d71c53cdcc9d2d0bfc930ae502da9d0942a",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_2_1_mdp.py": "f4e8a18b65b6371af0811e6e70e6a861c9bebd95ca9c2fa7c87fa5dafa352e3c",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_contract.py": "3c8a2d5c853077cfb3f94fdb6fe0e9f2e8c8d8b47ad480b836ad3a61cee22436",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_2_2_env_cfg.py": "8bb4ead8805a8f897d6972b63e7b8aaf4d7be856efb5db204905839a17d23314",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_robust_mdp.py": "7a3cc14f703dfe8cd6a57bce317f38c26abcb425221ac72b007cb84d4676cf46",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_2_3_env_cfg.py": "14186cfa30f160c1be008f9762f8b8ae7a3684a88d6274c23fd1269978c7af08",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_18_wheel.py": "afa0aa7c267a787079f8c76bb3339d47882a7bae526906038e76462a49b03776",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_2_3_mdp.py": "8bcc75c7e35f76ca4835e590222ff3199b14b3be957f2af61e0392f39c4a7fa9",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_2_mdp.py": "b819d193332c86a44ce0fed7fe8cef67970ac3c7c946622243fe132392311aba",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_2_4_env_cfg.py": "e37cea36f45d56df8a9d71a7ad9bf5a8b2dbdca71ed91b26cc7efb546467e24b",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_statistics.py": "5a7a89b6f6dbdeecbb037981aedebc44ccafe8eddf00e6f4d007e2a678b344b1",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_2_5_env_cfg.py": "895eb6b331d246b90c2b919dd5cb3b243abc31b163b161edea0567cf48cac94f",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_env_cfg.py": "b02f08a040a68d632c62549766e77d7fdff096879fc2eadaf826ca10915b75d4",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_2_5_mdp.py": "941b90739d05a4ab14b6f13099bb7b4d8687077e3a3e3fc3c91cf3cade2adf64",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_12_env_cfg.py": "30d1e5879925c3134fc831e08f51d1f4b8d5683d04821c76df1f7d6a1aabc581",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_2_6_contract.py": "67500b8b93767cb6f6ddfd44d1e1d4a3191ca286e23b1c6040080b9700b664f3",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_beni_static_r2_mdp.py": "e2e5cc6b346517d07a948a6981efd2b4642fc9d575f179b52bd9910a482d41ff",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_2_6_env_cfg.py": "225faefcdb182dac7155f57f70240efa7e72f78165b61deb70d0591a7cce1b64",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_ablation_mdp.py": "c22ac003a7653b68a0cad9e48ba7786217a514c68a807fbb43148ed050bd540b",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_2_6_math.py": "bd92562bf6f7d41e98c2e311ec3d5244d2ad1788637e1af42bc5349669859fd0",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_1_mdp.py": "af901665604b4a6c389257965890ad7385605cab471f940fe851aad3f4039f26",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_2_6_mdp.py": "36bacdc351bd7e0f2ab7ed35ab342b64550962eca591ad1f962397727b8b6394",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_mdp.py": "805bd2f8876015f8feb0a2f63d444721acf1496ca4ab921509b4144561656adc",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_2_env_cfg.py": "92100664a6802b2ff5dd43f574cc1221858ac4de80090de48eb4f86709d310d9",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_8_env_cfg.py": "76c745e97b774d6e80ba78a793fd90109a2d1a52d9f02efa1fa62ef7d78e68ae",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_2_tcp_contract.py": "4563a585e5b5e3dbba1efd586e88c6ff1b2d797a421de8ef362b64d580661321",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_8_mdp.py": "87be538bbd1e7c8befc08c1c454b4c6a93b7170786a7dc36846af5c059eec9e9",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_1_env_cfg.py": "b636eebb9cb21a459ffcde6fe3f41dbe79d57c16a037519ff823f2383722f08e",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_9_2_env_cfg.py": "d0a0eedb5f4bc91fc4e2668455c32d8e4380e5084079d399d23104229b3b0d1d",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_1_mdp.py": "7b756c875be16450a4d34828a9faa7c474b54cdde0299186b45c68cf1079050f",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_9_3_env_cfg.py": "7fbf60b05a111268e9d3fb5cb39e5164e83d84f600288e4dea91eae563092f95",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_contract.py": "f9561f7394667f992f8ed4348793318e4123b925e6dfc9a3927ee960071d1bcf",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_9_4_env_cfg.py": "7ca5732b872d60a4ba5eb5d890d662f98fffc5e033684d4c2a1d9ab1a50d40a4",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_env_cfg.py": "b5098d47ecf0969f0c8303dafff56af63c4d9c1b2a605295aea35751cabff5d6",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_9_env_cfg.py": "e367f5b5bcdf522f37bd10cc7cb31cae274395a208df5ea1bf1050767528beb4",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_math.py": "6213b293ce8ad191660e6869a718e86613d90226d09b8a56eeea4fa1527a622c",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_mdp.py": "4bf323d3612f065262b1f720a17c13d3733357e8b2293c44c10c912bf7848af1",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_mdp.py": "b323a36cd75d1824c975eca89570d5d575fae3dbc2795643c867b5cc7e8f36ba",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_beni_recurrent_r2_mdp.py": "81820094d1e7c0171fe68757ed231277acb1392a94c4e60e42e06393ec21a0cd",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_env_cfg.py": "bcefe7edef21eab8efe799749503eca31b04a58d3692ca06e21eb8466d745e10",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_19_mdp.py": "feae18a4331df6671382e02bd395da7fd596470f8d6da6ccf6d07da58b733d7c",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_math.py": "7b0de06345d2cb681fb146800de04abaa51794bac3fc03d5f335d6416f05bc71",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_settling_c3.py": "6059fa020aba6c8b012f7ac826dd98ab71f9f8206cffaa1b50d780630308d43c",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_mdp.py": "5bb349e6ab1b98f68812bd28b755eba7639675e76f373ff44d6c784762bce8f8",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_10_env_cfg.py": "b2b2bb678889d989007c8a73598133b0fbc373d59e155c434295189d7e4e5f12",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_4_1_contract.py": "61f1c0522d42af49d151bd8c49f1187db5408c8299e177940c5084517b8dda4e",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_4_1_mdp.py": "fd51aeff21842beda291ce92babe580937dc3bd0096989d9355e3b5b25e2dc56",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_4_1_coordination.py": "423f54c3b8caabddb10a16b2ba3b8e6bba98693cfba3e2fae2d9f815c97757e6",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_beni_r3_command.py": "acca19d1151229df0baf9c5fedbbdcba4df1ffd41cfc6c4ea553b26a1f81547e",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_4_1_env_cfg.py": "ef15ba29211100159262ca72e8c4d3948f13f1c10292d5524c2bf880b509c143",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_9_1_env_cfg.py": "10341883d59c5b3305ec79e9639dc47efacf517ccd6a04f4b9a2ea81e22e14ce",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_4_1_math.py": "a0ff3d252815b97696dadde7e6a2cbb3fe84134c4111ba34834103c8323eec2f",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_11_env_cfg.py": "f8379f7a07ae5af2458eef2d3e4a050da2e6b62efc1cd3ac955df77f75bf1286",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_beni_r3_mdp.py": "0cdedb6c183a052e8424e64fc75193328146d4d320d4c2e290bafe4bf21637f5",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_2_env_cfg.py": "3c5cec1fc0e1ad0b610d478bab2f907aefe4e6d060c5214634984732dc1c202f",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_static_coverage.py": "e62ebac113a1b48d2a8e38b376e6668dd3f988725faf2e54a11934aae81860ea",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_3_env_cfg.py": "5f0de5246fc64c5efe7e4829a634d987757dfc3ab64a6b6ce1f4112e55123ba6",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_4_env_cfg.py": "cde08f1d180318a0af4ebd0d1d5550b25aa2bedf5f47c2852467a89708f54827",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_5_env_cfg.py": "4dd1993f4e07cca2be7f9a92375fb84e40eaac31394a16431916cf10bffe975f",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_6_env_cfg.py": "1bdf84e26abf3fde8df773c844ba8d406c9bb06526ce5a16e176747f01db36dc",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_7_env_cfg.py": "69b82ea7294de659f8f082418319363740f3d4cb96e3a3404886a2b918488ed5",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_beni_r4_command.py": "f143b810a4d02b829a1cd472ec558696309ffb6df42024ecb77b07177f77a941",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_16_env_cfg.py": "abd60e3235c9669c3ada430b9a930d31074f5a445e531b3406c68ac8de276ee9",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_14_env_cfg.py": "d814c11573c9fb8cc2acf79ecbf7174f47e49552bbf01c3e0116b608a2af98b6",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_15_env_cfg.py": "fd4c0f4e5c005b9b9f0f068f35034ca89f0b419e791ae25fdb733c4f186d5de7",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_balance_coordination.py": "5a6d641ec9f43306ccd7f5a519bc3c51ba63596e130431a32744aacd24f3fbe1",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_13_env_cfg.py": "49b5a99a157f80a3bfc0a65a1c54bbfa46de2c597fe8e632295c4b0739a6cb7e",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_17_wheel_pd.py": "64c3dc0882b3fbcd66fd8359e9463e722c238cdfb6059708e0417bd47ee94d2a",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_beni_geometry_r5_command.py": "6686218bc601d324e9bba593353adc56cacb6d80ff0c2b81b8396f8c6d1c246c",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_beni_geometry_r5_mdp.py": "620e6e7a675960bff0aaebc8870152735c5b108f1d2df887c1395329c9068b03",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_17_env_cfg.py": "b1ee1e70e3258b04f4e3ab76b6fa60d2a502cc1481a1c9bf697e5f590f9dc7d1",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_18_env_cfg.py": "6c82565dfa18d44d8c6d6c8397d45ec9689a9b172519b004de10b36cf7a134a3",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/tasks/locomotion/cfg/NANDU1/nandu1_v1_3_1_2_19_env_cfg.py": "07527a51ff4ea9d29e0c9719d70c0ec617c5989a69dbc2a1268570e64f891b0c"
+    },
+    "runtime": {
+      "python": "3.11.17 (main, Oct  1 2026, 20:17:42) [GCC 14.3.0]",
+      "torch": "2.7.0+cu128",
+      "cuda": "12.8"
+    },
+    "asset_sha256": {
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/assets/config/../usd/NANDU1/usd/robot.usd": "08f4af679a6a64b8993bfe424973827fe4a9c3de088793b09dc9fe8209bb6a1f",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/assets/config/../usd/NANDU1/usd/configuration/robot_base.usd": "05d36878979baadac392cf8c44edc8082ceb24af1fce3f9304c7aa401fddfd9f",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/assets/config/../usd/NANDU1/usd/configuration/robot_physics.usd": "e94411edeac4eb5e6b9390ff418e740fb2188fa7e0a2c41de5c4ad6dfdd9b09a",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/assets/config/../usd/NANDU1/usd/configuration/robot_robot.usd": "1fa9376f1d51e790e9cc478fbf3d69ed17d3bcd315d3af906a2ba2b0a99fd52e",
+      "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/assets/config/../usd/NANDU1/usd/configuration/robot_sensor.usd": "e79032f5a2965d2dc4c07aab6fe3bd128187d06e1cdf4bb87db40b72c8375b51"
+    },
+    "initialization": "separate_reset_q; unchanged_action_observation_reference; zero_velocity; no_runtime_FK",
+    "physical_profile": {
+      "physics_revision": 1,
+      "profile_schema": "nandu_c7_p1_r4_R2",
+      "checkpoint_schema": "nandu_drl_v1_6_C7_P_1_R2_online_r4",
+      "joint_limits": {
+        "upper_rad": {
+          "arm3": 2.24,
+          "knee_L_Joint": 1.2,
+          "knee_R_Joint": 1.2
+        },
+        "soft_factor": 0.9,
+        "writes": [
+          "simulator_hard",
+          "joint_pos_limits",
+          "default_joint_pos_limits",
+          "soft_joint_pos_limits"
+        ],
+        "lower_rad": {
+          "knee_L_Joint": 0.2,
+          "knee_R_Joint": 0.2
+        },
+        "knee_work_region_rad": [
+          0.3,
+          1.1
+        ]
+      },
+      "reset": {
+        "joint_position_overrides_rad": {
+          "proximal_roll_L_Joint": 0.01218427,
+          "proximal_roll_R_Joint": -0.01218427,
+          "proximal_yaw_L_Joint": 0.05100826,
+          "proximal_yaw_R_Joint": 0.05100826
+        },
+        "root_z_m": 0.6531306790947692,
+        "joint_velocity_rad_s": 0.0,
+        "default_action_observation_reference": "unchanged_original_default_q",
+        "reset_q_storage": "independent_clone_of_default_q_with_reset_overrides",
+        "calibration": {
+          "method": "offline_URDF_and_wheel_collision_mesh_ground_tangent",
+          "reference_root_z_m": 0.65337,
+          "reference_lowest_wheel_mesh_z_m": -0.654958507294151,
+          "reset_lowest_wheel_mesh_z_m": -0.6531306790947692,
+          "urdf_revolute_axes": "normalized_before_offline_rotation",
+          "calibrated_root_z_m": 0.6531306790947692,
+          "ground_height_m": 0.0,
+          "assumption": "STL_surface_ground_tangent; verify_PhysX_convex_contact_separately",
+          "runtime_fk_ik": false
+        }
+      },
+      "posture": {
+        "base_floor_m": 0.363309425,
+        "base_floor_huber_scale_m": 0.05,
+        "base_floor_cap": 6.0,
+        "base_floor_weight": -0.5,
+        "up3_tilt_huber_scale_rad": 0.12,
+        "up3_tilt_cap": 6.0,
+        "up3_tilt_weight": -1.0,
+        "up3_horizontal_reward": "retain_original",
+        "static_orientation": {
+          "roll_scale_rad": 0.08,
+          "pitch_scale_rad": 0.12,
+          "up3_tilt_scale_rad": 0.08,
+          "cap": 20.0,
+          "weight": 0.0,
+          "gate": "raw_user_intent_height_gate"
+        },
+        "dynamic_pitch_envelope": "retain_original"
+      },
+      "spacing": {
+        "wheel_range_m": [
+          0.46,
+          0.53
+        ],
+        "knee_range_m": [
+          0.38,
+          0.47
+        ],
+        "yaw_half_width_relaxation": 0.15,
+        "geometry_shaping_weight": -0.8,
+        "geometry_hard_barrier_weight": -0.5,
+        "soft_margin_m": 0.018,
+        "distance_scale_m": 0.04,
+        "velocity_scale_m_s": 0.1,
+        "diagnostics": "all_raw_and_continuous_metrics_share_ranges_once_per_frame"
+      },
+      "wheel_axis": {
+        "native_local_axis": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "outward_axis_signs_L_R": [
+          1.0,
+          -1.0
+        ],
+        "rolling_direction_L": "outward_L_cross_world_Z",
+        "rolling_direction_R": "world_Z_cross_outward_R",
+        "heading_reference": "base_heading_forward_projected_world_XY",
+        "deadband_base_deg": 3.0,
+        "deadband_yaw_extra_deg": 3.0,
+        "huber_scale_deg": 10.0,
+        "per_wheel_cap": 4.0,
+        "aggregation": "mean",
+        "weight": -0.15,
+        "pair_angle": "unsigned_angle_between_outward_axes_projected_world_XY_rad",
+        "common_yaw": "half_sum_signed_heading_errors_rad",
+        "toe": "left_minus_right_signed_heading_errors_rad",
+        "degenerate_projection": "invalid_flag_and_per_wheel_cap"
+      },
+      "attachment": {
+        "measurement_tcp_local_m": [
+          -0.066473051764,
+          0.161623719479,
+          -0.000621484902
+        ],
+        "com_local_m": [
+          -0.066473051764,
+          0.161623719479,
+          0.149378515098
+        ],
+        "offset_from_tcp_local_m": [
+          0.0,
+          0.0,
+          0.15
+        ],
+        "frame": "up3_local",
+        "mass_distributions": "unchanged_original",
+        "reset_inertia": "reconstruct_from_nominal_mass_COM_full_inertia_each_reset"
+      },
+      "joint_position_bias": {
+        "amplitude_rad": 0.015,
+        "distribution": "Uniform(-amplitude,+amplitude)",
+        "sampling": "startup_independent_per_environment_per_11_nonwheel_joint",
+        "reset": "preserve",
+        "play_default": false,
+        "fixed_test_override": true,
+        "policy_history": "same_cached_measured_positions",
+        "critic_label_physical_state": false
+      },
+      "disturbance": {
+        "bodies": [
+          "base_Link",
+          "up3"
+        ],
+        "physics_dt_s": 0.005,
+        "duration_physics_ticks": 2,
+        "duration_s": 0.01,
+        "onset_interval_s": [
+          2.0,
+          4.0
+        ],
+        "force_peaks_N": [
+          0.0,
+          2.0,
+          4.0,
+          7.0,
+          10.0
+        ],
+        "torque_peaks_Nm": [
+          0.0,
+          0.5,
+          1.0,
+          2.0,
+          4.0
+        ],
+        "sampling": "independent_per_body_per_axis_uniform_symmetric_peak",
+        "force_frame": "world",
+        "torque_frame": "body_local_rotated_to_world_each_physics_tick",
+        "application_point": "body_COM",
+        "onset": "shared_between_bodies_per_environment",
+        "stage0": false,
+        "play_default": false,
+        "reset_and_end": "clear_wrenches",
+        "enable_transition": "fresh_independent_first_delay_2_to_4_seconds",
+        "new_physical_world_resume": "clear_temporal_wrench_state"
+      },
+      "wheel_control": {
+        "schema": "nandu_c7_p1_r4_bounded_wheel_increment_v1",
+        "joint_names": [
+          "proximal_pitch_L_Joint",
+          "proximal_roll_L_Joint",
+          "proximal_yaw_L_Joint",
+          "knee_L_Joint",
+          "proximal_pitch_R_Joint",
+          "proximal_roll_R_Joint",
+          "proximal_yaw_R_Joint",
+          "knee_R_Joint",
+          "arm1",
+          "arm2",
+          "arm3",
+          "wheel_L_Joint",
+          "wheel_R_Joint"
+        ],
+        "mapping": "affine_tanh_nonwheel_linear_wheel",
+        "scale": [
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          -0.4749999940395355,
+          0.0,
+          0.0,
+          0.949999988079071,
+          0.4749999940395355,
+          0.0,
+          0.0,
+          0.949999988079071,
+          -0.15000000596046448,
+          -1.7799999713897705,
+          1.9299999475479126,
+          0.0,
+          0.0
+        ],
+        "distribution_log_probability": "latent_normal_minus_normalized_target_log_jacobian",
+        "feedback": "interval_mean_executed_wheel_increment_and_issued_nonwheel",
+        "position_hard_lower_rad": [
+          -2.6005406379699707,
+          -0.2617993950843811,
+          -3.665191411972046,
+          0.20000000298023224,
+          -3.1415927410125732,
+          -3.1939525604248047,
+          -3.665191411972046,
+          0.20000000298023224,
+          -2.4434609413146973,
+          -2.268928050994873,
+          -1.5707963705062866
+        ],
+        "position_hard_upper_rad": [
+          3.1415927410125732,
+          3.1939525604248047,
+          1.483529806137085,
+          1.2000000476837158,
+          2.6005406379699707,
+          0.2617993950843811,
+          1.483529806137085,
+          1.2000000476837158,
+          2.356194496154785,
+          2.268928050994873,
+          2.240000009536743
+        ],
+        "position_default_rad": [
+          -0.475,
+          0.0,
+          0.0,
+          0.95,
+          0.475,
+          0.0,
+          0.0,
+          0.95,
+          -0.15,
+          -1.78,
+          1.93
+        ],
+        "zero_slope_rad": 0.25,
+        "wheel_increment_scale_rad": 0.05769230769230769,
+        "wheel_kp": 10.4,
+        "wheel_kd": 1.32,
+        "wheel_effort_limit_Nm": 22.0,
+        "wheel_velocity_limit_rad_s": 40.0,
+        "wheel_static_friction_Nm": 0.6,
+        "wheel_dynamic_friction_Nm": 0.3,
+        "policy_dt_s": 0.02,
+        "physics_dt_s": 0.005
+      }
+    },
+    "effective_config": {
+      "viewer": {
+        "eye": [
+          7.5,
+          7.5,
+          7.5
+        ],
+        "lookat": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "cam_prim_path": "/OmniverseKit_Persp",
+        "resolution": [
+          1280,
+          720
+        ],
+        "origin_type": "env",
+        "env_index": 0,
+        "asset_name": null,
+        "body_name": null
+      },
+      "sim": {
+        "physics_prim_path": "/physicsScene",
+        "device": "cuda:0",
+        "dt": 0.005,
+        "render_interval": 4,
+        "gravity": [
+          0.0,
+          0.0,
+          -9.81
+        ],
+        "enable_scene_query_support": false,
+        "use_fabric": true,
+        "physx": {
+          "solver_type": 1,
+          "min_position_iteration_count": 1,
+          "max_position_iteration_count": 255,
+          "min_velocity_iteration_count": 0,
+          "max_velocity_iteration_count": 255,
+          "enable_ccd": false,
+          "enable_stabilization": false,
+          "enable_enhanced_determinism": false,
+          "bounce_threshold_velocity": 0.5,
+          "friction_offset_threshold": 0.04,
+          "friction_correlation_distance": 0.025,
+          "gpu_max_rigid_contact_count": 8388608,
+          "gpu_max_rigid_patch_count": 327680,
+          "gpu_found_lost_pairs_capacity": 2097152,
+          "gpu_found_lost_aggregate_pairs_capacity": 33554432,
+          "gpu_total_aggregate_pairs_capacity": 2097152,
+          "gpu_collision_stack_size": 67108864,
+          "gpu_heap_capacity": 67108864,
+          "gpu_temp_buffer_capacity": 16777216,
+          "gpu_max_num_partitions": 8,
+          "gpu_max_soft_body_contacts": 1048576,
+          "gpu_max_particle_contacts": 1048576,
+          "solve_articulation_contact_last": false
+        },
+        "physics_material": {
+          "func": "isaaclab.sim.spawners.materials.physics_materials:spawn_rigid_body_material",
+          "static_friction": 1.0,
+          "dynamic_friction": 1.0,
+          "restitution": 0.0,
+          "friction_combine_mode": "multiply",
+          "restitution_combine_mode": "multiply",
+          "compliant_contact_stiffness": 0.0,
+          "compliant_contact_damping": 0.0
+        },
+        "render": {
+          "enable_translucency": null,
+          "enable_reflections": null,
+          "enable_global_illumination": null,
+          "antialiasing_mode": null,
+          "enable_dlssg": null,
+          "enable_dl_denoiser": null,
+          "dlss_mode": null,
+          "enable_direct_lighting": null,
+          "samples_per_pixel": null,
+          "enable_shadows": null,
+          "enable_ambient_occlusion": null,
+          "dome_light_upper_lower_strategy": null,
+          "carb_settings": null,
+          "rendering_mode": null
+        },
+        "create_stage_in_memory": false
+      },
+      "ui_window_class_type": "isaaclab.envs.ui.manager_based_rl_env_window:ManagerBasedRLEnvWindow",
+      "seed": 42,
+      "decimation": 4,
+      "scene": {
+        "num_envs": 4096,
+        "env_spacing": 2.5,
+        "lazy_sensor_update": true,
+        "replicate_physics": true,
+        "filter_collisions": true,
+        "clone_in_fabric": false,
+        "robot": {
+          "class_type": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_balance_coordination:PulseArticulation",
+          "prim_path": "{ENV_REGEX_NS}/Robot",
+          "spawn": {
+            "func": "isaaclab.sim.spawners.from_files.from_files:spawn_from_usd",
+            "visible": true,
+            "semantic_tags": null,
+            "copy_from_source": true,
+            "mass_props": null,
+            "deformable_props": null,
+            "rigid_props": {
+              "rigid_body_enabled": true,
+              "kinematic_enabled": null,
+              "disable_gravity": false,
+              "linear_damping": 0.0,
+              "angular_damping": 0.0,
+              "max_linear_velocity": 10000.0,
+              "max_angular_velocity": 10000.0,
+              "max_depenetration_velocity": 5.0,
+              "max_contact_impulse": null,
+              "enable_gyroscopic_forces": null,
+              "retain_accelerations": false,
+              "solver_position_iteration_count": null,
+              "solver_velocity_iteration_count": null,
+              "sleep_threshold": null,
+              "stabilization_threshold": null
+            },
+            "collision_props": null,
+            "activate_contact_sensors": true,
+            "scale": null,
+            "articulation_props": {
+              "articulation_enabled": null,
+              "enabled_self_collisions": false,
+              "solver_position_iteration_count": 4,
+              "solver_velocity_iteration_count": 1,
+              "sleep_threshold": null,
+              "stabilization_threshold": null,
+              "fix_root_link": null
+            },
+            "fixed_tendons_props": null,
+            "spatial_tendons_props": null,
+            "joint_drive_props": null,
+            "visual_material_path": "material",
+            "visual_material": null,
+            "usd_path": "/root/autodl-tmp/nandu-train/exts/bipedal_locomotion/bipedal_locomotion/assets/config/../usd/NANDU1/usd/robot.usd",
+            "variants": null
+          },
+          "init_state": {
+            "pos": [
+              0.0,
+              0.0,
+              0.65337
+            ],
+            "rot": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "lin_vel": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ang_vel": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_pos": {
+              "proximal_pitch_L_Joint": -0.475,
+              "proximal_pitch_R_Joint": 0.475,
+              "proximal_roll_[LR]_Joint": 0.0,
+              "proximal_yaw_[LR]_Joint": 0.0,
+              "knee_[LR]_Joint": 0.95,
+              "wheel_[LR]_Joint": 0.0,
+              "arm1": -0.15,
+              "arm2": -1.78,
+              "arm3": 1.93
+            },
+            "joint_vel": {
+              ".*": 0.0
+            }
+          },
+          "collision_group": 0,
+          "debug_vis": false,
+          "articulation_root_prim_path": null,
+          "soft_joint_pos_limit_factor": 0.9,
+          "actuators": {
+            "base_legs": {
+              "class_type": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:R4NonwheelActuator",
+              "joint_names_expr": [
+                "proximal_pitch_[RL]_Joint",
+                "proximal_roll_[RL]_Joint",
+                "knee_[RL]_Joint"
+              ],
+              "effort_limit": 140.0,
+              "velocity_limit": 12.57,
+              "effort_limit_sim": 140.0,
+              "velocity_limit_sim": 12.57,
+              "stiffness": 159.67,
+              "damping": 10.16,
+              "armature": 0.161777558,
+              "friction": 0.0,
+              "dynamic_friction": null,
+              "viscous_friction": null,
+              "min_delay": 0,
+              "max_delay": 2
+            },
+            "base_legs_light": {
+              "class_type": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:R4NonwheelActuator",
+              "joint_names_expr": [
+                "proximal_yaw_[RL]_Joint"
+              ],
+              "effort_limit": 40.0,
+              "velocity_limit": 14.66,
+              "effort_limit_sim": 40.0,
+              "velocity_limit_sim": 14.66,
+              "stiffness": 53.22,
+              "damping": 3.39,
+              "armature": 0.053923687,
+              "friction": 0.0,
+              "dynamic_friction": null,
+              "viscous_friction": null,
+              "min_delay": 0,
+              "max_delay": 4
+            },
+            "wheels": {
+              "class_type": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:R4WheelActuator",
+              "joint_names_expr": [
+                "wheel_L_Joint",
+                "wheel_R_Joint"
+              ],
+              "effort_limit": 22.0,
+              "velocity_limit": 40.0,
+              "effort_limit_sim": 22.0,
+              "velocity_limit_sim": 40.0,
+              "stiffness": 10.4,
+              "damping": 1.32,
+              "armature": null,
+              "friction": 0.6,
+              "dynamic_friction": 0.3,
+              "viscous_friction": null,
+              "min_delay": 0,
+              "max_delay": 4
+            },
+            "arm1": {
+              "class_type": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:R4NonwheelActuator",
+              "joint_names_expr": [
+                "arm1"
+              ],
+              "effort_limit": 181.0,
+              "velocity_limit": 4.14,
+              "effort_limit_sim": 181.0,
+              "velocity_limit_sim": 4.14,
+              "stiffness": 480.0,
+              "damping": 50.0,
+              "armature": 0.7,
+              "friction": 0.0,
+              "dynamic_friction": null,
+              "viscous_friction": null,
+              "min_delay": 0,
+              "max_delay": 4
+            },
+            "arm2": {
+              "class_type": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:R4NonwheelActuator",
+              "joint_names_expr": [
+                "arm2"
+              ],
+              "effort_limit": 136.0,
+              "velocity_limit": 4.14,
+              "effort_limit_sim": 136.0,
+              "velocity_limit_sim": 4.14,
+              "stiffness": 240.0,
+              "damping": 25.0,
+              "armature": 0.45,
+              "friction": 0.0,
+              "dynamic_friction": null,
+              "viscous_friction": null,
+              "min_delay": 0,
+              "max_delay": 4
+            },
+            "arm3": {
+              "class_type": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:R4NonwheelActuator",
+              "joint_names_expr": [
+                "arm3"
+              ],
+              "effort_limit": 136.0,
+              "velocity_limit": 4.14,
+              "effort_limit_sim": 136.0,
+              "velocity_limit_sim": 4.14,
+              "stiffness": 160.0,
+              "damping": 17.0,
+              "armature": 0.45,
+              "friction": 0.0,
+              "dynamic_friction": null,
+              "viscous_friction": null,
+              "min_delay": 0,
+              "max_delay": 4
+            }
+          },
+          "actuator_value_resolution_debug_print": false
+        },
+        "terrain": {
+          "class_type": "isaaclab.terrains.terrain_importer:TerrainImporter",
+          "collision_group": -1,
+          "prim_path": "/World/ground",
+          "num_envs": 1,
+          "terrain_type": "plane",
+          "terrain_generator": null,
+          "usd_path": null,
+          "env_spacing": null,
+          "visual_material": {
+            "func": "isaaclab.sim.spawners.materials.visual_materials:spawn_from_mdl_file",
+            "mdl_path": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned.mdl",
+            "project_uvw": true,
+            "albedo_brightness": null,
+            "texture_scale": [
+              0.25,
+              0.25
+            ]
+          },
+          "physics_material": {
+            "func": "isaaclab.sim.spawners.materials.physics_materials:spawn_rigid_body_material",
+            "static_friction": 1.0,
+            "dynamic_friction": 1.0,
+            "restitution": 0.0,
+            "friction_combine_mode": "multiply",
+            "restitution_combine_mode": "multiply",
+            "compliant_contact_stiffness": 0.0,
+            "compliant_contact_damping": 0.0
+          },
+          "max_init_terrain_level": 0,
+          "debug_vis": false
+        },
+        "light": {
+          "class_type": null,
+          "prim_path": "/World/skyLight",
+          "spawn": {
+            "func": "isaaclab.sim.spawners.lights.lights:spawn_light",
+            "visible": true,
+            "semantic_tags": null,
+            "copy_from_source": true,
+            "prim_type": "DomeLight",
+            "color": [
+              0.9,
+              0.9,
+              0.9
+            ],
+            "enable_color_temperature": false,
+            "color_temperature": 6500.0,
+            "normalize": false,
+            "exposure": 0.0,
+            "intensity": 750.0,
+            "texture_file": null,
+            "texture_format": "automatic",
+            "visible_in_primary_ray": true
+          },
+          "init_state": {
+            "pos": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rot": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "collision_group": 0,
+          "debug_vis": false
+        },
+        "base_imu": {
+          "class_type": "isaaclab.sensors.imu.imu:Imu",
+          "prim_path": "{ENV_REGEX_NS}/Robot/base_Link",
+          "update_period": 0.02,
+          "history_length": 0,
+          "debug_vis": false,
+          "offset": {
+            "pos": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rot": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "visualizer_cfg": {
+            "prim_path": "/Visuals/Command/velocity_goal",
+            "markers": {
+              "arrow": {
+                "func": "isaaclab.sim.spawners.from_files.from_files:spawn_from_usd",
+                "visible": true,
+                "semantic_tags": null,
+                "copy_from_source": true,
+                "mass_props": null,
+                "deformable_props": null,
+                "rigid_props": null,
+                "collision_props": null,
+                "activate_contact_sensors": false,
+                "scale": [
+                  1.0,
+                  0.1,
+                  0.1
+                ],
+                "articulation_props": null,
+                "fixed_tendons_props": null,
+                "spatial_tendons_props": null,
+                "joint_drive_props": null,
+                "visual_material_path": "material",
+                "visual_material": {
+                  "func": "isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface",
+                  "diffuse_color": [
+                    1.0,
+                    0.0,
+                    0.0
+                  ],
+                  "emissive_color": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "roughness": 0.5,
+                  "metallic": 0.0,
+                  "opacity": 1.0
+                },
+                "usd_path": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Props/UIElements/arrow_x.usd",
+                "variants": null
+              }
+            }
+          },
+          "gravity_bias": [
+            0.0,
+            0.0,
+            9.81
+          ]
+        },
+        "up3_imu": {
+          "class_type": "isaaclab.sensors.imu.imu:Imu",
+          "prim_path": "{ENV_REGEX_NS}/Robot/up3",
+          "update_period": 0.02,
+          "history_length": 0,
+          "debug_vis": false,
+          "offset": {
+            "pos": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rot": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "visualizer_cfg": {
+            "prim_path": "/Visuals/Command/velocity_goal",
+            "markers": {
+              "arrow": {
+                "func": "isaaclab.sim.spawners.from_files.from_files:spawn_from_usd",
+                "visible": true,
+                "semantic_tags": null,
+                "copy_from_source": true,
+                "mass_props": null,
+                "deformable_props": null,
+                "rigid_props": null,
+                "collision_props": null,
+                "activate_contact_sensors": false,
+                "scale": [
+                  1.0,
+                  0.1,
+                  0.1
+                ],
+                "articulation_props": null,
+                "fixed_tendons_props": null,
+                "spatial_tendons_props": null,
+                "joint_drive_props": null,
+                "visual_material_path": "material",
+                "visual_material": {
+                  "func": "isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface",
+                  "diffuse_color": [
+                    1.0,
+                    0.0,
+                    0.0
+                  ],
+                  "emissive_color": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "roughness": 0.5,
+                  "metallic": 0.0,
+                  "opacity": 1.0
+                },
+                "usd_path": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Props/UIElements/arrow_x.usd",
+                "variants": null
+              }
+            }
+          },
+          "gravity_bias": [
+            0.0,
+            0.0,
+            9.81
+          ]
+        },
+        "contact_forces": {
+          "class_type": "isaaclab.sensors.contact_sensor.contact_sensor:ContactSensor",
+          "prim_path": "{ENV_REGEX_NS}/Robot/.*",
+          "update_period": 0.005,
+          "history_length": 4,
+          "debug_vis": false,
+          "track_pose": false,
+          "track_contact_points": false,
+          "max_contact_data_count_per_prim": 4,
+          "track_air_time": true,
+          "force_threshold": 1.0,
+          "filter_prim_paths_expr": [],
+          "visualizer_cfg": {
+            "prim_path": "/Visuals/ContactSensor",
+            "markers": {
+              "contact": {
+                "func": "isaaclab.sim.spawners.shapes.shapes:spawn_sphere",
+                "visible": true,
+                "semantic_tags": null,
+                "copy_from_source": true,
+                "mass_props": null,
+                "rigid_props": null,
+                "collision_props": null,
+                "activate_contact_sensors": false,
+                "visual_material_path": "material",
+                "visual_material": {
+                  "func": "isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface",
+                  "diffuse_color": [
+                    1.0,
+                    0.0,
+                    0.0
+                  ],
+                  "emissive_color": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "roughness": 0.5,
+                  "metallic": 0.0,
+                  "opacity": 1.0
+                },
+                "physics_material_path": "material",
+                "physics_material": null,
+                "radius": 0.02
+              },
+              "no_contact": {
+                "func": "isaaclab.sim.spawners.shapes.shapes:spawn_sphere",
+                "visible": false,
+                "semantic_tags": null,
+                "copy_from_source": true,
+                "mass_props": null,
+                "rigid_props": null,
+                "collision_props": null,
+                "activate_contact_sensors": false,
+                "visual_material_path": "material",
+                "visual_material": {
+                  "func": "isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface",
+                  "diffuse_color": [
+                    0.0,
+                    1.0,
+                    0.0
+                  ],
+                  "emissive_color": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "roughness": 0.5,
+                  "metallic": 0.0,
+                  "opacity": 1.0
+                },
+                "physics_material_path": "material",
+                "physics_material": null,
+                "radius": 0.02
+              }
+            }
+          }
+        }
+      },
+      "recorders": {
+        "dataset_file_handler_class_type": "isaaclab.utils.datasets.hdf5_dataset_file_handler:HDF5DatasetFileHandler",
+        "dataset_export_dir_path": "/tmp/isaaclab/logs",
+        "dataset_filename": "dataset",
+        "dataset_export_mode": {
+          "_value_": 1,
+          "_name_": "EXPORT_ALL",
+          "_sort_order_": 1
+        },
+        "export_in_record_pre_reset": true
+      },
+      "observations": {
+        "policy": {
+          "concatenate_terms": true,
+          "concatenate_dim": -1,
+          "enable_corruption": true,
+          "history_length": null,
+          "flatten_history_dim": true,
+          "base_ang_vel": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "params": {
+              "sensor_cfg": {
+                "name": "base_imu",
+                "joint_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "body_names": null,
+                "body_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "object_collection_ids": "slice(None, None, None)",
+                "preserve_order": false
+              },
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "gyro"
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": 0.25,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "base_projected_gravity": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "params": {
+              "sensor_cfg": {
+                "name": "base_imu",
+                "joint_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "body_names": null,
+                "body_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "object_collection_ids": "slice(None, None, None)",
+                "preserve_order": false
+              },
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "gravity"
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": null,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "up3_ang_vel": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "params": {
+              "sensor_cfg": {
+                "name": "up3_imu",
+                "joint_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "body_names": null,
+                "body_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "object_collection_ids": "slice(None, None, None)",
+                "preserve_order": false
+              },
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "gyro"
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": 0.25,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "up3_projected_gravity": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "params": {
+              "sensor_cfg": {
+                "name": "up3_imu",
+                "joint_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "body_names": null,
+                "body_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "object_collection_ids": "slice(None, None, None)",
+                "preserve_order": false
+              },
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "gravity"
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": null,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "joint_pos": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "params": {
+              "asset_cfg": {
+                "name": "robot",
+                "joint_names": [
+                  "proximal_pitch_L_Joint",
+                  "proximal_roll_L_Joint",
+                  "proximal_yaw_L_Joint",
+                  "knee_L_Joint",
+                  "proximal_pitch_R_Joint",
+                  "proximal_roll_R_Joint",
+                  "proximal_yaw_R_Joint",
+                  "knee_R_Joint",
+                  "arm1",
+                  "arm2",
+                  "arm3"
+                ],
+                "joint_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "body_names": null,
+                "body_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "object_collection_ids": "slice(None, None, None)",
+                "preserve_order": true
+              },
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "joint_pos"
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": null,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "joint_vel": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "params": {
+              "asset_cfg": {
+                "name": "robot",
+                "joint_names": [
+                  "proximal_pitch_L_Joint",
+                  "proximal_roll_L_Joint",
+                  "proximal_yaw_L_Joint",
+                  "knee_L_Joint",
+                  "wheel_L_Joint",
+                  "proximal_pitch_R_Joint",
+                  "proximal_roll_R_Joint",
+                  "proximal_yaw_R_Joint",
+                  "knee_R_Joint",
+                  "wheel_R_Joint",
+                  "arm1",
+                  "arm2",
+                  "arm3"
+                ],
+                "joint_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "body_names": null,
+                "body_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "object_collection_ids": "slice(None, None, None)",
+                "preserve_order": true
+              },
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "joint_vel"
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": 0.05,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "last_action": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:last_executed_action",
+            "params": {},
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": null,
+            "history_length": 0,
+            "flatten_history_dim": true
+          }
+        },
+        "obsHistory": {
+          "concatenate_terms": true,
+          "concatenate_dim": -1,
+          "enable_corruption": true,
+          "history_length": 10,
+          "flatten_history_dim": false,
+          "base_ang_vel": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "params": {
+              "sensor_cfg": {
+                "name": "base_imu",
+                "joint_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "body_names": null,
+                "body_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "object_collection_ids": "slice(None, None, None)",
+                "preserve_order": false
+              },
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "gyro"
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": 0.25,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "base_projected_gravity": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "params": {
+              "sensor_cfg": {
+                "name": "base_imu",
+                "joint_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "body_names": null,
+                "body_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "object_collection_ids": "slice(None, None, None)",
+                "preserve_order": false
+              },
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "gravity"
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": null,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "up3_ang_vel": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "params": {
+              "sensor_cfg": {
+                "name": "up3_imu",
+                "joint_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "body_names": null,
+                "body_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "object_collection_ids": "slice(None, None, None)",
+                "preserve_order": false
+              },
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "gyro"
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": 0.25,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "up3_projected_gravity": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "params": {
+              "sensor_cfg": {
+                "name": "up3_imu",
+                "joint_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "body_names": null,
+                "body_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "object_collection_ids": "slice(None, None, None)",
+                "preserve_order": false
+              },
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "gravity"
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": null,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "joint_pos": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "params": {
+              "asset_cfg": {
+                "name": "robot",
+                "joint_names": [
+                  "proximal_pitch_L_Joint",
+                  "proximal_roll_L_Joint",
+                  "proximal_yaw_L_Joint",
+                  "knee_L_Joint",
+                  "proximal_pitch_R_Joint",
+                  "proximal_roll_R_Joint",
+                  "proximal_yaw_R_Joint",
+                  "knee_R_Joint",
+                  "arm1",
+                  "arm2",
+                  "arm3"
+                ],
+                "joint_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "body_names": null,
+                "body_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "object_collection_ids": "slice(None, None, None)",
+                "preserve_order": true
+              },
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "joint_pos"
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": null,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "joint_vel": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_robust_mdp:noisy_observation",
+            "params": {
+              "asset_cfg": {
+                "name": "robot",
+                "joint_names": [
+                  "proximal_pitch_L_Joint",
+                  "proximal_roll_L_Joint",
+                  "proximal_yaw_L_Joint",
+                  "knee_L_Joint",
+                  "wheel_L_Joint",
+                  "proximal_pitch_R_Joint",
+                  "proximal_roll_R_Joint",
+                  "proximal_yaw_R_Joint",
+                  "knee_R_Joint",
+                  "wheel_R_Joint",
+                  "arm1",
+                  "arm2",
+                  "arm3"
+                ],
+                "joint_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "body_names": null,
+                "body_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "object_collection_ids": "slice(None, None, None)",
+                "preserve_order": true
+              },
+              "command_name": "nandu1_height_v1_3_1",
+              "kind": "joint_vel"
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": 0.05,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "last_action": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:last_executed_action",
+            "params": {},
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": null,
+            "history_length": 0,
+            "flatten_history_dim": true
+          }
+        },
+        "critic": {
+          "concatenate_terms": true,
+          "concatenate_dim": -1,
+          "enable_corruption": false,
+          "history_length": null,
+          "flatten_history_dim": true,
+          "base_lin_vel_body": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:base_body_linear_velocity",
+            "params": {},
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": null,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "up3_lin_vel_body": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_3_1_mdp:tcp_body_linear_velocity",
+            "params": {
+              "command_name": "nandu1_height_v1_3_1"
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": null,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "up3_height": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_3_1_mdp:true_tcp_height",
+            "params": {
+              "command_name": "nandu1_height_v1_3_1"
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": null,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "base_ang_vel": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:imu_angular_velocity",
+            "params": {
+              "sensor_cfg": {
+                "name": "base_imu",
+                "joint_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "body_names": null,
+                "body_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "object_collection_ids": "slice(None, None, None)",
+                "preserve_order": false
+              }
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": 0.25,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "base_projected_gravity": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:imu_projected_gravity",
+            "params": {
+              "sensor_cfg": {
+                "name": "base_imu",
+                "joint_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "body_names": null,
+                "body_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "object_collection_ids": "slice(None, None, None)",
+                "preserve_order": false
+              }
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": null,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "up3_ang_vel": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:imu_angular_velocity",
+            "params": {
+              "sensor_cfg": {
+                "name": "up3_imu",
+                "joint_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "body_names": null,
+                "body_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "object_collection_ids": "slice(None, None, None)",
+                "preserve_order": false
+              }
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": 0.25,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "up3_projected_gravity": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:imu_projected_gravity",
+            "params": {
+              "sensor_cfg": {
+                "name": "up3_imu",
+                "joint_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "body_names": null,
+                "body_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "object_collection_ids": "slice(None, None, None)",
+                "preserve_order": false
+              }
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": null,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "joint_pos": {
+            "func": "isaaclab.envs.mdp.observations:joint_pos_rel",
+            "params": {
+              "asset_cfg": {
+                "name": "robot",
+                "joint_names": [
+                  "proximal_pitch_L_Joint",
+                  "proximal_roll_L_Joint",
+                  "proximal_yaw_L_Joint",
+                  "knee_L_Joint",
+                  "proximal_pitch_R_Joint",
+                  "proximal_roll_R_Joint",
+                  "proximal_yaw_R_Joint",
+                  "knee_R_Joint",
+                  "arm1",
+                  "arm2",
+                  "arm3"
+                ],
+                "joint_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "body_names": null,
+                "body_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "object_collection_ids": "slice(None, None, None)",
+                "preserve_order": true
+              }
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": null,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "joint_vel": {
+            "func": "isaaclab.envs.mdp.observations:joint_vel",
+            "params": {
+              "asset_cfg": {
+                "name": "robot",
+                "joint_names": [
+                  "proximal_pitch_L_Joint",
+                  "proximal_roll_L_Joint",
+                  "proximal_yaw_L_Joint",
+                  "knee_L_Joint",
+                  "wheel_L_Joint",
+                  "proximal_pitch_R_Joint",
+                  "proximal_roll_R_Joint",
+                  "proximal_yaw_R_Joint",
+                  "knee_R_Joint",
+                  "wheel_R_Joint",
+                  "arm1",
+                  "arm2",
+                  "arm3"
+                ],
+                "joint_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "body_names": null,
+                "body_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "object_collection_ids": "slice(None, None, None)",
+                "preserve_order": true
+              }
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": 0.05,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "last_action": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:last_executed_action",
+            "params": {},
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": null,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "applied_torque": {
+            "func": "bipedal_locomotion.tasks.locomotion.mdp.observations:robot_joint_torque",
+            "params": {},
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": 0.05,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "joint_acceleration": {
+            "func": "bipedal_locomotion.tasks.locomotion.mdp.observations:robot_joint_acc",
+            "params": {},
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": 0.0025,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "wheel_contact_force": {
+            "func": "bipedal_locomotion.tasks.locomotion.mdp.observations:robot_contact_force",
+            "params": {
+              "sensor_cfg": {
+                "name": "contact_forces",
+                "joint_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "body_names": "wheel_.*",
+                "body_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "object_collection_ids": "slice(None, None, None)",
+                "preserve_order": false
+              }
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": null,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "wheel_body_velocity": {
+            "func": "bipedal_locomotion.tasks.locomotion.mdp.observations:feet_lin_vel",
+            "params": {
+              "asset_cfg": {
+                "name": "robot",
+                "joint_names": null,
+                "joint_ids": "slice(None, None, None)",
+                "fixed_tendon_names": null,
+                "fixed_tendon_ids": "slice(None, None, None)",
+                "body_names": "wheel_.*",
+                "body_ids": "slice(None, None, None)",
+                "object_collection_names": null,
+                "object_collection_ids": "slice(None, None, None)",
+                "preserve_order": false
+              }
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": null,
+            "history_length": 0,
+            "flatten_history_dim": true
+          },
+          "rigid_body_mass": {
+            "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_3_1_mdp:actual_body_mass",
+            "params": {},
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": null,
+            "history_length": 0,
+            "flatten_history_dim": true
+          }
+        },
+        "commands": {
+          "concatenate_terms": true,
+          "concatenate_dim": -1,
+          "enable_corruption": false,
+          "history_length": null,
+          "flatten_history_dim": true,
+          "command": {
+            "func": "bipedal_locomotion.tasks.locomotion.mdp.observations:generated_commands",
+            "params": {
+              "command_name": "nandu1_height_v1_3_1"
+            },
+            "modifiers": null,
+            "noise": null,
+            "clip": null,
+            "scale": null,
+            "history_length": 0,
+            "flatten_history_dim": true
+          }
+        }
+      },
+      "actions": {
+        "joint_position": {
+          "class_type": "isaaclab.envs.mdp.actions.joint_actions:JointPositionAction",
+          "asset_name": "robot",
+          "debug_vis": false,
+          "clip": null,
+          "joint_names": [
+            "proximal_pitch_L_Joint",
+            "proximal_roll_L_Joint",
+            "proximal_yaw_L_Joint",
+            "knee_L_Joint",
+            "proximal_pitch_R_Joint",
+            "proximal_roll_R_Joint",
+            "proximal_yaw_R_Joint",
+            "knee_R_Joint",
+            "arm1",
+            "arm2",
+            "arm3"
+          ],
+          "scale": 0.25,
+          "offset": 0.0,
+          "preserve_order": true,
+          "use_default_offset": true
+        },
+        "wheel_velocity": null,
+        "wheel_position_delta": {
+          "class_type": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:R4WheelAction",
+          "asset_name": "robot",
+          "debug_vis": false,
+          "clip": null,
+          "joint_names": [
+            "wheel_L_Joint",
+            "wheel_R_Joint"
+          ],
+          "scale": 1.0,
+          "offset": 0.0,
+          "preserve_order": true
+        }
+      },
+      "events": {
+        "prepare": {
+          "func": "bipedal_locomotion.tasks.locomotion.mdp.events:prepare_quantity_for_tron",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "fixed_tendon_names": null,
+              "fixed_tendon_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "object_collection_names": null,
+              "object_collection_ids": "slice(None, None, None)",
+              "preserve_order": false
+            },
+            "foot_radius": 0.1
+          },
+          "mode": "startup",
+          "interval_range_s": null,
+          "is_global_time": false,
+          "min_step_count_between_reset": 0
+        },
+        "stage_domain_randomization": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_3_1_2_17_wheel_pd:WheelPDLoadRandomization",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1",
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "fixed_tendon_names": null,
+              "fixed_tendon_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "object_collection_names": null,
+              "object_collection_ids": "slice(None, None, None)",
+              "preserve_order": false
+            },
+            "material_buckets_per_stage": 48,
+            "attachment_center": [
+              -0.066473051764,
+              0.161623719479,
+              0.149378515098
+            ]
+          },
+          "mode": "reset",
+          "interval_range_s": null,
+          "is_global_time": false,
+          "min_step_count_between_reset": 0
+        },
+        "reset_base": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_mdp:NoFKReset",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "mode": "reset",
+          "interval_range_s": null,
+          "is_global_time": false,
+          "min_step_count_between_reset": 0
+        },
+        "reset_joints": null,
+        "push_robot": null,
+        "up3_wrench": null,
+        "robust_disturbance": null,
+        "c7_p1_joint_limits": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:startup_joint_limits",
+          "params": {},
+          "mode": "startup",
+          "interval_range_s": null,
+          "is_global_time": false,
+          "min_step_count_between_reset": 0
+        },
+        "c7_p1_runtime": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_mdp:C7P1Runtime",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "mode": "startup",
+          "interval_range_s": null,
+          "is_global_time": false,
+          "min_step_count_between_reset": 0
+        }
+      },
+      "rerender_on_reset": false,
+      "wait_for_textures": true,
+      "xr": null,
+      "teleop_devices": {
+        "devices": {}
+      },
+      "export_io_descriptors": false,
+      "io_descriptors_output_dir": null,
+      "log_dir": null,
+      "is_finite_horizon": false,
+      "episode_length_s": 30.0,
+      "rewards": {
+        "yaw_tracking": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:yaw_rate_tracking",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1",
+            "std": 0.25
+          },
+          "weight": 2.0
+        },
+        "yaw_huber": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:yaw_huber",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1",
+            "scale": 0.35,
+            "cap": 8.0
+          },
+          "weight": -0.25
+        },
+        "ee_vx_tracking": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:body_vx_tracking_exp",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1",
+            "std": 0.12
+          },
+          "weight": 3.0
+        },
+        "ee_vx_huber": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:body_vx_huber",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1",
+            "scale": 0.2,
+            "cap": 8.0
+          },
+          "weight": -0.4
+        },
+        "height_tracking_exp": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:height_tracking_exp",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": 4.0
+        },
+        "height_huber": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:height_huber",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1",
+            "scale": 0.1,
+            "cap": 12.0
+          },
+          "weight": -0.6
+        },
+        "height_velocity_damping": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_mdp:height_velocity_damping",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.25
+        },
+        "up3_horizontal": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:up3_horizontal",
+          "params": {
+            "std": 0.12
+          },
+          "weight": 3.0
+        },
+        "up3_tilt_huber": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_mdp:posture_up3_tilt",
+          "params": {},
+          "weight": -1.0
+        },
+        "up3_angular_velocity": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:up3_roll_pitch_angular_velocity",
+          "params": {},
+          "weight": -0.1
+        },
+        "height_envelope": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:height_envelope",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.5
+        },
+        "horizontal_reach_barrier": null,
+        "vertical_allocation_tracking": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:vertical_allocation",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": 0.3
+        },
+        "opposite_vertical_cancellation": null,
+        "height_directional_reserve": null,
+        "com_to_wheel_support": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:com_cost",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.2
+        },
+        "base_roll_stability": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:base_roll_stability",
+          "params": {
+            "std": 0.12
+          },
+          "weight": 1.0
+        },
+        "base_pitch_envelope": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:base_pitch_soft_envelope",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -2.0
+        },
+        "horizontal_allocation": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:horizontal_allocation",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": 0.3
+        },
+        "alive": {
+          "func": "bipedal_locomotion.tasks.locomotion.mdp.rewards:stay_alive",
+          "params": {},
+          "weight": 0.5
+        },
+        "outward_reach_velocity": null,
+        "arm_default": null,
+        "static_body_motion": null,
+        "static_orientation_hold": null,
+        "wheel_slip": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:wheel_lateral_slip",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "fixed_tendon_names": null,
+              "fixed_tendon_ids": "slice(None, None, None)",
+              "body_names": "wheel_.*",
+              "body_ids": "slice(None, None, None)",
+              "object_collection_names": null,
+              "object_collection_ids": "slice(None, None, None)",
+              "preserve_order": false
+            },
+            "sensor_cfg": {
+              "name": "contact_forces",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "fixed_tendon_names": null,
+              "fixed_tendon_ids": "slice(None, None, None)",
+              "body_names": "wheel_.*",
+              "body_ids": "slice(None, None, None)",
+              "object_collection_names": null,
+              "object_collection_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.2
+        },
+        "wheel_load_imbalance": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:wheel_load_imbalance",
+          "params": {
+            "sensor_cfg": {
+              "name": "contact_forces",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "fixed_tendon_names": null,
+              "fixed_tendon_ids": "slice(None, None, None)",
+              "body_names": "wheel_.*",
+              "body_ids": "slice(None, None, None)",
+              "object_collection_names": null,
+              "object_collection_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.35
+        },
+        "wheel_spacing_envelope": null,
+        "wheel_fore_aft_alignment": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:wheel_fore_aft_alignment",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "fixed_tendon_names": null,
+              "fixed_tendon_ids": "slice(None, None, None)",
+              "body_names": [
+                "wheel_L_Link",
+                "wheel_R_Link"
+              ],
+              "body_ids": "slice(None, None, None)",
+              "object_collection_names": null,
+              "object_collection_ids": "slice(None, None, None)",
+              "preserve_order": true
+            }
+          },
+          "weight": -0.35
+        },
+        "knee_spacing_envelope": null,
+        "leg_mirror_position": null,
+        "gross_leg_asymmetry": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:gross_leg_asymmetry",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.5
+        },
+        "joint_soft_limits": {
+          "func": "isaaclab.envs.mdp.rewards:joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                "proximal_pitch_L_Joint",
+                "proximal_roll_L_Joint",
+                "proximal_yaw_L_Joint",
+                "proximal_pitch_R_Joint",
+                "proximal_roll_R_Joint",
+                "proximal_yaw_R_Joint",
+                "arm1",
+                "arm2",
+                "arm3"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "fixed_tendon_names": null,
+              "fixed_tendon_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "object_collection_names": null,
+              "object_collection_ids": "slice(None, None, None)",
+              "preserve_order": true
+            }
+          },
+          "weight": -0.5
+        },
+        "torque_utilization": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:normalized_torque_utilization",
+          "params": {},
+          "weight": -0.1
+        },
+        "action_rate": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:action_rate",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.01
+        },
+        "action_smoothness": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:action_smoothness",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.01
+        },
+        "joint_acceleration": {
+          "func": "isaaclab.envs.mdp.rewards:joint_acc_l2",
+          "params": {},
+          "weight": -5e-08
+        },
+        "mechanical_power": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:mechanical_power",
+          "params": {},
+          "weight": -0.0001
+        },
+        "continuous_vertical_cancellation": null,
+        "leg_geometry_shaping": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_1_mdp:leg_geometry_shaping",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.8
+        },
+        "leg_geometry_hard_barrier": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_1_mdp:leg_geometry_hard_barrier",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.5
+        },
+        "reach_coordination_shaping": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_1_mdp:reach_coordination_shaping",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.35
+        },
+        "reach_outward_barrier": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_1_mdp:reach_outward_barrier",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.3
+        },
+        "base_height_floor": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_mdp:base_height_floor",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.5
+        },
+        "wheel_axis_alignment": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_mdp:wheel_axis_reward",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.15
+        },
+        "drl_frequency": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_mdp:frequency_reward",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.1
+        },
+        "drl_descent": null,
+        "knee_work": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:knee_work",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.5
+        },
+        "wheel_budget": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:wheel_budget",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.02
+        },
+        "stop_capture": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:stop_capture",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.05
+        },
+        "stop_fine": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:stop_fine",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.2
+        },
+        "stop_bias": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:stop_bias",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          },
+          "weight": -0.1
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "isaaclab.envs.mdp.terminations:time_out",
+          "params": {},
+          "time_out": true
+        },
+        "non_finite": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_3_1_2_17_wheel_pd:non_finite_state",
+          "params": {},
+          "time_out": false
+        },
+        "forbidden_contact": {
+          "func": "isaaclab.envs.mdp.terminations:illegal_contact",
+          "params": {
+            "sensor_cfg": {
+              "name": "contact_forces",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "fixed_tendon_names": null,
+              "fixed_tendon_ids": "slice(None, None, None)",
+              "body_names": [
+                "base_Link",
+                "proximal_.*",
+                "knee_.*",
+                "up1",
+                "up2",
+                "up3"
+              ],
+              "body_ids": "slice(None, None, None)",
+              "object_collection_names": null,
+              "object_collection_ids": "slice(None, None, None)",
+              "preserve_order": false
+            },
+            "threshold": 1.0
+          },
+          "time_out": false
+        },
+        "catastrophic_tilt": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_mdp:SustainedBadOrientation",
+          "params": {
+            "limit_angle": 1.1344640137963142,
+            "duration_s": 0.15,
+            "sensor_cfg": {
+              "name": "base_imu",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "fixed_tendon_names": null,
+              "fixed_tendon_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "object_collection_names": null,
+              "object_collection_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "time_out": false
+        }
+      },
+      "curriculum": {
+        "performance": {
+          "func": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_3_mdp:performance_curriculum",
+          "params": {
+            "command_name": "nandu1_height_v1_3_1"
+          }
+        }
+      },
+      "commands": {
+        "nandu1_height_v1_3_1": {
+          "class_type": "bipedal_locomotion.tasks.locomotion.cfg.NANDU1.nandu1_v1_6_c7_p1_r4_mdp:R4Command",
+          "resampling_time_range": [
+            4.0,
+            8.0
+          ],
+          "debug_vis": false,
+          "ranges": {
+            "yaw_rate": [
+              -1.57,
+              1.57
+            ],
+            "ee_vx": [
+              -1.0,
+              1.0
+            ],
+            "up3_height": [
+              0.4,
+              1.4
+            ]
+          },
+          "acceleration_limits": [
+            2.0,
+            0.8,
+            0.5
+          ],
+          "nominal_height_range": [
+            0.4,
+            1.4
+          ],
+          "height_taper_buffer": 0.1,
+          "vertical_pulse_time_range": [
+            0.0,
+            0.0
+          ],
+          "vertical_pulse_safety_fraction": 0.0,
+          "evaluation_steps": 6000,
+          "max_reach_resamples": 8,
+          "reach_resample_limit": 0.83,
+          "height_rate_limits": [
+            0.05,
+            0.1,
+            0.2,
+            0.35,
+            0.5
+          ],
+          "height_step_probabilities": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2
+          ],
+          "height_step_limits": [
+            0.0,
+            0.05,
+            0.08,
+            0.12,
+            0.18
+          ],
+          "robustness_enabled": true,
+          "measurement_command_name": "nandu1_height_v1_3_1",
+          "checkpoint_schema": "nandu_drl_v1_6_C7_P_1_R2_online_r4"
+        }
+      },
+      "fixed_up3_total_mass": null,
+      "fixed_rear_mass": null,
+      "fixed_rear_x": null,
+      "drl_task": "Isaac-NANDU1-Blind-Flat-v1-6-C7-P-1-R2",
+      "drl_numerical_revision": 4,
+      "drl_initial_stage": 0,
+      "drl_stage_schedule": "legacy",
+      "drl_schedule_horizon": 720000,
+      "startup_position_bias": true,
+      "fixed_joint_position_bias": null,
+      "balance_pulses": true
+    },
+    "action_interface": {
+      "schema": "nandu_c7_p1_r4_bounded_wheel_increment_v1",
+      "joint_names": [
+        "proximal_pitch_L_Joint",
+        "proximal_roll_L_Joint",
+        "proximal_yaw_L_Joint",
+        "knee_L_Joint",
+        "proximal_pitch_R_Joint",
+        "proximal_roll_R_Joint",
+        "proximal_yaw_R_Joint",
+        "knee_R_Joint",
+        "arm1",
+        "arm2",
+        "arm3",
+        "wheel_L_Joint",
+        "wheel_R_Joint"
+      ],
+      "mapping": "affine_tanh_nonwheel_linear_wheel",
+      "scale": [
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        1.0,
+        1.0
+      ],
+      "offset": [
+        -0.4749999940395355,
+        0.0,
+        0.0,
+        0.949999988079071,
+        0.4749999940395355,
+        0.0,
+        0.0,
+        0.949999988079071,
+        -0.15000000596046448,
+        -1.7799999713897705,
+        1.9299999475479126,
+        0.0,
+        0.0
+      ],
+      "distribution_log_probability": "latent_normal_minus_normalized_target_log_jacobian",
+      "feedback": "interval_mean_executed_wheel_increment_and_issued_nonwheel",
+      "position_hard_lower_rad": [
+        -2.6005406379699707,
+        -0.2617993950843811,
+        -3.665191411972046,
+        0.20000000298023224,
+        -3.1415927410125732,
+        -3.1939525604248047,
+        -3.665191411972046,
+        0.20000000298023224,
+        -2.4434609413146973,
+        -2.268928050994873,
+        -1.5707963705062866
+      ],
+      "position_hard_upper_rad": [
+        3.1415927410125732,
+        3.1939525604248047,
+        1.483529806137085,
+        1.2000000476837158,
+        2.6005406379699707,
+        0.2617993950843811,
+        1.483529806137085,
+        1.2000000476837158,
+        2.356194496154785,
+        2.268928050994873,
+        2.240000009536743
+      ],
+      "position_default_rad": [
+        -0.475,
+        0.0,
+        0.0,
+        0.95,
+        0.475,
+        0.0,
+        0.0,
+        0.95,
+        -0.15,
+        -1.78,
+        1.93
+      ],
+      "zero_slope_rad": 0.25,
+      "wheel_increment_scale_rad": 0.05769230769230769,
+      "wheel_kp": 10.4,
+      "wheel_kd": 1.32,
+      "wheel_effort_limit_Nm": 22.0,
+      "wheel_velocity_limit_rad_s": 40.0,
+      "wheel_static_friction_Nm": 0.6,
+      "wheel_dynamic_friction_Nm": 0.3,
+      "policy_dt_s": 0.02,
+      "physics_dt_s": 0.005
+    },
+    "numerical_revision": 4,
+    "numerical_scope": "issued_action_feedback; independent_actor_critic; normalized_huber_value"
+  },
+  "initial_height": "estimated or explicitly supplied",
+  "raw_action_clip": null,
+  "files": {
+    "encoder.onnx": "04d56b5dc071ed108a7abd8f994be2946b7f95303b0be0febe405c8e660f0c80",
+    "actor.onnx": "fe2e69e2013737771c9f9c4a192d5c44d9f682160c66a6d2e1985b4ea36be89c",
+    "assets/robot.xml": "b0add862ee79e9a834cbe354689f9c074ef91378440eaf22fa1bed097c360a1a",
+    "assets/robot.urdf": "08aec4f4b5a9ec90af946ea858607da4a47c2f0cb245a8005aa33b65a5534e6f",
+    "assets/meshes/knee_L_Link.obj": "f5e0bf826db794a226a05a5db13754b5e57e207f7882889ded4e09395c5a030d",
+    "assets/meshes/up1.STL": "9ecfe256bad21da298144a1b619121afd64af995c169a711757808be5059c764",
+    "assets/meshes/up2.obj": "153c5714d2692bf341a54a87a2badb03135d00bdfe87eb549891f803553ff3e9",
+    "assets/meshes/knee_R_Link.obj": "226e4a7cc007eaaf95c15b4bf3c558fcc8567363783b59cc0f7828d4f27523a6",
+    "assets/meshes/wheel_R_Link.obj": "407ef65f5191369ed1b788b7fd91e024fb5515822fea2c367d44994adb42986a",
+    "assets/meshes/up3.obj": "96f37434afbb5369937821a3ff2d571c382879bc1ee51d3077ace37e4203af7a",
+    "assets/meshes/proximal_roll_R_Link.obj": "ed54d205124fab67cf66e057637a291ec607c72aa0e19ad69bc519c62ced8fa0",
+    "assets/meshes/proximal_roll_L_Link.STL": "efc36f1b5c4e64004ed3cad53e11ec55e7c1c030c47c89cb8dd533b1a0c1b5ca",
+    "assets/meshes/base_Link.obj": "b0a83352ed93477dfe5d1b5a54a75eff1e76f340c275fdd0a7cd0fc8d8ce8994",
+    "assets/meshes/proximal_yaw_L_Link.STL": "72337a3c01f4a457224b55b8d4bcc46caf075788464c7fb9fdef38c64f1d7769",
+    "assets/meshes/wheel_L_Link.STL": "83e1ffa02be381fd67c953ee189c342dc61788be6ce80f1076e1e9e5d42e0ec8",
+    "assets/meshes/up3.STL": "dcca1e453a6864a608d649ec0df5c80fe69b53462391745c4ba6029c52c9dd83",
+    "assets/meshes/proximal_pitch_L_Link.obj": "c2cbe3f3856e73ef11dad86507f2469806b7922c9a2c2555790eac535513830b",
+    "assets/meshes/proximal_yaw_R_Link.STL": "4b84b14686581b52bf3c73b11c2f6e17593aa76593c13d3fac7027fb806296ab",
+    "assets/meshes/wheel_L_Link.obj": "dcbf139d2c5df1244e550426b56ee6e7b5536c5634606b3683a59fd00ac2c6cc",
+    "assets/meshes/proximal_roll_L_Link.obj": "eb3383a10a55e042d4c2807dcd6b3555a6eb8bd64b2613b407c28843b3ba1b25",
+    "assets/meshes/proximal_roll_R_Link.STL": "6359a53154de988259096e4b5678ffb21b39180d8efa369feda4f12663b5bf0e",
+    "assets/meshes/proximal_yaw_R_Link.obj": "4fe2acd3ec38f7e4db135c20f4a9826a974672afe7ae64c9db845d820b70435e",
+    "assets/meshes/knee_L_Link.STL": "08aa4c07bfa25345241fa945d97af2613a752e56181e1bc973ce73a290fa7090",
+    "assets/meshes/up2.STL": "3654c2b49e6d062534770d6f1c19416397c4af6cdec4c3c9fb78ea328225f371",
+    "assets/meshes/proximal_pitch_L_Link.STL": "83d9a43f22382bc017123da2f2bdd6604ade550267cef8088699bcccfc80ce02",
+    "assets/meshes/knee_R_Link.STL": "86366623c835bdf7b5b8ba382585db6953642f25140acfc8be03d39a0741f76f",
+    "assets/meshes/proximal_yaw_L_Link.obj": "5485e08f54ebbcf3534e84514703797808224871a24134166759a159926b4038",
+    "assets/meshes/up1.obj": "d0fc94055afc6a1caa1cbb930ce33e1eeef1b36a9b39ab7c65c0b11ff136d0b4",
+    "assets/meshes/wheel_R_Link.STL": "dcf6622aefaa6c09a13a30cdc647fbe916073f651ccbd40141ad9f94f90f3953",
+    "assets/meshes/base_Link.STL": "1f751da150026bbea96b3c6ccda109465dd4e12618371f6b11e04e1f1343ba28",
+    "assets/meshes/proximal_pitch_R_Link.obj": "ea5fc68b496cc66e261823f93e50434eb27a49995b224782676b6b5748b19d92",
+    "assets/meshes/proximal_pitch_R_Link.STL": "c99fe095916d81fabfd4b89f33e93e5ea40ad493478ddbb2ca38135f91162d82",
+    "simulator_sources/nandu1_v131.py": "085647543b8ae69612818abe1e8b5d37d0974677bbf7e974d3240d3eb5d06400",
+    "simulator_sources/nandu1_contract.py": "69e040ede5b00431e8b72d8b007ffdf0d599e273cf0369f483a23df43cd4878a",
+    "processor/deployment.py": "88959628b2da2ef3db8be976960191af6f8e8647317fb12bf3d00523cac65b0a",
+    "processor/state.py": "c7209fdb6c86258818ccd06baf07c20921a78434d4338983c865ef384c1e05f5",
+    "processor/c7_p1_r4_state.py": "d1753f465b58e63f1139e3ae8f88d502055b0254ff9fd71644e18cd3ac8ab3e3",
+    "processor/c7_p1_r4_wheels.py": "e555551b27d86e2988f168962d438951dd73bb31e7f20b8b7e4acc1bcc7d4963",
+    "processor/mujoco_adapter.py": "135986fa7dd8e90f9306ba1b5eeba07a0edc64d1f1df5ba51f2241b06a322b9c",
+    "processor/contract.py": "8331879f9d99ccd1f761ef03c4162a3da286537aca2c52e19b3549e04c7c3375",
+    "processor/c7_p1.py": "7fabb371f2de6154c45dbb11b1c01a89fb2dec8898cfbcf54635a0480cf0c9fc",
+    "processor/profiles.py": "fcf4985c110f2f3ac721537623e20269dfe611f2397ce1a9c9b895f59ee1142d",
+    "processor/actions.py": "24e4aa41b530766cad715cddf3576e8e97339295452610bd17a5b32908fe952e",
+    "processor/commands.py": "3d342d57f5d6ef6ddad5f9fe6e6e5513c668e5d743fe8845e239991d1c8fa5c0",
+    "processor/__init__.py": "9b759ac0380f548ea93e71cbd8bba7d660c81609dd684b9bcc617e6602cb507d",
+    "processor/wheel_pd.py": "6f1803cbaf7c1e1ddb4023fb53b8d6b2fb72b3186e7edfb2735696a360865bff",
+    "processor/c7_p1_r4_actions.py": "0f4de84c884bb1c255986a896fc8a3cab7923857bb2ee5548d3f55a6f65ec021",
+    "processor/observations.py": "efdf423562c9a0c5b69a2a239fd477cca25a1b2cad2934c7935b9d96570e58e3"
+  },
+  "physical_profile": {
+    "physics_revision": 1,
+    "profile_schema": "nandu_c7_p1_r4_R2",
+    "checkpoint_schema": "nandu_drl_v1_6_C7_P_1_R2_online_r4",
+    "joint_limits": {
+      "upper_rad": {
+        "arm3": 2.24,
+        "knee_L_Joint": 1.2,
+        "knee_R_Joint": 1.2
+      },
+      "soft_factor": 0.9,
+      "writes": [
+        "simulator_hard",
+        "joint_pos_limits",
+        "default_joint_pos_limits",
+        "soft_joint_pos_limits"
+      ],
+      "lower_rad": {
+        "knee_L_Joint": 0.2,
+        "knee_R_Joint": 0.2
+      },
+      "knee_work_region_rad": [
+        0.3,
+        1.1
+      ]
+    },
+    "reset": {
+      "joint_position_overrides_rad": {
+        "proximal_roll_L_Joint": 0.01218427,
+        "proximal_roll_R_Joint": -0.01218427,
+        "proximal_yaw_L_Joint": 0.05100826,
+        "proximal_yaw_R_Joint": 0.05100826
+      },
+      "root_z_m": 0.6531306790947692,
+      "joint_velocity_rad_s": 0.0,
+      "default_action_observation_reference": "unchanged_original_default_q",
+      "reset_q_storage": "independent_clone_of_default_q_with_reset_overrides",
+      "calibration": {
+        "method": "offline_URDF_and_wheel_collision_mesh_ground_tangent",
+        "reference_root_z_m": 0.65337,
+        "reference_lowest_wheel_mesh_z_m": -0.654958507294151,
+        "reset_lowest_wheel_mesh_z_m": -0.6531306790947692,
+        "urdf_revolute_axes": "normalized_before_offline_rotation",
+        "calibrated_root_z_m": 0.6531306790947692,
+        "ground_height_m": 0.0,
+        "assumption": "STL_surface_ground_tangent; verify_PhysX_convex_contact_separately",
+        "runtime_fk_ik": false
+      }
+    },
+    "posture": {
+      "base_floor_m": 0.363309425,
+      "base_floor_huber_scale_m": 0.05,
+      "base_floor_cap": 6.0,
+      "base_floor_weight": -0.5,
+      "up3_tilt_huber_scale_rad": 0.12,
+      "up3_tilt_cap": 6.0,
+      "up3_tilt_weight": -1.0,
+      "up3_horizontal_reward": "retain_original",
+      "static_orientation": {
+        "roll_scale_rad": 0.08,
+        "pitch_scale_rad": 0.12,
+        "up3_tilt_scale_rad": 0.08,
+        "cap": 20.0,
+        "weight": 0.0,
+        "gate": "raw_user_intent_height_gate"
+      },
+      "dynamic_pitch_envelope": "retain_original"
+    },
+    "spacing": {
+      "wheel_range_m": [
+        0.46,
+        0.53
+      ],
+      "knee_range_m": [
+        0.38,
+        0.47
+      ],
+      "yaw_half_width_relaxation": 0.15,
+      "geometry_shaping_weight": -0.8,
+      "geometry_hard_barrier_weight": -0.5,
+      "soft_margin_m": 0.018,
+      "distance_scale_m": 0.04,
+      "velocity_scale_m_s": 0.1,
+      "diagnostics": "all_raw_and_continuous_metrics_share_ranges_once_per_frame"
+    },
+    "wheel_axis": {
+      "native_local_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "outward_axis_signs_L_R": [
+        1.0,
+        -1.0
+      ],
+      "rolling_direction_L": "outward_L_cross_world_Z",
+      "rolling_direction_R": "world_Z_cross_outward_R",
+      "heading_reference": "base_heading_forward_projected_world_XY",
+      "deadband_base_deg": 3.0,
+      "deadband_yaw_extra_deg": 3.0,
+      "huber_scale_deg": 10.0,
+      "per_wheel_cap": 4.0,
+      "aggregation": "mean",
+      "weight": -0.15,
+      "pair_angle": "unsigned_angle_between_outward_axes_projected_world_XY_rad",
+      "common_yaw": "half_sum_signed_heading_errors_rad",
+      "toe": "left_minus_right_signed_heading_errors_rad",
+      "degenerate_projection": "invalid_flag_and_per_wheel_cap"
+    },
+    "attachment": {
+      "measurement_tcp_local_m": [
+        -0.066473051764,
+        0.161623719479,
+        -0.000621484902
+      ],
+      "com_local_m": [
+        -0.066473051764,
+        0.161623719479,
+        0.149378515098
+      ],
+      "offset_from_tcp_local_m": [
+        0.0,
+        0.0,
+        0.15
+      ],
+      "frame": "up3_local",
+      "mass_distributions": "unchanged_original",
+      "reset_inertia": "reconstruct_from_nominal_mass_COM_full_inertia_each_reset"
+    },
+    "joint_position_bias": {
+      "amplitude_rad": 0.015,
+      "distribution": "Uniform(-amplitude,+amplitude)",
+      "sampling": "startup_independent_per_environment_per_11_nonwheel_joint",
+      "reset": "preserve",
+      "play_default": false,
+      "fixed_test_override": true,
+      "policy_history": "same_cached_measured_positions",
+      "critic_label_physical_state": false
+    },
+    "disturbance": {
+      "bodies": [
+        "base_Link",
+        "up3"
+      ],
+      "physics_dt_s": 0.005,
+      "duration_physics_ticks": 2,
+      "duration_s": 0.01,
+      "onset_interval_s": [
+        2.0,
+        4.0
+      ],
+      "force_peaks_N": [
+        0.0,
+        2.0,
+        4.0,
+        7.0,
+        10.0
+      ],
+      "torque_peaks_Nm": [
+        0.0,
+        0.5,
+        1.0,
+        2.0,
+        4.0
+      ],
+      "sampling": "independent_per_body_per_axis_uniform_symmetric_peak",
+      "force_frame": "world",
+      "torque_frame": "body_local_rotated_to_world_each_physics_tick",
+      "application_point": "body_COM",
+      "onset": "shared_between_bodies_per_environment",
+      "stage0": false,
+      "play_default": false,
+      "reset_and_end": "clear_wrenches",
+      "enable_transition": "fresh_independent_first_delay_2_to_4_seconds",
+      "new_physical_world_resume": "clear_temporal_wrench_state"
+    },
+    "wheel_control": {
+      "schema": "nandu_c7_p1_r4_bounded_wheel_increment_v1",
+      "joint_names": [
+        "proximal_pitch_L_Joint",
+        "proximal_roll_L_Joint",
+        "proximal_yaw_L_Joint",
+        "knee_L_Joint",
+        "proximal_pitch_R_Joint",
+        "proximal_roll_R_Joint",
+        "proximal_yaw_R_Joint",
+        "knee_R_Joint",
+        "arm1",
+        "arm2",
+        "arm3",
+        "wheel_L_Joint",
+        "wheel_R_Joint"
+      ],
+      "mapping": "affine_tanh_nonwheel_linear_wheel",
+      "scale": [
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        1.0,
+        1.0
+      ],
+      "offset": [
+        -0.4749999940395355,
+        0.0,
+        0.0,
+        0.949999988079071,
+        0.4749999940395355,
+        0.0,
+        0.0,
+        0.949999988079071,
+        -0.15000000596046448,
+        -1.7799999713897705,
+        1.9299999475479126,
+        0.0,
+        0.0
+      ],
+      "distribution_log_probability": "latent_normal_minus_normalized_target_log_jacobian",
+      "feedback": "interval_mean_executed_wheel_increment_and_issued_nonwheel",
+      "position_hard_lower_rad": [
+        -2.6005406379699707,
+        -0.2617993950843811,
+        -3.665191411972046,
+        0.20000000298023224,
+        -3.1415927410125732,
+        -3.1939525604248047,
+        -3.665191411972046,
+        0.20000000298023224,
+        -2.4434609413146973,
+        -2.268928050994873,
+        -1.5707963705062866
+      ],
+      "position_hard_upper_rad": [
+        3.1415927410125732,
+        3.1939525604248047,
+        1.483529806137085,
+        1.2000000476837158,
+        2.6005406379699707,
+        0.2617993950843811,
+        1.483529806137085,
+        1.2000000476837158,
+        2.356194496154785,
+        2.268928050994873,
+        2.240000009536743
+      ],
+      "position_default_rad": [
+        -0.475,
+        0.0,
+        0.0,
+        0.95,
+        0.475,
+        0.0,
+        0.0,
+        0.95,
+        -0.15,
+        -1.78,
+        1.93
+      ],
+      "zero_slope_rad": 0.25,
+      "wheel_increment_scale_rad": 0.05769230769230769,
+      "wheel_kp": 10.4,
+      "wheel_kd": 1.32,
+      "wheel_effort_limit_Nm": 22.0,
+      "wheel_velocity_limit_rad_s": 40.0,
+      "wheel_static_friction_Nm": 0.6,
+      "wheel_dynamic_friction_Nm": 0.3,
+      "policy_dt_s": 0.02,
+      "physics_dt_s": 0.005
+    }
+  },
+  "actor_output_semantics": "raw_distribution_mean",
+  "action_interface": {
+    "schema": "nandu_c7_p1_r4_bounded_wheel_increment_v1",
+    "joint_names": [
+      "proximal_pitch_L_Joint",
+      "proximal_roll_L_Joint",
+      "proximal_yaw_L_Joint",
+      "knee_L_Joint",
+      "proximal_pitch_R_Joint",
+      "proximal_roll_R_Joint",
+      "proximal_yaw_R_Joint",
+      "knee_R_Joint",
+      "arm1",
+      "arm2",
+      "arm3",
+      "wheel_L_Joint",
+      "wheel_R_Joint"
+    ],
+    "mapping": "affine_tanh_nonwheel_linear_wheel",
+    "scale": [
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      1.0,
+      1.0
+    ],
+    "offset": [
+      -0.4749999940395355,
+      0.0,
+      0.0,
+      0.949999988079071,
+      0.4749999940395355,
+      0.0,
+      0.0,
+      0.949999988079071,
+      -0.15000000596046448,
+      -1.7799999713897705,
+      1.9299999475479126,
+      0.0,
+      0.0
+    ],
+    "distribution_log_probability": "latent_normal_minus_normalized_target_log_jacobian",
+    "feedback": "interval_mean_executed_wheel_increment_and_issued_nonwheel",
+    "position_hard_lower_rad": [
+      -2.6005406379699707,
+      -0.2617993950843811,
+      -3.665191411972046,
+      0.20000000298023224,
+      -3.1415927410125732,
+      -3.1939525604248047,
+      -3.665191411972046,
+      0.20000000298023224,
+      -2.4434609413146973,
+      -2.268928050994873,
+      -1.5707963705062866
+    ],
+    "position_hard_upper_rad": [
+      3.1415927410125732,
+      3.1939525604248047,
+      1.483529806137085,
+      1.2000000476837158,
+      2.6005406379699707,
+      0.2617993950843811,
+      1.483529806137085,
+      1.2000000476837158,
+      2.356194496154785,
+      2.268928050994873,
+      2.240000009536743
+    ],
+    "position_default_rad": [
+      -0.475,
+      0.0,
+      0.0,
+      0.95,
+      0.475,
+      0.0,
+      0.0,
+      0.95,
+      -0.15,
+      -1.78,
+      1.93
+    ],
+    "zero_slope_rad": 0.25,
+    "wheel_increment_scale_rad": 0.05769230769230769,
+    "wheel_kp": 10.4,
+    "wheel_kd": 1.32,
+    "wheel_effort_limit_Nm": 22.0,
+    "wheel_velocity_limit_rad_s": 40.0,
+    "wheel_static_friction_Nm": 0.6,
+    "wheel_dynamic_friction_Nm": 0.3,
+    "policy_dt_s": 0.02,
+    "physics_dt_s": 0.005
+  },
+  "execution_contract": "Return interval-mean wheel execution in policy last_action; retain per-physics delayed B/z/latent saturation records.",
+  "frozen_capability_table": null,
+  "release_status": "experimental_pending_Isaac_and_feasibility_validation",
+  "sim2sim_format": "nandu_c7_r012_mujoco_v1",
+  "checkpoint_iteration": 30000,
+  "source_checkpoint": "/home/wkl/Desktop/limx-tron2/tron2_rl_lab/logs/rsl_rl/autodl/v1-6-C7-P-1-R2-261029-30000/model_30000.pt",
+  "simulator_asset_source": "/home/wkl/Desktop/limx-tron2/deployment_bundles/nandu1_v1_3_1_model_30000/assets",
+  "simulation_clocks_s": {
+    "policy": 0.02,
+    "pd": 0.005,
+    "physics": 0.001
+  },
+  "note": "Frozen nominal MuJoCo plant. Contact/friction solver differs from Isaac; not hardware qualification."
+}

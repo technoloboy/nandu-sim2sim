@@ -1,5 +1,6 @@
 """Publication policy rejects accidental data, secrets and extra model variants."""
 import importlib.util
+import json
 from pathlib import Path
 import subprocess
 
@@ -9,6 +10,18 @@ ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('release_policy', ROOT / 'scripts/check_release_tree.py')
 policy = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(policy)
+
+
+def test_json_manifest_allows_only_sealed_c7_payloads():
+    prefix = 'deployment_bundles/nandu1_v1_6_C7_P_1_R0_model_30000/'
+    contents = {
+        'deployment_bundles/catalogue.json': json.dumps({'bundles': [{
+            'directory': 'nandu1_v1_6_C7_P_1_R0_model_30000', 'manifest_file': 'manifest.json'}]}).encode(),
+        prefix + 'manifest.json': json.dumps({'files': {'encoder.onnx': 'hash'}}).encode(),
+    }
+    allowed = policy.payload_paths(contents)
+    assert not policy.violations([prefix + 'manifest.json', prefix + 'encoder.onnx'], allowed)
+    assert policy.violations([prefix + 'unlisted.onnx'], allowed)
 
 
 @pytest.mark.parametrize('path', [

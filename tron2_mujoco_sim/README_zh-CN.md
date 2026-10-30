@@ -1,6 +1,6 @@
 # NANDU1 sim2sim 发布版
 
-本仓库使用三目录结构：`tron2_mujoco_sim`（物理/传感器）、`tron2_rl_deploy_ros`（SDK＋ROS控制器）与`deployment_bundles`（13个正式部署包）。仅用于本机MuJoCo，不授权向实体机器人发送策略。
+本仓库使用三目录结构：`tron2_mujoco_sim`（物理/传感器）、`tron2_rl_deploy_ros`（SDK＋ROS控制器）与`deployment_bundles`（原13个部署包＋C7 R0/R1/R2三个实验部署包）。仅用于本机MuJoCo，不授权向实体机器人发送策略。
 
 ## 获取完整代码与权重
 
@@ -39,6 +39,30 @@ sg docker -c './tron2_mujoco_sim/scripts/run_nandu1_mouse.sh \
 松开摇杆回中，高度滑块保持。关闭窗口或Ctrl+C结束拥有的进程；原`--command-source external`双终端/无窗口入口仍保留。换任务时同时选用catalogue中匹配的bundle，不能互换同维度权重。输出目录运行时生成并被Git忽略，同名CSV会覆盖。
 
 **v1.3.1.2.7/model_10000在零命令下多次失稳，未通过稳定性验收，只供复现排查；B/.3也存在高度偏差。** 部署正确性/数值一致性不等于全范围、长期或实机性能保证。
+
+## C7-P-1 R0 / R1 / R2：单终端独立MuJoCo＋鼠标摇杆
+
+2026-10-30增量：三版本均固定使用30000轮部署包。它们使用独立的Python两阶段ONNX运行时与包内冻结处理器，不经过旧SDK＋ROS控制器，不占用SDK端口；原13任务入口不变。运行时需要`requirements-sim.txt`中的PyTorch，未附带训练仓或训练checkpoint也可运行。
+
+在仓库根目录激活Python环境后，选择一个版本：
+
+```bash
+python tron2_mujoco_sim/scripts/play_nandu1_c7.py --version R0 --joystick
+python tron2_mujoco_sim/scripts/play_nandu1_c7.py --version R1 --joystick
+python tron2_mujoco_sim/scripts/play_nandu1_c7.py --version R2 --joystick
+```
+
+摇杆控制yaw/vx，释放自动回零，高度滑块保持绝对高度；窗口中可停止、重置。默认读取同仓库`deployment_bundles/nandu1_v1_6_C7_P_1_R{0,1,2}_model_30000`，无需设置路径环境变量；默认展示棋盘地面，`--original-scene`恢复包内原始地面。输出自动生成在`tron2_mujoco_sim/outputs/c7_r012/`并被Git忽略。
+
+有限时长无窗口测试（输出目录必须未存在）：
+
+```bash
+python tron2_mujoco_sim/scripts/play_nandu1_c7.py \
+  --version R0 --headless --duration 20 \
+  --schedule tron2_mujoco_sim/configs/c7_r012_smoke.json
+```
+
+将R0替换为R1或R2即可。清单保留`experimental_pending_Isaac_and_feasibility_validation`状态；此入口和数值测试不等于稳定性或实机验收，倾倒会提前结束并保留失败样本。`export_nandu1_c7_r012.py`和`verify_nandu1_c7_r012.py`是训练侧重新导出/断点对照工具，额外需要完整训练仓及原checkpoint，普通部署不运行它们。
 
 ## 校验与测试
 

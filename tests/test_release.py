@@ -19,6 +19,19 @@ BUNDLES = [
     'nandu1_v1_3_1_2_7_model_10000', 'nandu1_v1_4_model_24000',
     'nandu1_v1_4_1_model_14000',
 ]
+C7_BUNDLES = [f'nandu1_v1_6_C7_P_1_R{i}_model_30000' for i in range(3)]
+
+
+@pytest.mark.parametrize('version', ['R0', 'R1', 'R2'])
+def test_c7_release_bundle_is_complete_and_preserves_experimental_status(version):
+    path = ROOT / 'deployment_bundles' / f'nandu1_v1_6_C7_P_1_{version}_model_30000'
+    assert path.is_dir(), 'C7 release bundle missing'
+    from nandu1_c7_sim2sim import validate_bundle
+    manifest = validate_bundle(path, version)
+    assert manifest['checkpoint_iteration'] == 30000
+    assert manifest['checkpoint_sha256']
+    assert manifest['release_status'] == 'experimental_pending_Isaac_and_feasibility_validation'
+    assert not any('__pycache__' in Path(f).parts or f.endswith('.pyc') for f in manifest['files'])
 
 
 @pytest.mark.parametrize('name', BUNDLES)
@@ -38,7 +51,7 @@ def test_runtime_interpreter_selection_is_portable():
     assert result.returncode == 0, result.stderr
     selected = Path(result.stdout.strip())
     assert selected.is_file()
-    assert 'cambot-train' not in result.stdout or selected == Path(sys.executable)
+    assert 'cambot-train' not in result.stdout or selected.resolve() == Path(sys.executable).resolve()
 
 
 def test_launcher_uses_active_python_instead_of_original_workstation(tmp_path):
@@ -57,9 +70,11 @@ def test_launcher_uses_active_python_instead_of_original_workstation(tmp_path):
 
 def test_catalogue_identifies_all_weights_and_does_not_claim_f_is_stable():
     catalogue = json.loads((ROOT / 'deployment_bundles/catalogue.json').read_text())
-    assert {b['directory'] for b in catalogue['bundles']} == set(BUNDLES)
+    assert {b['directory'] for b in catalogue['bundles']} == set(BUNDLES + C7_BUNDLES)
     f = next(b for b in catalogue['bundles'] if b['directory'] == 'nandu1_v1_3_1_2_7_model_10000')
     assert f['stability'] == 'not_accepted_zero_command_instability'
     for b in catalogue['bundles']:
-        p = ROOT / 'deployment_bundles' / b['directory'] / 'manifest.yaml'
+        p = ROOT / 'deployment_bundles' / b['directory'] / b.get('manifest_file', 'manifest.yaml')
         assert hashlib.sha256(p.read_bytes()).hexdigest() == b['manifest_sha256']
+        if b['directory'] in C7_BUNDLES:
+            assert b['stability'] == 'experimental_pending_Isaac_and_feasibility_validation'

@@ -5,5 +5,7 @@ scipy==1.15.3
 PyYAML==6.0.3
 onnxruntime==1.23.2
 pygame==2.1.0
+# C7 frozen command/action processors use Torch tensors around ONNX inference.
+torch==2.5.1
 # Install the amd64 LimX wheel from the pinned SDK submodule separately.
 # tkinter is an OS/Conda package, not a pip dependency.

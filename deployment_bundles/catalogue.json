@@ -2,6 +2,30 @@
   "schema": "nandu.sim2sim-release/v1",
   "bundles": [
     {
+      "directory": "nandu1_v1_6_C7_P_1_R0_model_30000",
+      "task": "Isaac-NANDU1-Blind-Flat-v1-6-C7-P-1-R0",
+      "checkpoint_sha256": "884c41d03cdec8c226049e3cb0fc5f4ca262bcdf4103e51d5d586c506af9f6ea",
+      "manifest_file": "manifest.json",
+      "manifest_sha256": "dedd0ade0cc38c696962d9270f71855f58ef5038930818df7ae3bb8ac07c627a",
+      "stability": "experimental_pending_Isaac_and_feasibility_validation"
+    },
+    {
+      "directory": "nandu1_v1_6_C7_P_1_R1_model_30000",
+      "task": "Isaac-NANDU1-Blind-Flat-v1-6-C7-P-1-R1",
+      "checkpoint_sha256": "0a6352412270eab5d9522a55a94cd4a48eedfd367375bb720c5daee1f7097144",
+      "manifest_file": "manifest.json",
+      "manifest_sha256": "b2b97c5a54e612731abba256b1bbf8b3bde9a7ba98af87497f2d6840438009f0",
+      "stability": "experimental_pending_Isaac_and_feasibility_validation"
+    },
+    {
+      "directory": "nandu1_v1_6_C7_P_1_R2_model_30000",
+      "task": "Isaac-NANDU1-Blind-Flat-v1-6-C7-P-1-R2",
+      "checkpoint_sha256": "ef926a426a4e636866c7498b97f68928cf83fcb58554a32ec10ad5f71805e666",
+      "manifest_file": "manifest.json",
+      "manifest_sha256": "a72ae2eb0c57b5eb2e3c0591e7811c69843249e27bdb484ae4b346649cf532fa",
+      "stability": "experimental_pending_Isaac_and_feasibility_validation"
+    },
+    {
       "directory": "nandu1_v1_1_model_30000",
       "task": "Isaac-NANDU1-Blind-Flat-v1-1",
       "checkpoint_sha256": "c74ef3f0ca0809e752659b0dae0326addc345ed4c52e07d98cd2a796f2210524",

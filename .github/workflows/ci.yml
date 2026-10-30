@@ -24,7 +24,7 @@ jobs:
           python -m pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
           python -m pip install -r requirements-test.txt
           python -m pip install tron2_mujoco_sim/limxsdk-lowlevel/python3/amd64/*.whl
-      - name: Fresh-checkout tests and all thirteen typed bundle validators
+      - name: Fresh-checkout tests and all sixteen bundle validators
         run: python -m pytest -q
       - name: Published tree policy
         run: python scripts/check_release_tree.py
